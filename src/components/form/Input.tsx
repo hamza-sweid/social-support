@@ -1,6 +1,6 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Input as AntInput } from 'antd';
-import type { InputProps } from '../../types/Form';
+import type { InputProps } from '../../types/form';
 
 export const Input = <T extends FieldValues>({
   name,

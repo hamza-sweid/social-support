@@ -1,0 +1,51 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  padding: 0.4rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.left .logo {
+  height: 35px;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .lang {
+    border: none;
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    span {
+      font-size: 0.875rem;
+    }
+  }
+
+}
+
+
+@media (max-width: 768px) {
+  .username {
+    display: none;
+  }
+}

@@ -1,6 +1,6 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Select as AntSelect } from 'antd';
-import type { SelectProps } from '../../types/Form';
+import type { SelectProps } from '../../types/form';
 
 const { Option } = AntSelect;
 

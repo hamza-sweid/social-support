@@ -1,7 +1,7 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { DatePicker as AntDatePicker } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
-import type { DatePickerProps } from '../../types/Form';
+import type { DatePickerProps } from '../../types/form';
 
 export const DatePicker = <T extends FieldValues>({
   name,
