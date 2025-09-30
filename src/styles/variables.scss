@@ -1,14 +1,33 @@
 // Colors
+$primary-color: #BF1313;
 $step-bg: #fafafa;
 $step-border: #d9d9d9;
 $step-text-tertiary: rgba(0, 0, 0, 0.45);
 $white: #ffffff;
 $border: #ddd;
+$gray0: #F9F9F9;
+$error: #f00;
+$primary-button: #BF1313;
+$primary-button-focus: darken($primary-button, 10%);
+$primary-button-hover: lighten($primary-button, 10%);
+$secondary-color: #13BFBF;
+$secondary-button-focus: darken($secondary-color, 10%);
+$secondary-button-hover: lighten($secondary-color, 10%);
+
 
 :root{
-  --step-bg: #fafafa;
-  --step-border: #d9d9d9;
-  --step-text-tertiary: rgba(0, 0, 0, 0.45);
-  --white: #ffffff;
-  --border: #ddd;
+  --primary: #{$primary-color};
+  --step-bg: #{$step-bg};
+  --step-border: #{$step-border};
+  --step-text-tertiary: #{$step-text-tertiary};
+  --white: #{$white};
+  --border: #{$border};
+  --gray-0: #{$gray0};
+  --error: #{$error};
+  --primary-button: #{$primary-button};
+  --primary-button-focus: #{$primary-button-focus};
+  --primary-button-hover: #{$primary-button-hover};
+  --secondary-color: #{$secondary-color};
+  --secondary-button-focus: #{$secondary-button-focus};
+  --secondary-button-hover: #{$secondary-button-hover};
 }
