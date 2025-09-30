@@ -1,7 +1,7 @@
 .stepContent {
   line-height: 260px;
   text-align: center;
-  border-radius: var(--border-radius-lg);
+  border-radius: 8px;
   border: 1px dashed var(--step-border);
   margin-top: 16px;
   background-color: var(--step-bg);
@@ -12,6 +12,6 @@
   margin-top: 24px;
 
   .prevBtn {
-    margin: var(--button-margin);
+    margin: 0 8px;
   }
 }
