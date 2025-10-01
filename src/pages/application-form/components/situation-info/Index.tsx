@@ -3,9 +3,11 @@ import TextArea from '../../../../components/form/TextArea';
 import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
 import SuggestionModal from '../../../../components/modal/SuggestionModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useFormContext } from '../../../../context/formContext/useFormContext';
 // import { generateText } from '../../../../service/chatgpt';
 
+const stepName = 'situationInfo';
 interface SituationDescriptionForm {
   currentFinancialSituation: string;
   EmploymentCircumstances: string;
@@ -17,17 +19,19 @@ export const SituationDescription = ({
 }: {
   onPrevious: () => void;
 }) => {
+  const { getStepValues, setStepValues } = useFormContext();
+  const defaultValues = getStepValues(stepName);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [field, setField] = useState({ name: '', label: '' });
-  const { control, handleSubmit, setValue } = useForm<SituationDescriptionForm>(
-    {
-      defaultValues: {
-        currentFinancialSituation: '',
-        EmploymentCircumstances: '',
-        ReasonForApplying: '',
-      },
-    }
-  );
+  const { control, handleSubmit, getValues, reset, setValue } =
+    useForm<SituationDescriptionForm>({
+      defaultValues,
+    });
+
+  useEffect(() => {
+    const saved = getStepValues(stepName);
+    reset(saved);
+  }, [getStepValues, reset, stepName]);
 
   const handleOpenSuggestionModal = (name: string, label: string) => {
     setField({ name, label });
@@ -44,6 +48,12 @@ export const SituationDescription = ({
     setValue(field.name as keyof SituationDescriptionForm, data, {
       shouldValidate: true,
     });
+  };
+
+  const handlePrevious = () => {
+    const currentValues = getValues(); // get current form values
+    setStepValues(stepName, currentValues); // save current data to context
+    onPrevious();
   };
 
   const onSubmit = (data: SituationDescriptionForm) => {
@@ -133,7 +143,7 @@ export const SituationDescription = ({
 
       <div className={styles.actions}>
         <Button
-          onClick={onPrevious}
+          onClick={() => handlePrevious()}
           type="primary"
           className="btn-responsive btn-secondary"
         >

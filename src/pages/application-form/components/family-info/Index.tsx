@@ -3,7 +3,10 @@ import Input from '../../../../components/form/Input';
 import Select from '../../../../components/form/Select';
 import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
+import { useFormContext } from '../../../../context/formContext/useFormContext';
+import { useEffect } from 'react';
 
+const stepName = 'familyInfo';
 interface FamilyInfoForm {
   dependents: number;
   monthlyIncome: number;
@@ -19,19 +22,26 @@ export const FamilyInfo = ({
   onNext: () => void;
   onPrevious: () => void;
 }) => {
-  const { control, handleSubmit } = useForm<FamilyInfoForm>({
-    defaultValues: {
-      dependents: undefined,
-      monthlyIncome: undefined,
-      maritalStatus: '',
-      employmentStatus: '',
-      housingStatus: '',
-    },
+  const { getStepValues, setStepValues } = useFormContext();
+  const defaultValues = getStepValues(stepName);
+  const { control, handleSubmit, getValues, reset } = useForm<FamilyInfoForm>({
+    defaultValues,
   });
 
+  useEffect(() => {
+    const saved = getStepValues(stepName);
+    reset(saved);
+  }, [getStepValues, reset, stepName]);
+
+  const handlePrevious = () => {
+    const currentValues = getValues();
+    setStepValues(stepName, currentValues);
+    onPrevious();
+  };
+
   const onSubmit = (data: FamilyInfoForm) => {
-    console.log('Family Info Submitted:', data);
-    // Later: Save to context + localStorage
+    setStepValues(stepName, data);
+    onNext();
   };
 
   return (
@@ -104,15 +114,14 @@ export const FamilyInfo = ({
 
       <div className={styles.actions}>
         <Button
-          onClick={onPrevious}
+          onClick={() => handlePrevious()}
           type="primary"
           className="btn-responsive btn-secondary"
         >
           Previous
         </Button>
         <Button
-          // htmlType="submit"
-          onClick={onNext}
+          htmlType="submit"
           type="primary"
           className="btn-responsive btn-primary"
         >

@@ -4,7 +4,9 @@ import Input from '../../../../components/form/Input';
 import Select from '../../../../components/form/Select';
 import { DatePicker } from '../../../../components/form/DatePicker';
 import styles from './Index.module.scss';
+import { useFormContext } from '../../../../context/formContext/useFormContext';
 
+const stepName = 'personalInfo';
 interface PersonalInfoValues {
   name: string;
   nationalId: string;
@@ -18,18 +20,18 @@ interface PersonalInfoValues {
   email: string;
 }
 
-const PersonalInfo = ({
-  onNext,
-}: {
-  // onNext: (data: PersonalInfoValues) => void;
-  onNext: () => void;
-}) => {
-  const { handleSubmit, control, watch } = useForm<PersonalInfoValues>();
+const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
+  const { getStepValues, setStepValues } = useFormContext();
+  const defaultValues = getStepValues(stepName);
+  const { handleSubmit, control, watch } = useForm<PersonalInfoValues>({
+    defaultValues,
+  });
 
   const selectedCountry = watch('country');
 
   const onSubmit = (data: PersonalInfoValues) => {
-    // onNext(data);
+    setStepValues(stepName, data);
+    onNext();
   };
 
   return (
@@ -62,6 +64,9 @@ const PersonalInfo = ({
             label="Date of Birth"
             placeholder="Select your date of birth"
             rules={{ required: 'Date of Birth is required' }}
+            disabledDate={(current) => {
+              return current > new Date();
+            }}
           />
         </Col>
 
@@ -179,8 +184,7 @@ const PersonalInfo = ({
 
       <div className={styles.actions}>
         <Button
-          // htmlType="submit"
-          onClick={onNext}
+          htmlType="submit"
           type="primary"
           className="btn-responsive btn-primary"
         >

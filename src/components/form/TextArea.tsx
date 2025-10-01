@@ -7,6 +7,7 @@ interface ExtraProps<T extends FieldValues> extends InputProps<T> {
   actionLabel?: string;
   onActionClick?: () => void;
   actionLoading?: boolean;
+  readOnly?: boolean;
 }
 
 const TextArea = <T extends FieldValues>({
@@ -19,6 +20,7 @@ const TextArea = <T extends FieldValues>({
   actionLabel,
   onActionClick,
   actionLoading = false,
+  readOnly,
 }: ExtraProps<T>) => {
   const inputId = `textarea-${String(name)}`;
 
@@ -40,6 +42,7 @@ const TextArea = <T extends FieldValues>({
             className={styles.compactWrapper}
           >
             <AntInput.TextArea
+              readOnly={readOnly}
               {...field}
               id={inputId}
               placeholder={placeholder}

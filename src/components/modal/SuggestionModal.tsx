@@ -1,4 +1,4 @@
-import { Button, Col, Modal, Row } from 'antd';
+import { Button, Col, Modal, Row, Spin } from 'antd';
 import TextArea from '../form/TextArea';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
@@ -42,11 +42,6 @@ const SuggestionModal = ({
     event?: React.BaseSyntheticEvent
   ) => {
     if (event) event.stopPropagation();
-
-    reset({
-      UserInput: '',
-      AISuggestion: '',
-    });
 
     setLoading(true);
 
@@ -103,10 +98,15 @@ const SuggestionModal = ({
           </Button>
         </Row>
 
-        {loading && <p>Loading...</p>}
+        {loading && (
+          <Row justify="center" className="mb-5">
+            <Spin />
+          </Row>
+        )}
 
         {!loading && AISuggestionValue && (
           <TextArea
+            readOnly
             name="AISuggestion"
             control={control}
             placeholder="AI will suggest here..."
