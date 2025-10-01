@@ -1,15 +1,25 @@
 import { Controller, type FieldValues } from 'react-hook-form';
-import { Input as AntInput } from 'antd';
+import { Input as AntInput, Button, Space } from 'antd';
 import styles from '../../styles/form.module.scss';
 import type { InputProps } from '../../types/form';
 
-export const TextArea = <T extends FieldValues>({
+interface ExtraProps<T extends FieldValues> extends InputProps<T> {
+  actionLabel?: string;
+  onActionClick?: () => void;
+  actionLoading?: boolean;
+}
+
+const TextArea = <T extends FieldValues>({
   name,
   control,
   label,
   rules,
   placeholder,
-}: InputProps<T>) => {
+  rows = 4,
+  actionLabel,
+  onActionClick,
+  actionLoading = false,
+}: ExtraProps<T>) => {
   const inputId = `textarea-${String(name)}`;
 
   return (
@@ -24,14 +34,32 @@ export const TextArea = <T extends FieldValues>({
               {label}
             </label>
           )}
-          <AntInput.TextArea
-            {...field}
-            id={inputId}
-            placeholder={placeholder}
-            rows={4}
-            aria-invalid={fieldState.invalid}
-            aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
-          />
+
+          <Space.Compact
+            style={{ width: '100%' }}
+            className={styles.compactWrapper}
+          >
+            <AntInput.TextArea
+              {...field}
+              id={inputId}
+              placeholder={placeholder}
+              rows={rows}
+              aria-invalid={fieldState.invalid}
+              aria-describedby={
+                fieldState.error ? `${inputId}-error` : undefined
+              }
+            />
+            {actionLabel && (
+              <Button
+                type="primary"
+                loading={actionLoading}
+                onClick={onActionClick}
+              >
+                {actionLabel}
+              </Button>
+            )}
+          </Space.Compact>
+
           {fieldState.error && (
             <p id={`${inputId}-error`} className={styles.error} role="alert">
               {fieldState.error.message}
@@ -42,3 +70,5 @@ export const TextArea = <T extends FieldValues>({
     />
   );
 };
+
+export default TextArea;

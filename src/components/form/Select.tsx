@@ -5,7 +5,7 @@ import styles from '../../styles/form.module.scss';
 
 const { Option } = AntSelect;
 
-export const Select = <T extends FieldValues>({
+const Select = <T extends FieldValues>({
   name,
   control,
   label,
@@ -62,3 +62,4 @@ export const Select = <T extends FieldValues>({
     />
   );
 };
+export default Select;

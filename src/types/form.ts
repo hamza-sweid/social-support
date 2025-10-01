@@ -4,9 +4,10 @@ import { type Control, type FieldValues, type Path } from 'react-hook-form';
 export type InputProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
-  label?: string;
+  label?: string | React.ReactNode;
   rules?: object;
   placeholder?: string;
+  rows?: number;
 };
 
 // Option type for Select

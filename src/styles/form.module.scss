@@ -37,3 +37,19 @@
   border-color: #1677ff; /* Ant Design primary color */
   box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
 }
+
+
+
+.textareaWrapper {
+  position: relative;
+  display: flex;
+}
+
+.textareaButton {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  border-radius: 6px;
+  padding: 0 12px;
+  font-size: 12px;
+}

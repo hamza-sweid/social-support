@@ -1,7 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { TextArea } from '../../../../components/form/TextArea';
+import TextArea from '../../../../components/form/TextArea';
 import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
+import SuggestionModal from '../../../../components/modal/SuggestionModal';
+import { useState } from 'react';
+// import { generateText } from '../../../../service/chatgpt';
 
 interface SituationDescriptionForm {
   currentFinancialSituation: string;
@@ -14,13 +17,34 @@ export const SituationDescription = ({
 }: {
   onPrevious: () => void;
 }) => {
-  const { control, handleSubmit } = useForm<SituationDescriptionForm>({
-    defaultValues: {
-      currentFinancialSituation: '',
-      EmploymentCircumstances: '',
-      ReasonForApplying: '',
-    },
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [field, setField] = useState({ name: '', label: '' });
+  const { control, handleSubmit, setValue } = useForm<SituationDescriptionForm>(
+    {
+      defaultValues: {
+        currentFinancialSituation: '',
+        EmploymentCircumstances: '',
+        ReasonForApplying: '',
+      },
+    }
+  );
+
+  const handleOpenSuggestionModal = (name: string, label: string) => {
+    setField({ name, label });
+    setIsModalOpen(true);
+  };
+
+  const handleCloseSuggestionModal = () => {
+    setIsModalOpen(false);
+    setField({ name: '', label: '' });
+  };
+
+  const handleFillAISuggestion = (data: string) => {
+    setIsModalOpen(false);
+    setValue(field.name as keyof SituationDescriptionForm, data, {
+      shouldValidate: true,
+    });
+  };
 
   const onSubmit = (data: SituationDescriptionForm) => {
     console.log('Situation Description Submitted:', data);
@@ -42,7 +66,16 @@ export const SituationDescription = ({
               />
             </Col>
             <Col span={6}>
-              <Button>Help Me Write</Button>
+              <Button
+                onClick={() =>
+                  handleOpenSuggestionModal(
+                    'currentFinancialSituation',
+                    'Current Financial Situation'
+                  )
+                }
+              >
+                Help Me Write
+              </Button>
             </Col>
           </Row>
         </Col>
@@ -58,7 +91,16 @@ export const SituationDescription = ({
               />
             </Col>
             <Col span={6}>
-              <Button>Help Me Write</Button>
+              <Button
+                onClick={() =>
+                  handleOpenSuggestionModal(
+                    'EmploymentCircumstances',
+                    'Employment Circumstances'
+                  )
+                }
+              >
+                Help Me Write
+              </Button>
             </Col>
           </Row>
         </Col>
@@ -74,7 +116,16 @@ export const SituationDescription = ({
               />
             </Col>
             <Col span={6}>
-              <Button>Help Me Write</Button>
+              <Button
+                onClick={() =>
+                  handleOpenSuggestionModal(
+                    'ReasonForApplying',
+                    'Reason for Applying'
+                  )
+                }
+              >
+                Help Me Write
+              </Button>
             </Col>
           </Row>
         </Col>
@@ -96,6 +147,13 @@ export const SituationDescription = ({
           Submit
         </Button>
       </div>
+
+      <SuggestionModal
+        isModalOpen={isModalOpen}
+        onClose={() => handleCloseSuggestionModal()}
+        fieldLabel={field.label}
+        onFillAISuggestion={handleFillAISuggestion}
+      />
     </form>
   );
 };

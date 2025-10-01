@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { Button, Row, Col } from 'antd';
-import { Input } from '../../../../components/form/Input';
-import { Select } from '../../../../components/form/Select';
+import Input from '../../../../components/form/Input';
+import Select from '../../../../components/form/Select';
 import { DatePicker } from '../../../../components/form/DatePicker';
 import styles from './Index.module.scss';
 

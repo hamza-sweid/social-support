@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { Input } from '../../../../components/form/Input';
-import { Select } from '../../../../components/form/Select';
+import Input from '../../../../components/form/Input';
+import Select from '../../../../components/form/Select';
 import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
 

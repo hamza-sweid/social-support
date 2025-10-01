@@ -3,7 +3,7 @@ import { Input as AntInput } from 'antd';
 import type { InputProps } from '../../types/form';
 import styles from '../../styles/form.module.scss';
 
-export const Input = <T extends FieldValues>({
+const Input = <T extends FieldValues>({
   name,
   control,
   label,
@@ -43,3 +43,5 @@ export const Input = <T extends FieldValues>({
     />
   );
 };
+
+export default Input;
