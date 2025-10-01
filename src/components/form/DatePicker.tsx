@@ -2,6 +2,7 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import { DatePicker as AntDatePicker } from 'antd';
 import dayjs, { Dayjs } from 'dayjs';
 import type { DatePickerProps } from '../../types/form';
+import styles from '../../styles/form.module.scss';
 
 export const DatePicker = <T extends FieldValues>({
   name,
@@ -18,19 +19,17 @@ export const DatePicker = <T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <div style={{ marginBottom: '16px' }}>
+        <div className={styles.field}>
           {label && (
-            <label
-              htmlFor={dateId}
-              style={{ display: 'block', marginBottom: '4px' }}
-            >
+            <label htmlFor={dateId} className={styles.label}>
               {label}
             </label>
           )}
           <AntDatePicker
+            allowClear
             id={dateId}
             placeholder={placeholder}
-            style={{ width: '100%' }}
+            className={styles.input}
             value={field.value ? dayjs(field.value) : undefined}
             onChange={(date: Dayjs | null) =>
               field.onChange(date ? date.format('YYYY-MM-DD') : '')
@@ -39,11 +38,7 @@ export const DatePicker = <T extends FieldValues>({
             aria-describedby={fieldState.error ? `${dateId}-error` : undefined}
           />
           {fieldState.error && (
-            <p
-              id={`${dateId}-error`}
-              style={{ color: 'red', fontSize: '12px' }}
-              role="alert"
-            >
+            <p id={`${dateId}-error`} className={styles.error} role="alert">
               {fieldState.error.message}
             </p>
           )}

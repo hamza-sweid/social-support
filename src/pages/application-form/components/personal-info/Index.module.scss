@@ -1,21 +1,19 @@
 .personalInfo {
-  padding: 1rem;
 
   .ant-form-item {
     margin-bottom: 1.25rem;
   }
 
   .actions {
-    margin-top: 25px;
+    margin-top: 35px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
 
     button {
       padding: 0.5rem 1.5rem;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-
     }
   }
 }

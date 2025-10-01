@@ -23,6 +23,7 @@ export type SelectProps<T extends FieldValues> = {
   rules?: object;
   options: OptionType[];
   placeholder?: string;
+  disabled?: boolean;
 };
 
 // Generic DatePicker Props

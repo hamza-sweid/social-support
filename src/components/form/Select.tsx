@@ -1,6 +1,7 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Select as AntSelect } from 'antd';
 import type { SelectProps } from '../../types/form';
+import styles from '../../styles/form.module.scss';
 
 const { Option } = AntSelect;
 
@@ -11,6 +12,7 @@ export const Select = <T extends FieldValues>({
   rules,
   options,
   placeholder,
+  disabled,
 }: SelectProps<T>) => {
   const selectId = `select-${String(name)}`;
 
@@ -20,16 +22,16 @@ export const Select = <T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <div style={{ marginBottom: '16px' }}>
+        <div className={styles.field}>
           {label && (
-            <label
-              htmlFor={selectId}
-              style={{ display: 'block', marginBottom: '4px' }}
-            >
+            <label htmlFor={selectId} className={styles.label}>
               {label}
             </label>
           )}
           <AntSelect
+            allowClear
+            className={styles.input}
+            disabled={disabled}
             {...field}
             id={selectId}
             placeholder={placeholder}
@@ -41,6 +43,9 @@ export const Select = <T extends FieldValues>({
             }
             style={{ width: '100%' }}
           >
+            {/* <Option value="" disabled hidden>
+              {placeholder}
+            </Option> */}
             {options.map((opt) => (
               <Option key={opt.value} value={opt.value}>
                 {opt.label}
@@ -48,11 +53,7 @@ export const Select = <T extends FieldValues>({
             ))}
           </AntSelect>
           {fieldState.error && (
-            <p
-              id={`${selectId}-error`}
-              style={{ color: 'red', fontSize: '12px' }}
-              role="alert"
-            >
+            <p id={`${selectId}-error`} className={styles.error} role="alert">
               {fieldState.error.message}
             </p>
           )}

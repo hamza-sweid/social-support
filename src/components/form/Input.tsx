@@ -1,6 +1,7 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Input as AntInput } from 'antd';
 import type { InputProps } from '../../types/form';
+import styles from '../../styles/form.module.scss';
 
 export const Input = <T extends FieldValues>({
   name,
@@ -17,21 +18,23 @@ export const Input = <T extends FieldValues>({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <div style={{ marginBottom: '16px' }}>
-          {label && <label htmlFor={inputId}>{label}</label>}
+        <div className={styles.field}>
+          {label && (
+            <label className={styles.label} htmlFor={inputId}>
+              {label}
+            </label>
+          )}
           <AntInput
+            allowClear
             {...field}
             id={inputId}
+            className={styles.input}
             placeholder={placeholder}
             aria-invalid={fieldState.invalid}
             aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
           />
           {fieldState.error && (
-            <p
-              id={`${inputId}-error`}
-              role="alert"
-              style={{ color: 'red', fontSize: '12px' }}
-            >
+            <p id={`${inputId}-error`} role="alert" className={styles.error}>
               {fieldState.error.message}
             </p>
           )}

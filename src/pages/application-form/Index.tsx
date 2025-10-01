@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import PersonalInfo from './components/personal-info/Index';
 import styles from './Index.module.scss';
+import { FamilyInfo } from './components/family-info/Index';
 
 const ApplicationForm = () => {
   const [step, setStep] = useState(1);
@@ -11,7 +12,7 @@ const ApplicationForm = () => {
   const handleNext = () => {
     console.log('Next step');
     // save to localstorage using context
-    // set new current step
+    setStep((prev) => prev + 1);
   };
 
   return (
@@ -19,6 +20,9 @@ const ApplicationForm = () => {
       <h1>Social Support Application</h1>
       <div className={styles.stepWrapper}>
         {step === 1 && <PersonalInfo onNext={handleNext} />}
+        {step === 2 && (
+          <FamilyInfo onNext={handleNext} onPrevious={() => setStep(1)} />
+        )}
         {/* Later we will add Step2, Step3 here */}
       </div>
       {/* <div className={styles.actions}>
