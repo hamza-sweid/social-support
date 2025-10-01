@@ -1,19 +1,33 @@
-import './App.scss';
+// App.tsx
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
+import ApplicationForm from './pages/application-form/Index';
 import Navbar from './components/navbar/Navbar';
 import { FormProvider } from './context/formContext/FormContext';
-import ApplicationForm from './pages/application-form/Index';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div className="app">
-      <Navbar />
-      <FormProvider>
-        <main className="main-content">
-          <ApplicationForm />
-        </main>
-      </FormProvider>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/application-form"
+          element={
+            <FormProvider>
+              <Navbar />
+              <ApplicationForm />
+            </FormProvider>
+          }
+        />
+
+        <Route path="*" element={<Navigate to="/application-form" replace />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
