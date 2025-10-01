@@ -1,6 +1,7 @@
 {
     "applicationForm": {
         "title": "طلب الدعم الاجتماعي",
+        "submittedData": "بيانات الطلب المقدم",
         "steps": {
             "personalInfo": "المعلومات الشخصية",
             "familyInfo": "معلومات الأسرة",

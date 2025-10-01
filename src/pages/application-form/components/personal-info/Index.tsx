@@ -237,11 +237,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
       </Row>
 
       <div className={styles.actions}>
-        <Button
-          htmlType="submit"
-          type="primary"
-          className="btn-responsive btn-primary"
-        >
+        <Button htmlType="submit" className="btn-responsive btn-primary">
           {t('applicationForm.buttons.next')}
         </Button>
       </div>

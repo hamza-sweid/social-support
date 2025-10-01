@@ -1,6 +1,7 @@
 {
     "applicationForm": {
         "title": "Social Support Application",
+        "submittedData": "Submitted Application Data",
         "steps": {
             "personalInfo": "Personal Information",
             "familyInfo": "Family Information",

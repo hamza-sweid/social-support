@@ -17,8 +17,10 @@ interface SituationDescriptionForm {
 
 export const SituationDescription = ({
   onPrevious,
+  finishForm,
 }: {
   onPrevious: () => void;
+  finishForm: () => void;
 }) => {
   const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
@@ -59,14 +61,15 @@ export const SituationDescription = ({
   };
 
   const onSubmit = (data: SituationDescriptionForm) => {
-    // Later: Save to context + localStorage
+    setStepValues(stepName, data);
+    finishForm();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formGrid}>
       <Row gutter={[32, 16]}>
         <Col span={24}>
-          <Row align={'middle'} gutter={16}>
+          <Row align={'middle'} gutter={32}>
             <Col span={18}>
               <TextArea
                 name="currentFinancialSituation"
@@ -99,7 +102,7 @@ export const SituationDescription = ({
           </Row>
         </Col>
         <Col span={24}>
-          <Row align={'middle'} gutter={16}>
+          <Row align={'middle'} gutter={32}>
             <Col span={18}>
               <TextArea
                 name="employmentCircumstances"
@@ -132,7 +135,7 @@ export const SituationDescription = ({
           </Row>
         </Col>
         <Col span={24}>
-          <Row align={'middle'} gutter={16}>
+          <Row align={'middle'} gutter={32}>
             <Col span={18}>
               <TextArea
                 name="reasonForApplying"

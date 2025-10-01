@@ -11,6 +11,7 @@ import Navbar from './components/navbar/Navbar';
 import { FormProvider } from './context/formContext/FormContext';
 import { useTranslation } from 'react-i18next';
 import ConfigProvider from 'antd/es/config-provider';
+import './App.scss';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
