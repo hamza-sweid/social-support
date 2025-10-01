@@ -12,7 +12,13 @@ interface FamilyInfoForm {
   housingStatus: string;
 }
 
-export const FamilyInfo = ({ onPrevious }: { onPrevious: () => void }) => {
+export const FamilyInfo = ({
+  onNext,
+  onPrevious,
+}: {
+  onNext: () => void;
+  onPrevious: () => void;
+}) => {
   const { control, handleSubmit } = useForm<FamilyInfoForm>({
     defaultValues: {
       dependents: undefined,
@@ -97,10 +103,19 @@ export const FamilyInfo = ({ onPrevious }: { onPrevious: () => void }) => {
       </Row>
 
       <div className={styles.actions}>
-        <Button onClick={onPrevious} type="primary" className="btn-secondary">
+        <Button
+          onClick={onPrevious}
+          type="primary"
+          className="btn-responsive btn-secondary"
+        >
           Previous
         </Button>
-        <Button htmlType="submit" type="primary" className="btn-primary">
+        <Button
+          // htmlType="submit"
+          onClick={onNext}
+          type="primary"
+          className="btn-responsive btn-primary"
+        >
           Next
         </Button>
       </div>

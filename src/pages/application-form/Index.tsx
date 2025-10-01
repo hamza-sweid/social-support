@@ -3,6 +3,7 @@ import { useState } from 'react';
 import PersonalInfo from './components/personal-info/Index';
 import styles from './Index.module.scss';
 import { FamilyInfo } from './components/family-info/Index';
+import { SituationDescription } from './components/situation-info/Index';
 
 const ApplicationForm = () => {
   const [step, setStep] = useState(1);
@@ -23,6 +24,7 @@ const ApplicationForm = () => {
         {step === 2 && (
           <FamilyInfo onNext={handleNext} onPrevious={() => setStep(1)} />
         )}
+        {step === 3 && <SituationDescription onPrevious={() => setStep(2)} />}
         {/* Later we will add Step2, Step3 here */}
       </div>
       {/* <div className={styles.actions}>

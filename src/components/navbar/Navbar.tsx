@@ -18,7 +18,7 @@ const Navbar: React.FC = () => {
       </div>
 
       <div className={styles.right}>
-        <Tooltip placement="bottomRight" title="عربي / English">
+        <Tooltip placement="bottomRight" title="English / عربي">
           <button className={styles.lang} onClick={toggleLang}>
             {lang === 'ar' ? 'عربي' : 'English'}
           </button>
