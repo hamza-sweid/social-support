@@ -5,13 +5,14 @@ import { Button, Col, Row } from 'antd';
 import SuggestionModal from '../../../../components/modal/SuggestionModal';
 import { useEffect, useState } from 'react';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
+import { useTranslation } from 'react-i18next';
 // import { generateText } from '../../../../service/chatgpt';
 
 const stepName = 'situationInfo';
 interface SituationDescriptionForm {
   currentFinancialSituation: string;
-  EmploymentCircumstances: string;
-  ReasonForApplying: string;
+  employmentCircumstances: string;
+  reasonForApplying: string;
 }
 
 export const SituationDescription = ({
@@ -19,6 +20,7 @@ export const SituationDescription = ({
 }: {
   onPrevious: () => void;
 }) => {
+  const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,13 +53,12 @@ export const SituationDescription = ({
   };
 
   const handlePrevious = () => {
-    const currentValues = getValues(); // get current form values
-    setStepValues(stepName, currentValues); // save current data to context
+    const currentValues = getValues();
+    setStepValues(stepName, currentValues);
     onPrevious();
   };
 
   const onSubmit = (data: SituationDescriptionForm) => {
-    console.log('Situation Description Submitted:', data);
     // Later: Save to context + localStorage
   };
 
@@ -70,9 +71,17 @@ export const SituationDescription = ({
               <TextArea
                 name="currentFinancialSituation"
                 control={control}
-                label="Current Financial Situation"
-                placeholder="Describe your current financial situation"
-                rules={{ required: 'This field is required' }}
+                label={t(
+                  'applicationForm.fields.currentFinancialSituation.label'
+                )}
+                placeholder={t(
+                  'applicationForm.fields.currentFinancialSituation.placeholder'
+                )}
+                rules={{
+                  required: t(
+                    'applicationForm.fields.currentFinancialSituation.required'
+                  ),
+                }}
               />
             </Col>
             <Col span={6}>
@@ -84,7 +93,7 @@ export const SituationDescription = ({
                   )
                 }
               >
-                Help Me Write
+                {t('applicationForm.buttons.helpMeWrite')}
               </Button>
             </Col>
           </Row>
@@ -93,23 +102,31 @@ export const SituationDescription = ({
           <Row align={'middle'} gutter={16}>
             <Col span={18}>
               <TextArea
-                name="EmploymentCircumstances"
+                name="employmentCircumstances"
                 control={control}
-                label="Employment Circumstances"
-                placeholder="Describe your current employment circumstances"
-                rules={{ required: 'This field is required' }}
+                label={t(
+                  'applicationForm.fields.employmentCircumstances.label'
+                )}
+                placeholder={t(
+                  'applicationForm.fields.employmentCircumstances.placeholder'
+                )}
+                rules={{
+                  required: t(
+                    'applicationForm.fields.employmentCircumstances.required'
+                  ),
+                }}
               />
             </Col>
             <Col span={6}>
               <Button
                 onClick={() =>
                   handleOpenSuggestionModal(
-                    'EmploymentCircumstances',
+                    'employmentCircumstances',
                     'Employment Circumstances'
                   )
                 }
               >
-                Help Me Write
+                {t('applicationForm.buttons.helpMeWrite')}
               </Button>
             </Col>
           </Row>
@@ -118,23 +135,29 @@ export const SituationDescription = ({
           <Row align={'middle'} gutter={16}>
             <Col span={18}>
               <TextArea
-                name="ReasonForApplying"
+                name="reasonForApplying"
                 control={control}
-                label="Current Reason for Applying"
-                placeholder="Describe your current Reason for Applying"
-                rules={{ required: 'This field is required' }}
+                label={t('applicationForm.fields.reasonForApplying.label')}
+                placeholder={t(
+                  'applicationForm.fields.reasonForApplying.placeholder'
+                )}
+                rules={{
+                  required: t(
+                    'applicationForm.fields.reasonForApplying.required'
+                  ),
+                }}
               />
             </Col>
             <Col span={6}>
               <Button
                 onClick={() =>
                   handleOpenSuggestionModal(
-                    'ReasonForApplying',
+                    'reasonForApplying',
                     'Reason for Applying'
                   )
                 }
               >
-                Help Me Write
+                {t('applicationForm.buttons.helpMeWrite')}
               </Button>
             </Col>
           </Row>
@@ -161,7 +184,7 @@ export const SituationDescription = ({
       <SuggestionModal
         isModalOpen={isModalOpen}
         onClose={() => handleCloseSuggestionModal()}
-        fieldLabel={field.label}
+        fieldLabel={t(`applicationForm.fields.${field.name}.label`)}
         onFillAISuggestion={handleFillAISuggestion}
       />
     </form>

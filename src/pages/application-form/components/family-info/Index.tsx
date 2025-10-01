@@ -5,6 +5,7 @@ import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const stepName = 'familyInfo';
 interface FamilyInfoForm {
@@ -22,6 +23,7 @@ export const FamilyInfo = ({
   onNext: () => void;
   onPrevious: () => void;
 }) => {
+  const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
   const { control, handleSubmit, getValues, reset } = useForm<FamilyInfoForm>({
@@ -51,32 +53,56 @@ export const FamilyInfo = ({
           <Input
             name="dependents"
             control={control}
-            label="Dependents"
-            placeholder="Enter number of dependents"
-            rules={{ required: 'Dependents are required' }}
+            label={t('applicationForm.fields.dependents.label')}
+            placeholder={t('applicationForm.fields.dependents.placeholder')}
+            rules={{
+              required: t('applicationForm.fields.dependents.required'),
+            }}
           />
         </Col>
         <Col xs={24} sm={12} lg={8}>
           <Input
             name="monthlyIncome"
             control={control}
-            label="Monthly Income"
-            placeholder="Enter your monthly income"
-            rules={{ required: 'Monthly income is required' }}
+            label={t('applicationForm.fields.monthlyIncome.label')}
+            placeholder={t('applicationForm.fields.monthlyIncome.placeholder')}
+            rules={{
+              required: t('applicationForm.fields.monthlyIncome.required'),
+            }}
           />
         </Col>
         <Col xs={24} sm={12} lg={8}>
           <Select
             name="maritalStatus"
             control={control}
-            label="Marital Status"
-            placeholder="Select marital status"
-            rules={{ required: 'Marital status is required' }}
+            label={t('applicationForm.fields.martialStatus.label')}
+            placeholder={t('applicationForm.fields.martialStatus.placeholder')}
+            rules={{
+              required: t('applicationForm.fields.martialStatus.required'),
+            }}
             options={[
-              { label: 'Single', value: 'single' },
-              { label: 'Married', value: 'married' },
-              { label: 'Divorced', value: 'divorced' },
-              { label: 'Widowed', value: 'widowed' },
+              {
+                label: t('applicationForm.fields.martialStatus.options.single'),
+                value: 'single',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.martialStatus.options.married'
+                ),
+                value: 'married',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.martialStatus.options.divorced'
+                ),
+                value: 'divorced',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.martialStatus.options.widowed'
+                ),
+                value: 'widowed',
+              },
             ]}
           />
         </Col>
@@ -84,14 +110,32 @@ export const FamilyInfo = ({
           <Select
             name="employmentStatus"
             control={control}
-            label="Employment Status"
-            placeholder="Select employment status"
-            rules={{ required: 'Employment status is required' }}
+            label={t('applicationForm.fields.employmentStatus.label')}
+            placeholder={t(
+              'applicationForm.fields.employmentStatus.placeholder'
+            )}
+            rules={{
+              required: t('applicationForm.fields.employmentStatus.required'),
+            }}
             options={[
-              { label: 'Employed', value: 'employed' },
-              { label: 'Unemployed', value: 'unemployed' },
-              { label: 'Self-Employed', value: 'selfEmployed' },
-              { label: 'Student', value: 'student' },
+              {
+                label: t(
+                  'applicationForm.fields.employmentStatus.options.employed'
+                ),
+                value: 'employed',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.employmentStatus.options.unemployed'
+                ),
+                value: 'unemployed',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.employmentStatus.options.student'
+                ),
+                value: 'student',
+              },
             ]}
           />
         </Col>
@@ -99,14 +143,26 @@ export const FamilyInfo = ({
           <Select
             name="housingStatus"
             control={control}
-            label="Housing Status"
-            placeholder="Select housing status"
-            rules={{ required: 'Housing status is required' }}
+            label={t('applicationForm.fields.housingStatus.label')}
+            placeholder={t('applicationForm.fields.housingStatus.placeholder')}
+            rules={{
+              required: t('applicationForm.fields.housingStatus.required'),
+            }}
             options={[
-              { label: 'Owned', value: 'owned' },
-              { label: 'Rented', value: 'rented' },
-              { label: 'Living with family', value: 'family' },
-              { label: 'Other', value: 'other' },
+              {
+                label: t('applicationForm.fields.housingStatus.options.owned'),
+                value: 'owned',
+              },
+              {
+                label: t('applicationForm.fields.housingStatus.options.rented'),
+                value: 'rented',
+              },
+              {
+                label: t(
+                  'applicationForm.fields.housingStatus.options.livingWithFamily'
+                ),
+                value: 'family',
+              },
             ]}
           />
         </Col>
@@ -118,14 +174,10 @@ export const FamilyInfo = ({
           type="primary"
           className="btn-responsive btn-secondary"
         >
-          Previous
+          {t('applicationForm.buttons.previous')}
         </Button>
-        <Button
-          htmlType="submit"
-          type="primary"
-          className="btn-responsive btn-primary"
-        >
-          Next
+        <Button htmlType="submit" className="btn-responsive btn-primary">
+          {t('applicationForm.buttons.next')}
         </Button>
       </div>
     </form>

@@ -5,6 +5,7 @@ import Select from '../../../../components/form/Select';
 import { DatePicker } from '../../../../components/form/DatePicker';
 import styles from './Index.module.scss';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
+import { useTranslation } from 'react-i18next';
 
 const stepName = 'personalInfo';
 interface PersonalInfoValues {
@@ -21,6 +22,7 @@ interface PersonalInfoValues {
 }
 
 const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
+  const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
   const { handleSubmit, control, watch } = useForm<PersonalInfoValues>({
@@ -41,9 +43,9 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="name"
             control={control}
-            label="Name"
-            placeholder="Enter your name"
-            rules={{ required: 'Name is required' }}
+            label={t('applicationForm.fields.name.label')}
+            placeholder={t('applicationForm.fields.name.placeholder')}
+            rules={{ required: t('applicationForm.fields.name.required') }}
           />
         </Col>
 
@@ -51,9 +53,11 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="nationalId"
             control={control}
-            label="National ID"
-            placeholder="Enter your national ID"
-            rules={{ required: 'National ID is required' }}
+            label={t('applicationForm.fields.nationalId.label')}
+            placeholder={t('applicationForm.fields.nationalId.placeholder')}
+            rules={{
+              required: t('applicationForm.fields.nationalId.required'),
+            }}
           />
         </Col>
 
@@ -61,9 +65,9 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <DatePicker
             name="dateOfBirth"
             control={control}
-            label="Date of Birth"
-            placeholder="Select your date of birth"
-            rules={{ required: 'Date of Birth is required' }}
+            label={t('applicationForm.fields.dob.label')}
+            placeholder={t('applicationForm.fields.dob.placeholder')}
+            rules={{ required: t('applicationForm.fields.dob.required') }}
             disabledDate={(current) => {
               return current > new Date();
             }}
@@ -74,14 +78,23 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Select
             name="gender"
             control={control}
-            label="Gender"
-            placeholder="Select gender"
+            label={t('applicationForm.fields.gender.label')}
+            placeholder={t('applicationForm.fields.gender.placeholder')}
             options={[
-              { label: 'Male', value: 'Male' },
-              { label: 'Female', value: 'Female' },
-              { label: 'Prefer not to say', value: 'Prefer not to say' },
+              {
+                label: t('applicationForm.fields.gender.options.male'),
+                value: 'Male',
+              },
+              {
+                label: t('applicationForm.fields.gender.options.female'),
+                value: 'Female',
+              },
+              {
+                label: t('applicationForm.fields.gender.options.preferNot'),
+                value: 'Prefer not to say',
+              },
             ]}
-            rules={{ required: 'Gender is required' }}
+            rules={{ required: t('applicationForm.fields.gender.required') }}
           />
         </Col>
 
@@ -89,8 +102,8 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="address"
             control={control}
-            label="Address"
-            placeholder="Enter your address"
+            label={t('applicationForm.fields.address.label')}
+            placeholder={t('applicationForm.fields.address.placeholder')}
           />
         </Col>
 
@@ -98,14 +111,23 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Select
             name="country"
             control={control}
-            label="Country"
-            placeholder="Select country"
+            label={t('applicationForm.fields.country.label')}
+            placeholder={t('applicationForm.fields.country.placeholder')}
             options={[
-              { label: 'United Arab Emirates', value: 'UAE' },
-              { label: 'United Kingdom', value: 'UK' },
-              { label: 'Saudi Arabia', value: 'SA' },
+              {
+                label: t('applicationForm.fields.country.options.uae'),
+                value: 'UAE',
+              },
+              {
+                label: t('applicationForm.fields.country.options.uk'),
+                value: 'UK',
+              },
+              {
+                label: t('applicationForm.fields.country.options.sa'),
+                value: 'SA',
+              },
             ]}
-            rules={{ required: 'Country is required' }}
+            rules={{ required: t('applicationForm.fields.country.required') }}
           />
         </Col>
 
@@ -113,30 +135,62 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Select
             name="city"
             control={control}
-            label="City"
-            placeholder="Select city"
+            label={t('applicationForm.fields.city.label')}
+            placeholder={t('applicationForm.fields.city.placeholder')}
             disabled={!selectedCountry}
             options={
               selectedCountry === 'UAE'
                 ? [
-                    { label: 'Dubai', value: 'Dubai' },
-                    { label: 'Abu Dhabi', value: 'Abu Dhabi' },
+                    {
+                      label: t('applicationForm.fields.city.options.uae.dubai'),
+                      value: 'Dubai',
+                    },
+                    {
+                      label: t(
+                        'applicationForm.fields.city.options.uae.abuDhabi'
+                      ),
+                      value: 'Abu Dhabi',
+                    },
                   ]
                 : selectedCountry === 'UK'
                 ? [
-                    { label: 'London', value: 'London' },
-                    { label: 'Liverpool', value: 'Liverpool' },
-                    { label: 'Manchester', value: 'Manchester' },
+                    {
+                      label: t('applicationForm.fields.city.options.uk.london'),
+                      value: 'London',
+                    },
+                    {
+                      label: t(
+                        'applicationForm.fields.city.options.uk.liverpool'
+                      ),
+                      value: 'Liverpool',
+                    },
+                    {
+                      label: t(
+                        'applicationForm.fields.city.options.uk.manchester'
+                      ),
+                      value: 'Manchester',
+                    },
                   ]
                 : selectedCountry === 'SA'
                 ? [
-                    { label: 'Riyadh', value: 'Riyadh' },
-                    { label: 'Jeddah', value: 'Jeddah' },
-                    { label: 'Madinah', value: 'Madinah' },
+                    {
+                      label: t('applicationForm.fields.city.options.sa.riyadh'),
+                      value: 'Riyadh',
+                    },
+                    {
+                      label: t('applicationForm.fields.city.options.sa.jeddah'),
+                      value: 'Jeddah',
+                    },
+                    {
+                      label: t(
+                        'applicationForm.fields.city.options.sa.madinah'
+                      ),
+                      value: 'Madinah',
+                    },
                   ]
                 : []
             }
-            rules={{ required: 'City is required' }}
+            rules={{ required: t('applicationForm.fields.city.required') }}
           />
         </Col>
 
@@ -144,8 +198,8 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="state"
             control={control}
-            label="State"
-            placeholder="Enter your state"
+            label={t('applicationForm.fields.state.label')}
+            placeholder={t('applicationForm.fields.state.placeholder')}
           />
         </Col>
 
@@ -153,13 +207,13 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="phoneNumber"
             control={control}
-            label="Phone Number"
-            placeholder="Enter your phone number"
+            label={t('applicationForm.fields.phone.label')}
+            placeholder={t('applicationForm.fields.phone.placeholder')}
             rules={{
-              required: 'Phone number is required',
+              required: t('applicationForm.fields.phone.required'),
               pattern: {
                 value: /^[0-9]{7,15}$/,
-                message: 'Invalid phone number',
+                message: t('applicationForm.fields.phone.invalid'),
               },
             }}
           />
@@ -169,13 +223,13 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           <Input
             name="email"
             control={control}
-            label="Email"
-            placeholder="Enter your email"
+            label={t('applicationForm.fields.email.label')}
+            placeholder={t('applicationForm.fields.email.placeholder')}
             rules={{
-              required: 'Email is required',
+              required: t('applicationForm.fields.email.required'),
               pattern: {
                 value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: 'Invalid email format',
+                message: t('applicationForm.fields.email.invalid'),
               },
             }}
           />
@@ -188,7 +242,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
           type="primary"
           className="btn-responsive btn-primary"
         >
-          Next
+          {t('applicationForm.buttons.next')}
         </Button>
       </div>
     </form>

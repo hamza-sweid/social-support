@@ -1,0 +1,164 @@
+{
+    "applicationForm": {
+        "title": "Social Support Application",
+        "steps": {
+            "personalInfo": "Personal Information",
+            "familyInfo": "Family Information",
+            "situationDescription": "Situation Description"
+        },
+        "fields": {
+            "default": {
+                "required": "This field is required",
+                "placeHolder": "Enter your prompt here..."
+            },
+            "name": {
+                "label": "Name",
+                "placeholder": "Enter your full name",
+                "required": "Name is required"
+            },
+            "nationalId": {
+                "label": "National ID",
+                "placeholder": "Enter your national ID",
+                "required": "National ID is required"
+            },
+            "dob": {
+                "label": "Date of Birth",
+                "placeholder": "Select your date of birth",
+                "required": "Date of Birth is required"
+            },
+            "gender": {
+                "label": "Gender",
+                "placeholder": "Select your gender",
+                "options": {
+                    "male": "Male",
+                    "female": "Female",
+                    "preferNot": "Prefer not to say"
+                },
+                "required": "Gender is required"
+            },
+            "address": {
+                "label": "Address",
+                "placeholder": "Enter your address"
+            },
+            "country": {
+                "label": "Country",
+                "placeholder": "Select your country",
+                "options": {
+                    "uae": "United Arab Emirates",
+                    "uk": "United Kingdom",
+                    "sa": "Saudi Arabia"
+                },
+                "required": "Country is required"
+            },
+            "city": {
+                "label": "City",
+                "placeholder": "Select your city",
+                "options": {
+                    "uae": {
+                        "dubai": "Dubai",
+                        "abuDhabi": "Abu Dhabi"
+                    },
+                    "uk": {
+                        "london": "London",
+                        "liverpool": "Liverpool",
+                        "manchester": "Manchester"
+                    },
+                    "sa": {
+                        "riyadh": "Riyadh",
+                        "jeddah": "Jeddah",
+                        "madinah": "Madinah"
+                    }
+                },
+                "required": "City is required"
+            },
+            "state": {
+                "label": "State",
+                "placeholder": "Enter your state"
+            },
+            "phone": {
+                "label": "Phone Number",
+                "placeholder": "Enter your phone number",
+                "required": "Phone number is required",
+                "invalid": "Enter a valid phone number"
+            },
+            "email": {
+                "label": "Email",
+                "placeholder": "Enter your email",
+                "required": "Email is required",
+                "invalid": "Enter a valid email address"
+            },
+            "dependents": {
+                "label": "Dependents",
+                "placeholder": "Enter number of dependents",
+                "required": "Dependents is required"
+            },
+            "monthlyIncome": {
+                "label": "Monthly Income",
+                "placeholder": "Enter monthly income",
+                "required": "Monthly income is required"
+            },
+            "martialStatus": {
+                "label": "Marital Status",
+                "placeholder": "Select marital status",
+                "options": {
+                    "single": "Single",
+                    "married": "Married",
+                    "divorced": "Divorced",
+                    "widowed": "Widowed"
+                },
+                "required": "Marital Status is required"
+            },
+            "employmentStatus": {
+                "label": "Employment Status",
+                "placeholder": "Select employment status",
+                "options": {
+                    "employed": "Employed",
+                    "unemployed": "Unemployed",
+                    "student": "Student",
+                    "retired": "Retired"
+                },
+                "required": "Employment Status is required"
+            },
+            "housingStatus": {
+                "label": "Housing Status",
+                "placeholder": "Select housing status",
+                "options": {
+                    "owned": "Owned",
+                    "rented": "Rented",
+                    "livingWithFamily": "Living with Family"
+                },
+                "required": "Housing Status is required"
+            },
+            "currentFinancialSituation": {
+                "label": "Current Financial Situation",
+                "placeholder": "Describe your current financial situation",
+                "required": "This field is required"
+            },
+            "employmentCircumstances": {
+                "label": "Employment Circumstances",
+                "placeholder": "Describe your employment circumstances",
+                "required": "This field is required"
+            },
+            "reasonForApplying": {
+                "label": "Reason for Applying",
+                "placeholder": "Explain why you are applying for support",
+                "required": "This field is required"
+            }
+        },
+        "aiSuggestion": {
+            "placeholder": "AI-generated suggestion will appear here"
+        },
+        "buttons": {
+            "next": "Next",
+            "previous": "Previous",
+            "submit": "Submit",
+            "helpMeWrite": "Help Me Write",
+            "cancel": "Cancel",
+            "getAISuggestion": "Get AI Suggestion",
+            "close": "Close"
+        },
+        "messages": {
+            "processingComplete": "Processing complete!"
+        }
+    }
+}

@@ -9,24 +9,33 @@ import {
 import ApplicationForm from './pages/application-form/Index';
 import Navbar from './components/navbar/Navbar';
 import { FormProvider } from './context/formContext/FormContext';
+import { useTranslation } from 'react-i18next';
+import ConfigProvider from 'antd/es/config-provider';
 
 const App: React.FC = () => {
+  const { i18n } = useTranslation();
+  const isRTL = i18n.language === 'ar';
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/application-form"
-          element={
-            <FormProvider>
-              <Navbar />
-              <ApplicationForm />
-            </FormProvider>
-          }
-        />
+    <ConfigProvider direction={isRTL ? 'rtl' : 'ltr'}>
+      <Router>
+        <Routes>
+          <Route
+            path="/application-form"
+            element={
+              <FormProvider>
+                <Navbar />
+                <ApplicationForm />
+              </FormProvider>
+            }
+          />
 
-        <Route path="*" element={<Navigate to="/application-form" replace />} />
-      </Routes>
-    </Router>
+          <Route
+            path="*"
+            element={<Navigate to="/application-form" replace />}
+          />
+        </Routes>
+      </Router>
+    </ConfigProvider>
   );
 };
 

@@ -1,14 +1,28 @@
-import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Tooltip } from 'antd';
+import { useState, useEffect } from 'react';
 import styles from './Navbar.module.scss';
 import UserLogo from '../../assets/user-photo.svg';
 import SocialSupportLogo from '../../assets/logo.png';
-import { Tooltip } from 'antd';
 
 const Navbar: React.FC = () => {
-  const [lang, setLang] = useState<'ar' | 'en'>('ar');
+  const { i18n } = useTranslation();
+  const [lang, setLang] = useState<'ar' | 'en'>(() => {
+    return (localStorage.getItem('lang') as 'ar' | 'en') || 'en';
+  });
+
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  }, [lang, i18n]);
 
   const toggleLang = () => {
-    setLang((prev) => (prev === 'ar' ? 'en' : 'ar'));
+    const newLang = lang === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('lang', newLang);
+    setLang(newLang);
+
+    window.location.reload();
   };
 
   return (

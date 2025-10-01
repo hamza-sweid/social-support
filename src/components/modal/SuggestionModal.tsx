@@ -2,6 +2,7 @@ import { Button, Col, Modal, Row, Spin } from 'antd';
 import TextArea from '../form/TextArea';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface SuggestionForm {
   UserInput: string;
@@ -9,18 +10,17 @@ interface SuggestionForm {
 }
 
 const SuggestionModal = ({
-  title = 'Get AI Suggestion',
   fieldLabel,
   isModalOpen,
   onClose,
   onFillAISuggestion = () => {},
 }: {
-  title?: string;
   fieldLabel: string;
   isModalOpen: boolean;
   onClose: () => void;
   onFillAISuggestion?: (data: string) => void;
 }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const { control, handleSubmit, setValue, reset, watch } =
     useForm<SuggestionForm>({
@@ -62,7 +62,7 @@ const SuggestionModal = ({
 
   return (
     <Modal
-      title={title}
+      title={t('applicationForm.buttons.getAISuggestion')}
       closable={{ 'aria-label': 'Custom Close Button' }}
       open={isModalOpen}
       onCancel={handleClose}
@@ -77,13 +77,20 @@ const SuggestionModal = ({
         <TextArea
           name="UserInput"
           control={control}
-          rules={{ required: 'This field is required' }}
+          rules={{
+            required: {
+              value: true,
+              message: t(
+                'applicationForm.fields.currentFinancialSituation.required'
+              ),
+            },
+          }}
           label={
             <Row justify={'space-between'}>
               <Col>{fieldLabel}</Col>
             </Row>
           }
-          placeholder="Inter your prompt here..."
+          placeholder={t('applicationForm.fields.default.placeHolder')}
           rows={2}
         />
         <Row justify="end" className="mb-5">
@@ -94,7 +101,7 @@ const SuggestionModal = ({
             variant="solid"
             loading={loading}
           >
-            AI Suggestion
+            {t('applicationForm.buttons.getAISuggestion')}
           </Button>
         </Row>
 
@@ -109,7 +116,7 @@ const SuggestionModal = ({
             readOnly
             name="AISuggestion"
             control={control}
-            placeholder="AI will suggest here..."
+            placeholder={t('applicationForm.aiSuggestion.placeholder')}
             rows={5}
           />
         )}
@@ -120,7 +127,7 @@ const SuggestionModal = ({
             type="primary"
             className="btn-responsive btn-secondary"
           >
-            Discard
+            {t('applicationForm.buttons.close')}
           </Button>
           {AISuggestionValue && (
             <Button
@@ -129,7 +136,7 @@ const SuggestionModal = ({
               className="btn-responsive btn-primary"
               loading={loading}
             >
-              Submit
+              {t('applicationForm.buttons.submit')}
             </Button>
           )}
         </Row>

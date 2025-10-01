@@ -1,0 +1,164 @@
+{
+    "applicationForm": {
+        "title": "طلب الدعم الاجتماعي",
+        "steps": {
+            "personalInfo": "المعلومات الشخصية",
+            "familyInfo": "معلومات الأسرة",
+            "situationDescription": "الوضع المالي الحالي"
+        },
+        "fields": {
+            "default": {
+                "required": "هذا الحقل مطلوب",
+                "placeHolder": "أدخل مقترحك هنا..."
+            },
+            "name": {
+                "label": "الاسم",
+                "placeholder": "أدخل اسمك الكامل",
+                "required": "الاسم مطلوب"
+            },
+            "nationalId": {
+                "label": "الهوية الوطنية",
+                "placeholder": "أدخل رقم الهوية الوطنية",
+                "required": "الهوية الوطنية مطلوبة"
+            },
+            "dob": {
+                "label": "تاريخ الميلاد",
+                "placeholder": "اختر تاريخ ميلادك",
+                "required": "تاريخ الميلاد مطلوب"
+            },
+            "gender": {
+                "label": "الجنس",
+                "placeholder": "اختر الجنس",
+                "options": {
+                    "male": "ذكر",
+                    "female": "أنثى",
+                    "preferNot": "أفضل عدم الإفصاح"
+                },
+                "required": "الجنس مطلوب"
+            },
+            "address": {
+                "label": "العنوان",
+                "placeholder": "أدخل عنوانك"
+            },
+            "country": {
+                "label": "الدولة",
+                "placeholder": "اختر الدولة",
+                "options": {
+                    "uae": "الإمارات العربية المتحدة",
+                    "uk": "المملكة المتحدة",
+                    "sa": "المملكة العربية السعودية"
+                },
+                "required": "الدولة مطلوبة"
+            },
+            "city": {
+                "label": "المدينة",
+                "placeholder": "اختر المدينة",
+                "options": {
+                    "uae": {
+                        "dubai": "دبي",
+                        "abuDhabi": "أبو ظبي"
+                    },
+                    "uk": {
+                        "london": "لندن",
+                        "liverpool": "ليفربول",
+                        "manchester": "مانشستر"
+                    },
+                    "sa": {
+                        "riyadh": "رياض",
+                        "jeddah": "جدة",
+                        "madinah": "المدينة المنورة"
+                    }
+                },
+                "required": "المدينة مطلوبة"
+            },
+            "state": {
+                "label": "الولاية",
+                "placeholder": "أدخل الولاية"
+            },
+            "phone": {
+                "label": "رقم الهاتف",
+                "placeholder": "أدخل رقم الهاتف",
+                "required": "رقم الهاتف مطلوب",
+                "invalid": "أدخل رقم هاتف صحيح"
+            },
+            "email": {
+                "label": "البريد الإلكتروني",
+                "placeholder": "أدخل البريد الإلكتروني",
+                "required": "البريد الإلكتروني مطلوب",
+                "invalid": "أدخل بريد إلكتروني صحيح"
+            },
+            "dependents": {
+                "label": "عدد المعالين",
+                "placeholder": "أدخل عدد المعالين",
+                "required": "عدد المعالين مطلوب"
+            },
+            "monthlyIncome": {
+                "label": "الدخل الشهري",
+                "placeholder": "أدخل الدخل الشهري",
+                "required": "الدخل الشهري مطلوب"
+            },
+            "martialStatus": {
+                "label": "الحالة الاجتماعية",
+                "placeholder": "اختر الحالة الاجتماعية",
+                "options": {
+                    "single": "أعزب",
+                    "married": "متزوج",
+                    "divorced": "مطلق",
+                    "widowed": "أرمل"
+                },
+                "required": "الحالة الاجتماعية مطلوبة"
+            },
+            "employmentStatus": {
+                "label": "الحالة الوظيفية",
+                "placeholder": "اختر الحالة الوظيفية",
+                "options": {
+                    "employed": "موظف",
+                    "unemployed": "عاطل عن العمل",
+                    "student": "طالب",
+                    "retired": "متقاعد"
+                },
+                "required": "الحالة الوظيفية مطلوبة"
+            },
+            "housingStatus": {
+                "label": "حالة السكن",
+                "placeholder": "اختر حالة السكن",
+                "options": {
+                    "owned": "ملك",
+                    "rented": "مستأجر",
+                    "livingWithFamily": "العيش مع الأسرة"
+                },
+                "required": "حالة السكن مطلوبة"
+            },
+            "currentFinancialSituation": {
+                "label": "الوضع المالي الحالي",
+                "placeholder": "صف وضعك المالي الحالي",
+                "required": "هذا الحقل مطلوب"
+            },
+            "employmentCircumstances": {
+                "label": "ظروف العمل",
+                "placeholder": "صف ظروف عملك",
+                "required": "هذا الحقل مطلوب"
+            },
+            "reasonForApplying": {
+                "label": "سبب التقديم",
+                "placeholder": "اشرح لماذا تتقدم للحصول على الدعم",
+                "required": "هذا الحقل مطلوب"
+            }
+        },
+        "aiSuggestion": {
+            "placeholder": "ستظهر هنا الاقتراحات الناتجة عن الذكاء الاصطناعي"
+        },
+        "buttons": {
+            "next": "التالي",
+            "previous": "السابق",
+            "submit": "إرسال",
+            "helpMeWrite": "ساعدني على الكتابة",
+            "cancel": "إلغاء",
+            "getAISuggestion": "الحصول على اقتراح",
+            "close": "إغلاق"
+        },
+        "messages": {
+            "processingComplete": "تمت المعالجة!"
+        }
+    }
+}
