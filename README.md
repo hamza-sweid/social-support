@@ -1,73 +1,49 @@
-# React + TypeScript + Vite
+# Social Support Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A multi-step React application for submitting user financial and personal information, integrated with AI (ChatGPT) for suggestions. The app supports RTL/LTR languages (Arabic and English), uses `react-hook-form` for form handling, `antd` for UI components, and `i18next` for translations.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
+- [Features](#features)
+- [Technologies](#technologies)
+- [Installation](#installation)
+- [Running Locally](#running-locally)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
+- Multi-step form:
+  1. Personal Info
+  2. Family Info
+  3. Situation Description
+- Field validations (required, number, date, etc.)
+- AI-generated suggestions using ChatGPT
+- Persistent form data using `localStorage` and React Context
+- Responsive design (desktop, tablet, mobile)
+- LTR and RTL support
+- Loading spinner and form submission feedback
+- Dynamic select fields with async options
+- Query parameter support for step navigation
+- Error handling for API calls
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technologies
+- **Frontend:** React, TypeScript, react-hook-form, Ant Design, i18next, Axios
+- **Backend (optional):** Node.js, Express (for ChatGPT proxy)
+- **Styling:** SCSS, responsive design
+- **State Management:** React Context
+- **Routing:** React Router DOM
+- **Deployment:** GitHub Pages (frontend), Render (backend)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Clone the repository:
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+git clone https://github.com/hamza-sweid/social-support.git
+cd social-support
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
