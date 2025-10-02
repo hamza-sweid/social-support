@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export interface ChatGPTResponse {
   text: string;
   code?: 'TIMEOUT' | 'NETWORK' | 'HTTP_ERROR';
@@ -11,26 +13,35 @@ export const generateText = async (
   prompt: string
 ): Promise<ChatGPTResponse> => {
   try {
-    const res = await fetch('https://ai-proxy-sioo.onrender.com/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-3.5-turbo',
         messages: [{ role: 'user', content: prompt }],
-      }),
-    });
+        max_tokens: 200,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
+        },
+        timeout: 10000,
+      }
+    );
 
-    if (!res.ok) {
-      await res.json();
-      return { text: '', code: 'HTTP_ERROR' };
-    }
-
-    const data = await res.json();
-    return { text: data.text };
+    return { text: response.data.choices[0].message.content };
   } catch (err: any) {
-    if (err.name === 'AbortError') {
+    console.error(err);
+
+    if (err.code === 'ECONNABORTED') {
       return { text: '', code: 'TIMEOUT' };
     }
-    return { text: '', code: 'NETWORK' };
+
+    if (!err.response) {
+      return { text: '', code: 'NETWORK' };
+    }
+
+    return { text: '', code: 'HTTP_ERROR' };
   }
 };
 
