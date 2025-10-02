@@ -48,11 +48,6 @@ A multi-step React application for submitting user financial and personal inform
 git clone https://github.com/hamza-sweid/social-support.git
 cd social-support
 
-1. **Clone the repository**
-npm install
-# or
-yarn
-
 
 2. **Install dependencies**
 npm install
