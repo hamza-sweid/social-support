@@ -8,8 +8,6 @@ A multi-step React application for submitting user financial and personal inform
 - [Features](#features)
 - [Technologies](#technologies)
 - [Installation](#installation)
-- [Running Locally](#running-locally)
-- [Installation](#)
 
 ---
 
