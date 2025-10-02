@@ -172,14 +172,14 @@ export const SituationDescription = ({
           type="primary"
           className="btn-responsive btn-secondary"
         >
-          Previous
+          {t('applicationForm.buttons.previous')}
         </Button>
         <Button
           htmlType="submit"
           type="primary"
           className="btn-responsive btn-primary"
         >
-          Submit
+          {t('applicationForm.buttons.submit')}
         </Button>
       </div>
 
