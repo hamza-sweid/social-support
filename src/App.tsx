@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom'; // <-- change here
 import { useTranslation } from 'react-i18next';
 import ConfigProvider from 'antd/es/config-provider';
 import AppRouter from './routes/AppRoutes';
