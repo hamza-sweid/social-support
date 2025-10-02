@@ -9,6 +9,7 @@ A multi-step React application for submitting user financial and personal inform
 - [Technologies](#technologies)
 - [Installation](#installation)
 - [Running Locally](#running-locally)
+- [Installation](#)
 
 ---
 
@@ -41,9 +42,27 @@ A multi-step React application for submitting user financial and personal inform
 
 ## Installation
 
-Clone the repository:
+1. **Clone the repository**
 
 ```bash
 git clone https://github.com/hamza-sweid/social-support.git
 cd social-support
 
+1. **Clone the repository**
+npm install
+# or
+yarn
+
+
+2. **Install dependencies**
+npm install
+# or
+yarn
+
+3. **Set up environment variables**
+VITE_OPENAI_KEY=your_openai_api_key_here
+
+4. **Run the app**
+npm run dev
+# or
+yarn dev
