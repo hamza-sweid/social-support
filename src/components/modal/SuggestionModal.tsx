@@ -1,8 +1,9 @@
-import { Button, Col, Modal, Row, Spin } from 'antd';
+import { Button, Col, message, Modal, Row, Spin } from 'antd';
 import TextArea from '../form/TextArea';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { generateText, type ChatGPTResponse } from '../../services/chatgpt';
 
 interface SuggestionForm {
   UserInput: string;
@@ -37,22 +38,31 @@ const SuggestionModal = ({
     onClose();
   };
 
-  const handleSuggestion = (
+  const handleSuggestion = async (
     data: SuggestionForm,
     event?: React.BaseSyntheticEvent
   ) => {
     if (event) event.stopPropagation();
-
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setValue(
-        'AISuggestion',
-        '✅ This is a simulated AI-generated suggestion based on your input.',
-        { shouldValidate: true }
+    try {
+      const response: ChatGPTResponse = await generateText(
+        `Provide a concise suggestion based on the following input: ${data.UserInput}`
       );
-    }, 2000);
+
+      if (response.code) {
+        if (response.code === 'TIMEOUT')
+          message.error(t('applicationForm.messages.requestedTimeOut'));
+        else if (response.code === 'NETWORK')
+          message.error(t('applicationForm.messages.networkError'));
+        else message.error(t('applicationForm.messages.unauthorizedError'));
+        return;
+      }
+
+      setValue('AISuggestion', response.text, { shouldValidate: true });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFillAISuggestion = () => {

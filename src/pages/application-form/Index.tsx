@@ -1,40 +1,71 @@
-import { useState } from 'react';
+// ApplicationForm.tsx
+import { useState, useEffect } from 'react';
 import PersonalInfo from './components/personal-info/Index';
 import styles from './Index.module.scss';
 import { FamilyInfo } from './components/family-info/Index';
 import { SituationDescription } from './components/situation-info/Index';
 import { useTranslation } from 'react-i18next';
 import StepProgress from '../../components/steps/StepProgress';
-import { Button, Modal } from 'antd';
+import { Button, Modal, Row } from 'antd';
 import { useFormContext } from '../../context/formContext/useFormContext';
+import { submitUserApplicationSupport } from '../../services/chatgpt';
+import ApplicationLoader from '../../components/application-spinner/Index';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 
 const ApplicationForm = () => {
   const { t } = useTranslation();
-  const [step, setStep] = useState(1);
   const [isFormDataModalOpen, setIsFormDataModalOpen] = useState(false);
   const { formData } = useFormContext();
+  const [loading, setLoading] = useState(false);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const stepParam = searchParams.get('step');
+  const currentStep = stepParam ? parseInt(stepParam, 10) : 1;
+
+  useEffect(() => {
+    if (!stepParam || isNaN(Number(stepParam)) || Number(stepParam) < 1) {
+      setSearchParams({ step: '1' });
+    }
+  }, [stepParam, setSearchParams]);
 
   const handleNext = () => {
-    setStep((prev) => prev + 1);
+    setSearchParams({ step: String(currentStep + 1) });
   };
 
-  const handleFinishForm = () => {
-    setIsFormDataModalOpen(true);
+  const handlePrevious = () => {
+    setSearchParams({ step: String(currentStep - 1) });
+  };
+
+  const handleFinishForm = async () => {
+    try {
+      setLoading(true);
+      const response = await submitUserApplicationSupport(formData);
+      if (response.success) {
+        setIsFormDataModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className={styles.container}>
+      <ApplicationLoader loading={loading} />
       <h1>{t('applicationForm.title')}</h1>
-      <StepProgress currentStep={step} />
+      <StepProgress currentStep={currentStep} />
       <div className={styles.stepWrapper}>
-        {step === 1 && <PersonalInfo onNext={handleNext} />}
-        {step === 2 && (
-          <FamilyInfo onNext={handleNext} onPrevious={() => setStep(1)} />
+        {currentStep === 1 && <PersonalInfo onNext={handleNext} />}
+        {currentStep === 2 && (
+          <FamilyInfo onNext={handleNext} onPrevious={handlePrevious} />
         )}
-        {step === 3 && (
+        {currentStep === 3 && (
           <SituationDescription
-            onPrevious={() => setStep(2)}
-            finishForm={() => handleFinishForm()}
+            onPrevious={handlePrevious}
+            finishForm={handleFinishForm}
           />
         )}
       </div>
@@ -47,18 +78,20 @@ const ApplicationForm = () => {
           footer={null}
         >
           {JSON.stringify(formData, null, 2)}
-
-          <Button
-            onClick={() => {
-              setIsFormDataModalOpen(false);
-              localStorage.removeItem('formData');
-              window.location.reload();
-            }}
-            type="primary"
-            className="btn-responsive btn-secondary"
-          >
-            {t('applicationForm.buttons.close')}
-          </Button>
+          <Row className="mt-5" justify="end" gutter={16}>
+            <Button
+              onClick={() => {
+                setIsFormDataModalOpen(false);
+                localStorage.removeItem('formData');
+                navigate('/application-form?step=1', { replace: true });
+                window.location.reload();
+              }}
+              type="primary"
+              className="btn-responsive btn-secondary"
+            >
+              {t('applicationForm.buttons.close')}
+            </Button>
+          </Row>
         </Modal>
       )}
     </div>

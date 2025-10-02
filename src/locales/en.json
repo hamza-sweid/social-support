@@ -159,7 +159,11 @@
             "close": "Close"
         },
         "messages": {
-            "processingComplete": "Processing complete!"
+            "processingComplete": "Processing complete!",
+            "errorFetchingMessage": "Error fetching AI suggestion. Please try again.",
+            "requestedTimeOut": "Request timed out",
+            "networkError": "Network error",
+            "unauthorizedError": "Unauthorized request to AI service"
         }
     }
 }

@@ -159,7 +159,11 @@
             "close": "إغلاق"
         },
         "messages": {
-            "processingComplete": "تمت المعالجة!"
+            "processingComplete": "تمت المعالجة!",
+            "errorFetchingMessage": "حدث خطأ أثناء جلب اقتراح الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
+            "requestedTimeOut": "انتهت مهلة الطلب",
+            "networkError": "خطأ في الشبكة",
+            "unauthorizedError": "طلب غير مصرح به لخدمة الذكاء الاصطناعي"
         }
     }
 }

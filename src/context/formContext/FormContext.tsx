@@ -1,16 +1,13 @@
-// FormContext.tsx
 import { createContext, useState, useEffect, type ReactNode } from 'react';
 import type { FormContextType, StepValues } from './types';
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
 
 export const FormProvider = ({ children }: { children: ReactNode }) => {
-  const [formData, setFormData] = useState<Record<string, StepValues>>({});
-
-  useEffect(() => {
+  const [formData, setFormData] = useState<Record<string, StepValues>>(() => {
     const stored = localStorage.getItem('formData');
-    if (stored) setFormData(JSON.parse(stored));
-  }, []);
+    return stored ? JSON.parse(stored) : {};
+  });
 
   useEffect(() => {
     localStorage.setItem('formData', JSON.stringify(formData));

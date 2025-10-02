@@ -1,6 +1,6 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Input as AntInput, Button, Space } from 'antd';
-import styles from '../../styles/form.module.scss';
+import styles from './form.module.scss';
 import type { InputProps } from '../../types/form';
 
 interface ExtraProps<T extends FieldValues> extends InputProps<T> {
