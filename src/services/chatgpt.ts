@@ -20,7 +20,7 @@ export const generateText = async (
     });
 
     if (!res.ok) {
-      const errData = await res.json();
+      await res.json();
       return { text: '', code: 'HTTP_ERROR' };
     }
 
@@ -34,7 +34,8 @@ export const generateText = async (
   }
 };
 
-export const submitUserApplicationSupport = async (data) => {
+export const submitUserApplicationSupport = async (data: any) => {
+  console.log('Submitting user application support data:', data);
   await new Promise((resolve) => setTimeout(resolve, 2000));
   return { success: true };
 };
