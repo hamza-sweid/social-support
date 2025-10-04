@@ -5,7 +5,7 @@
         "steps": {
             "personalInfo": "Personal Information",
             "familyInfo": "Family Information",
-            "situationDescription": "Situation Description"
+            "situationInfo": "Situation Description"
         },
         "fields": {
             "default": {
@@ -39,7 +39,8 @@
             },
             "address": {
                 "label": "Address",
-                "placeholder": "Enter your address"
+                "placeholder": "Enter your address",
+                "required": "Address is required"
             },
             "country": {
                 "label": "Country",
@@ -74,7 +75,8 @@
             },
             "state": {
                 "label": "State",
-                "placeholder": "Enter your state"
+                "placeholder": "Enter your state",
+                "required": "State is required"
             },
             "phone": {
                 "label": "Phone Number",
@@ -156,14 +158,27 @@
             "helpMeWrite": "Help Me Write",
             "cancel": "Cancel",
             "getAISuggestion": "Get AI Suggestion",
-            "close": "Close"
+            "close": "Close",
+            "update": "Update"
         },
         "messages": {
             "processingComplete": "Processing complete!",
             "errorFetchingMessage": "Error fetching AI suggestion. Please try again.",
-            "requestedTimeOut": "Request timed out",
+            "requestedTimeOut": "The request took too long. Please try again",
             "networkError": "Network error",
-            "unauthorizedError": "Unauthorized request to AI service"
+            "unauthorizedError": "Unauthorized request to AI service",
+            "submitSuccess": "Application submitted successfully!",
+            "submitError": "Error submitting application. Please try again.",
+            "httpError": "HTTP error occurred"
         }
+    },
+    "userData": {
+        "title": "User Information"
+    },
+    "errorBoundary": {
+        "SomethingWentWrong": "Something went wrong",
+        "refreshThePage": "Please refresh the page or try again later",
+        "backHome": "Go to Home",
+        "refresh": "Refresh Page"
     }
 }

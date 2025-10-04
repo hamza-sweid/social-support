@@ -1,0 +1,51 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 2rem;
+  background: var(--gray-0);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .collapse {
+    :global {
+      .ant-collapse-item {
+        background-color: var(--white);
+        margin-bottom: 15px;
+      }
+      .ant-col {
+        padding-right: 0px !important;
+      }
+      .ant-collapse-header {
+        background-color: var(--collapse-bg);
+        padding: 17px 16px;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .ant-collapse-content {
+        padding-inline: 20px;
+        margin-top: 10px;
+        background-color: var(--panel-bg);
+      }
+      .ant-collapse-content-box {
+        padding-top: 16px !important;
+      }
+    }
+    .infoContainer {
+      margin-bottom: 30px;
+      p {
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .propName {
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--tabs-color);
+      }
+      .propValue {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--help-accordian-desc);
+      }
+    }
+  }

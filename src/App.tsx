@@ -1,9 +1,10 @@
 import React from 'react';
-import { HashRouter as Router } from 'react-router-dom'; // <-- change here
+import { HashRouter as Router } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ConfigProvider from 'antd/es/config-provider';
 import AppRouter from './routes/AppRoutes';
 import './App.scss';
+import Navbar from './components/navbar/Navbar';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -11,6 +12,7 @@ const App: React.FC = () => {
 
   return (
     <ConfigProvider direction={isRTL ? 'rtl' : 'ltr'}>
+      <Navbar />
       <Router>
         <AppRouter />
       </Router>

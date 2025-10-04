@@ -6,15 +6,14 @@ import { FamilyInfo } from './components/family-info/Index';
 import { SituationDescription } from './components/situation-info/Index';
 import { useTranslation } from 'react-i18next';
 import StepProgress from '../../components/steps/StepProgress';
-import { Button, Modal, Row } from 'antd';
 import { useFormContext } from '../../context/formContext/useFormContext';
 import { submitUserApplicationSupport } from '../../services/chatgpt';
 import ApplicationLoader from '../../components/application-spinner/Index';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 const ApplicationForm = () => {
   const { t } = useTranslation();
-  const [isFormDataModalOpen, setIsFormDataModalOpen] = useState(false);
   const { formData } = useFormContext();
   const [loading, setLoading] = useState(false);
 
@@ -43,10 +42,11 @@ const ApplicationForm = () => {
       setLoading(true);
       const response = await submitUserApplicationSupport(formData);
       if (response.success) {
-        setIsFormDataModalOpen(true);
+        message.success(t('applicationForm.messages.submitSuccess'));
+        navigate('/user-data', { replace: true });
       }
     } catch (error) {
-      console.error('Error submitting form data:', error);
+      message.error(t('applicationForm.messages.submitError'));
     } finally {
       setLoading(false);
     }
@@ -70,7 +70,7 @@ const ApplicationForm = () => {
         )}
       </div>
 
-      {isFormDataModalOpen && (
+      {/* {isFormDataModalOpen && (
         <Modal
           title={t('applicationForm.submittedData')}
           closable={{ 'aria-label': 'Custom Close Button' }}
@@ -87,13 +87,13 @@ const ApplicationForm = () => {
                 window.location.reload();
               }}
               type="primary"
-              className="btn-responsive btn-secondary"
+              className="btn btn-responsive btn-secondary"
             >
               {t('applicationForm.buttons.close')}
             </Button>
           </Row>
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };

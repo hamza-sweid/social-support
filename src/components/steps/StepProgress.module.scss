@@ -1,17 +1,23 @@
-.stepContent {
-  line-height: 260px;
-  text-align: center;
-  border-radius: 8px;
-  border: 1px dashed var(--step-border);
-  margin-top: 16px;
-  background-color: var(--step-bg);
-  color: var(--step-text-tertiary);
-}
-
-.stepButtons {
-  margin-top: 24px;
-
-  .prevBtn {
-    margin: 0 8px;
+.stepProgress {
+  :global {
+    .ant-steps-item-active .ant-steps-item-container .ant-steps-item-icon{
+      background-color: var(--primary) !important;
+      border-color: var(--primary) !important;
+    }
+    .ant-steps-item-finish .ant-steps-icon {
+      color:  var(--secondary) !important; 
+    }
+    .ant-steps-icon {
+      svg {
+        width: 20px;
+        height: 20px;
+        padding-top: 7px;
+      }
+    }
+    .ant-steps-item-title {
+      &:after {
+        height: 2px;
+      }
+    }
   }
 }

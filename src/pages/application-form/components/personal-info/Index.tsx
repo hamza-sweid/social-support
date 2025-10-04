@@ -6,6 +6,7 @@ import { DatePicker } from '../../../../components/form/DatePicker';
 import styles from './Index.module.scss';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useRef } from 'react';
 
 const stepName = 'personalInfo';
 interface PersonalInfoValues {
@@ -25,11 +26,19 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
   const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
-  const { handleSubmit, control, watch } = useForm<PersonalInfoValues>({
-    defaultValues,
-  });
-
+  const { handleSubmit, control, watch, setValue } =
+    useForm<PersonalInfoValues>({
+      defaultValues,
+    });
   const selectedCountry = watch('country');
+  const prevCountry = useRef<string | undefined>(selectedCountry);
+
+  useEffect(() => {
+    if (prevCountry.current && prevCountry.current !== selectedCountry) {
+      setValue('city', '');
+    }
+    prevCountry.current = selectedCountry;
+  }, [selectedCountry, setValue]);
 
   const onSubmit = (data: PersonalInfoValues) => {
     setStepValues(stepName, data);
@@ -104,6 +113,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
             control={control}
             label={t('applicationForm.fields.address.label')}
             placeholder={t('applicationForm.fields.address.placeholder')}
+            rules={{ required: t('applicationForm.fields.address.required') }}
           />
         </Col>
 
@@ -200,6 +210,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
             control={control}
             label={t('applicationForm.fields.state.label')}
             placeholder={t('applicationForm.fields.state.placeholder')}
+            rules={{ required: t('applicationForm.fields.state.required') }}
           />
         </Col>
 
@@ -237,7 +248,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
       </Row>
 
       <div className={styles.actions}>
-        <Button htmlType="submit" className="btn-responsive btn-primary">
+        <Button htmlType="submit" className="btn btn-responsive btn-primary">
           {t('applicationForm.buttons.next')}
         </Button>
       </div>

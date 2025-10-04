@@ -1,13 +1,38 @@
-import { type Control, type FieldValues, type Path } from 'react-hook-form';
+import {
+  type Control,
+  type FieldValues,
+  type Path,
+  type UseFormGetValues,
+  type UseFormSetValue,
+} from 'react-hook-form';
 
+type rules = {
+  required?: string | boolean;
+  pattern?: { value: RegExp; message: string };
+};
 // Generic Input Props
 export type InputProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string | React.ReactNode;
-  rules?: object;
+  rules?: rules;
   placeholder?: string;
   rows?: number;
+};
+
+export type InputNumberProps<T extends FieldValues> = {
+  name: Path<T>;
+  control: Control<T>;
+  getValues?: UseFormGetValues<T>;
+  setValue?: UseFormSetValue<T>;
+  addonOptions?: string[];
+  label?: string;
+  placeholder?: string;
+  rules?: any;
+  min?: number;
+  max?: number;
+  step?: number;
+  formatter?: (value: number | string | undefined) => string;
 };
 
 // Option type for Select
@@ -21,7 +46,7 @@ export type SelectProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string;
-  rules?: object;
+  rules?: rules;
   options: OptionType[];
   placeholder?: string;
   disabled?: boolean;
@@ -32,6 +57,6 @@ export type DatePickerProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string;
-  rules?: object;
+  rules?: rules;
   placeholder?: string;
 };

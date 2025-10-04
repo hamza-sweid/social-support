@@ -37,7 +37,7 @@ export const DatePicker = <T extends FieldValues>({
           <div className={styles.field}>
             {label && (
               <label htmlFor={dateId} className={styles.label}>
-                {label}
+                {label} {rules?.required && <span aria-hidden="true">*</span>}
               </label>
             )}
             <AntDatePicker

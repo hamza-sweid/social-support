@@ -1,5 +1,7 @@
 // Colors
-$primary-color: #BF1313;
+$primary-color: #340562;
+$secondary-color: #732cb8;
+$tertiary-color: #732cb8;
 $step-bg: #fafafa;
 $step-border: #d9d9d9;
 $step-text-tertiary: rgba(0, 0, 0, 0.45);
@@ -7,16 +9,20 @@ $white: #ffffff;
 $border: #ddd;
 $gray0: #F9F9F9;
 $error: #f00;
-$primary-button: #BF1313;
+$primary-button: #340562;
 $primary-button-focus: darken($primary-button, 10%);
 $primary-button-hover: lighten($primary-button, 10%);
-$secondary-color: #13BFBF;
+$secondary-color: #732cb8;
 $secondary-button-focus: darken($secondary-color, 10%);
 $secondary-button-hover: lighten($secondary-color, 10%);
+$success-color: #52c41a;
+$collapse-bg: #e3e7eb;
+$panel-bg: #f4f6f8;
 
 
 :root{
   --primary: #{$primary-color};
+  --secondary: #{$secondary-color};
   --step-bg: #{$step-bg};
   --step-border: #{$step-border};
   --step-text-tertiary: #{$step-text-tertiary};
@@ -30,4 +36,7 @@ $secondary-button-hover: lighten($secondary-color, 10%);
   --secondary-color: #{$secondary-color};
   --secondary-button-focus: #{$secondary-button-focus};
   --secondary-button-hover: #{$secondary-button-hover};
+  --success-color: #{$success-color};
+  --collapse-bg: #{$collapse-bg};
+  --panel-bg: #{$panel-bg};
 }

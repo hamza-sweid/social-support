@@ -33,35 +33,31 @@ const TextArea = <T extends FieldValues>({
         <div className={styles.field}>
           {label && (
             <label htmlFor={inputId} className={styles.label}>
-              {label}
+              <span>
+                {label} {rules?.required ? '*' : ''}
+              </span>
             </label>
           )}
 
-          <Space.Compact
-            style={{ width: '100%' }}
-            className={styles.compactWrapper}
-          >
-            <AntInput.TextArea
-              readOnly={readOnly}
-              {...field}
-              id={inputId}
-              placeholder={placeholder}
-              rows={rows}
-              aria-invalid={fieldState.invalid}
-              aria-describedby={
-                fieldState.error ? `${inputId}-error` : undefined
-              }
-            />
-            {actionLabel && (
-              <Button
-                type="primary"
-                loading={actionLoading}
-                onClick={onActionClick}
-              >
-                {actionLabel}
-              </Button>
-            )}
-          </Space.Compact>
+          <AntInput.TextArea
+            readOnly={readOnly}
+            {...field}
+            id={inputId}
+            placeholder={placeholder}
+            rows={rows}
+            aria-invalid={fieldState.invalid}
+            aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
+          />
+          {actionLabel && (
+            <Button
+              className="btn"
+              type="primary"
+              loading={actionLoading}
+              onClick={onActionClick}
+            >
+              {actionLabel}
+            </Button>
+          )}
 
           {fieldState.error && (
             <p id={`${inputId}-error`} className={styles.error} role="alert">

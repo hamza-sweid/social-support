@@ -1,9 +1,10 @@
-import { Button, Col, message, Modal, Row, Spin } from 'antd';
+import { Button, message, Modal, Row, Spin } from 'antd';
 import TextArea from '../form/TextArea';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { generateText, type ChatGPTResponse } from '../../services/chatgpt';
+import MagicToolIcon from '../../assets/magic-tool.svg';
 
 interface SuggestionForm {
   UserInput: string;
@@ -11,12 +12,12 @@ interface SuggestionForm {
 }
 
 const SuggestionModal = ({
-  fieldLabel,
+  field,
   isModalOpen,
   onClose,
   onFillAISuggestion = () => {},
 }: {
-  fieldLabel: string;
+  field: { name: string; value: string };
   isModalOpen: boolean;
   onClose: () => void;
   onFillAISuggestion?: (data: string) => void;
@@ -31,6 +32,21 @@ const SuggestionModal = ({
       },
     });
 
+  useEffect(() => {
+    if (isModalOpen) {
+      reset({
+        UserInput: field.value || '',
+        AISuggestion: '',
+      });
+      if (field.value) {
+        handleChatGPTSuggestionCall({
+          UserInput: field.value,
+          AISuggestion: '',
+        });
+      }
+    }
+  }, [isModalOpen, field.value, reset]);
+
   const AISuggestionValue = watch('AISuggestion');
 
   const handleClose = () => {
@@ -38,7 +54,7 @@ const SuggestionModal = ({
     onClose();
   };
 
-  const handleSuggestion = async (
+  const handleChatGPTSuggestionCall = async (
     data: SuggestionForm,
     event?: React.BaseSyntheticEvent
   ) => {
@@ -55,11 +71,11 @@ const SuggestionModal = ({
           message.error(t('applicationForm.messages.requestedTimeOut'));
         else if (response.code === 'NETWORK')
           message.error(t('applicationForm.messages.networkError'));
-        else message.error(t('applicationForm.messages.unauthorizedError'));
-        return;
       }
-
+      setValue('UserInput', '');
       setValue('AISuggestion', response.text, { shouldValidate: true });
+    } catch (err) {
+      message.error(t('applicationForm.messages.somethingWentWrong'));
     } finally {
       setLoading(false);
     }
@@ -81,35 +97,29 @@ const SuggestionModal = ({
       <form
         onSubmit={(e) => {
           e.stopPropagation();
-          handleSubmit(handleSuggestion)(e);
+          handleSubmit(handleChatGPTSuggestionCall)(e);
         }}
       >
         <TextArea
           name="UserInput"
           control={control}
           rules={{
-            required: {
-              value: true,
-              message: t(
-                'applicationForm.fields.currentFinancialSituation.required'
-              ),
-            },
+            required: t(
+              'applicationForm.fields.currentFinancialSituation.required'
+            ),
           }}
-          label={
-            <Row justify={'space-between'}>
-              <Col>{fieldLabel}</Col>
-            </Row>
-          }
+          label={t(`applicationForm.fields.${field.name}.label`)}
           placeholder={t('applicationForm.fields.default.placeHolder')}
           rows={2}
         />
         <Row justify="end" className="mb-5">
           <Button
             htmlType="submit"
-            size="small"
             color="purple"
             variant="solid"
             loading={loading}
+            className="btn-sm btn"
+            icon={<img className="pt-1" src={MagicToolIcon} alt="magic tool" />}
           >
             {t('applicationForm.buttons.getAISuggestion')}
           </Button>
@@ -131,11 +141,11 @@ const SuggestionModal = ({
           />
         )}
 
-        <Row justify="space-between" gutter={16}>
+        <Row justify="space-between" gutter={[16, 16]} className="mt-5">
           <Button
             onClick={handleClose}
             type="primary"
-            className="btn-responsive btn-secondary"
+            className="btn btn-responsive btn-secondary"
           >
             {t('applicationForm.buttons.close')}
           </Button>
@@ -143,7 +153,7 @@ const SuggestionModal = ({
             <Button
               onClick={() => handleFillAISuggestion()}
               type="primary"
-              className="btn-responsive btn-primary"
+              className="btn btn-responsive btn-primary"
               loading={loading}
             >
               {t('applicationForm.buttons.submit')}

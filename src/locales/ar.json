@@ -5,7 +5,7 @@
         "steps": {
             "personalInfo": "المعلومات الشخصية",
             "familyInfo": "معلومات الأسرة",
-            "situationDescription": "الوضع المالي الحالي"
+            "situationInfo": "الوضع المالي الحالي"
         },
         "fields": {
             "default": {
@@ -39,7 +39,8 @@
             },
             "address": {
                 "label": "العنوان",
-                "placeholder": "أدخل عنوانك"
+                "placeholder": "أدخل عنوانك",
+                "required": "العنوان مطلوب"
             },
             "country": {
                 "label": "الدولة",
@@ -74,7 +75,8 @@
             },
             "state": {
                 "label": "الولاية",
-                "placeholder": "أدخل الولاية"
+                "placeholder": "أدخل الولاية",
+                "required": "الولاية مطلوبة"
             },
             "phone": {
                 "label": "رقم الهاتف",
@@ -156,14 +158,27 @@
             "helpMeWrite": "ساعدني على الكتابة",
             "cancel": "إلغاء",
             "getAISuggestion": "الحصول على اقتراح",
-            "close": "إغلاق"
+            "close": "إغلاق",
+            "update": "تحديث"
         },
         "messages": {
             "processingComplete": "تمت المعالجة!",
             "errorFetchingMessage": "حدث خطأ أثناء جلب اقتراح الذكاء الاصطناعي. يرجى المحاولة مرة أخرى.",
-            "requestedTimeOut": "انتهت مهلة الطلب",
+            "requestedTimeOut": "الطلب يأخذ وقتًا أطول من المتوقع. يرجى المحاولة مرة أخرى.",
             "networkError": "خطأ في الشبكة",
-            "unauthorizedError": "طلب غير مصرح به لخدمة الذكاء الاصطناعي"
+            "unauthorizedError": "طلب غير مصرح به لخدمة الذكاء الاصطناعي",
+            "submitSuccess": "تم تقديم الطلب بنجاح!",
+            "submitError": "حدث خطأ أثناء تقديم الطلب. يرجى المحاولة مرة أخرى.",
+            "httpError": "خطأ في السيرفر"
         }
+    },
+    "userData": {
+        "title": "بيانات المستخدم"
+    },
+    "errorBoundary": {
+        "SomethingWentWrong": "حدث خطأ ما",
+        "refreshThePage": "يرجى تحديث الصفحة أو العودة إلى الصفحة الرئيسية.",
+        "backHome": "العودة إلى الصفحة الرئيسية",
+        "refresh": "تحديث الصفحة"
     }
 }

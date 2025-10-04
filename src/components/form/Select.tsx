@@ -25,7 +25,7 @@ const Select = <T extends FieldValues>({
         <div className={styles.field}>
           {label && (
             <label htmlFor={selectId} className={styles.label}>
-              {label}
+              {label} {rules?.required && <span aria-hidden="true">*</span>}
             </label>
           )}
           <AntSelect

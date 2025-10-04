@@ -25,7 +25,7 @@ export const SituationDescription = ({
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [field, setField] = useState({ name: '', label: '' });
+  const [field, setField] = useState({ name: '', label: '', value: '' });
   const { control, handleSubmit, getValues, reset, setValue } =
     useForm<SituationDescriptionForm>({
       defaultValues,
@@ -37,13 +37,14 @@ export const SituationDescription = ({
   }, [getStepValues, reset, stepName]);
 
   const handleOpenSuggestionModal = (name: string, label: string) => {
-    setField({ name, label });
+    const currentValue = getValues(name as keyof SituationDescriptionForm);
+    setField({ name, label, value: currentValue || '' });
     setIsModalOpen(true);
   };
 
   const handleCloseSuggestionModal = () => {
     setIsModalOpen(false);
-    setField({ name: '', label: '' });
+    setField({ name: '', label: '', value: '' });
   };
 
   const handleFillAISuggestion = (data: string) => {
@@ -66,10 +67,10 @@ export const SituationDescription = ({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.formGrid}>
-      <Row gutter={[32, 16]}>
+      <Row gutter={[32, 50]}>
         <Col span={24}>
           <Row align={'middle'} gutter={32}>
-            <Col span={18}>
+            <Col flex={'auto'} xs={24} lg={18}>
               <TextArea
                 name="currentFinancialSituation"
                 control={control}
@@ -86,8 +87,9 @@ export const SituationDescription = ({
                 }}
               />
             </Col>
-            <Col span={6}>
+            <Col xs={24} lg={6}>
               <Button
+                className="btn"
                 onClick={() =>
                   handleOpenSuggestionModal(
                     'currentFinancialSituation',
@@ -102,7 +104,7 @@ export const SituationDescription = ({
         </Col>
         <Col span={24}>
           <Row align={'middle'} gutter={32}>
-            <Col span={18}>
+            <Col xs={24} lg={18}>
               <TextArea
                 name="employmentCircumstances"
                 control={control}
@@ -119,8 +121,9 @@ export const SituationDescription = ({
                 }}
               />
             </Col>
-            <Col span={6}>
+            <Col xs={24} lg={6}>
               <Button
+                className="btn"
                 onClick={() =>
                   handleOpenSuggestionModal(
                     'employmentCircumstances',
@@ -135,7 +138,7 @@ export const SituationDescription = ({
         </Col>
         <Col span={24}>
           <Row align={'middle'} gutter={32}>
-            <Col span={18}>
+            <Col xs={24} lg={18}>
               <TextArea
                 name="reasonForApplying"
                 control={control}
@@ -150,8 +153,9 @@ export const SituationDescription = ({
                 }}
               />
             </Col>
-            <Col span={6}>
+            <Col xs={24} lg={6}>
               <Button
+                className="btn"
                 onClick={() =>
                   handleOpenSuggestionModal(
                     'reasonForApplying',
@@ -170,14 +174,14 @@ export const SituationDescription = ({
         <Button
           onClick={() => handlePrevious()}
           type="primary"
-          className="btn-responsive btn-secondary"
+          className="btn btn-responsive btn-secondary"
         >
           {t('applicationForm.buttons.previous')}
         </Button>
         <Button
           htmlType="submit"
           type="primary"
-          className="btn-responsive btn-primary"
+          className="btn btn-responsive btn-primary"
         >
           {t('applicationForm.buttons.submit')}
         </Button>
@@ -186,7 +190,7 @@ export const SituationDescription = ({
       <SuggestionModal
         isModalOpen={isModalOpen}
         onClose={() => handleCloseSuggestionModal()}
-        fieldLabel={t(`applicationForm.fields.${field.name}.label`)}
+        field={{ name: field.name, value: field.value }}
         onFillAISuggestion={handleFillAISuggestion}
       />
     </form>

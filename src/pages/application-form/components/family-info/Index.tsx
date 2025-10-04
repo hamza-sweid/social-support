@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import Input from '../../../../components/form/Input';
 import Select from '../../../../components/form/Select';
+import NumberInput from '../../../../components/form/InputNumber';
 import styles from './Index.module.scss';
 import { Button, Col, Row } from 'antd';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
@@ -8,9 +9,10 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const stepName = 'familyInfo';
+
 interface FamilyInfoForm {
   dependents: number;
-  monthlyIncome: number;
+  monthlyIncome: { amount: number; currency: string };
   maritalStatus: string;
   employmentStatus: string;
   housingStatus: string;
@@ -26,9 +28,11 @@ export const FamilyInfo = ({
   const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
-  const { control, handleSubmit, getValues, reset } = useForm<FamilyInfoForm>({
-    defaultValues,
-  });
+
+  const { control, handleSubmit, getValues, reset, setValue } =
+    useForm<FamilyInfoForm>({
+      defaultValues,
+    });
 
   useEffect(() => {
     const saved = getStepValues(stepName);
@@ -42,6 +46,7 @@ export const FamilyInfo = ({
   };
 
   const onSubmit = (data: FamilyInfoForm) => {
+    console.log(data);
     setStepValues(stepName, data);
     onNext();
   };
@@ -61,14 +66,18 @@ export const FamilyInfo = ({
           />
         </Col>
         <Col xs={24} sm={12} lg={8}>
-          <Input
+          <NumberInput
             name="monthlyIncome"
             control={control}
+            getValues={getValues}
+            setValue={setValue}
             label={t('applicationForm.fields.monthlyIncome.label')}
             placeholder={t('applicationForm.fields.monthlyIncome.placeholder')}
+            min={0}
             rules={{
               required: t('applicationForm.fields.monthlyIncome.required'),
             }}
+            addonOptions={['AED', 'GBP', 'SAR', 'USD']}
           />
         </Col>
         <Col xs={24} sm={12} lg={8}>
@@ -170,13 +179,13 @@ export const FamilyInfo = ({
 
       <div className={styles.actions}>
         <Button
-          onClick={() => handlePrevious()}
+          onClick={handlePrevious}
           type="primary"
-          className="btn-responsive btn-secondary"
+          className="btn btn-responsive btn-secondary"
         >
           {t('applicationForm.buttons.previous')}
         </Button>
-        <Button htmlType="submit" className="btn-responsive btn-primary">
+        <Button htmlType="submit" className="btn btn-responsive btn-primary">
           {t('applicationForm.buttons.next')}
         </Button>
       </div>
