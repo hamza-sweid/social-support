@@ -1,9 +1,9 @@
 // ApplicationForm.tsx
 import { useState, useEffect } from 'react';
-import PersonalInfo from './components/personal-info/Index';
+import PersonalInfo from './components/personal-info/PersonalInfo';
 import styles from './Index.module.scss';
-import { FamilyInfo } from './components/family-info/Index';
-import { SituationDescription } from './components/situation-info/Index';
+import { FamilyInfo } from './components/family-info/FamilyInfo';
+import { SituationDescription } from './components/situation-info/SituationInfo';
 import { useTranslation } from 'react-i18next';
 import StepProgress from '../../components/steps/StepProgress';
 import { useFormContext } from '../../context/formContext/useFormContext';

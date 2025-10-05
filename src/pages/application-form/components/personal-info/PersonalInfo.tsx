@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { Button, Row, Col } from 'antd';
-import Input from '../../../../components/form/Input';
-import Select from '../../../../components/form/Select';
+import Input from '../../../../components/form/input/Input';
+import Select from '../../../../components/form/select/Select';
 import { DatePicker } from '../../../../components/form/DatePicker';
-import styles from './Index.module.scss';
+import styles from './PersonalInfo.module.scss';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';

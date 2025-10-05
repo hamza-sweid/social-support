@@ -1,14 +1,7 @@
 import { Controller, type FieldValues } from 'react-hook-form';
-import { Input as AntInput, Select, type InputNumberProps } from 'antd';
-import type { InputProps } from '../../types/form';
-import styles from './form.module.scss';
-
-const { Option } = Select;
-const formatter: InputNumberProps<number>['formatter'] = (value) => {
-  const [start, end] = `${value}`.split('.') || [];
-  const v = `${start}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-  return `$ ${end ? `${v}.${end}` : `${v}`}`;
-};
+import { Input as AntInput } from 'antd';
+import type { InputProps } from '../../../types/form';
+import styles from '../form.module.scss';
 
 const Input = <T extends FieldValues>({
   name,

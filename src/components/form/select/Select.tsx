@@ -1,7 +1,7 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { Select as AntSelect } from 'antd';
-import type { SelectProps } from '../../types/form';
-import styles from './form.module.scss';
+import type { SelectProps } from '../../../types/form';
+import styles from '../form.module.scss';
 
 const { Option } = AntSelect;
 
@@ -41,11 +41,7 @@ const Select = <T extends FieldValues>({
             aria-describedby={
               fieldState.error ? `${selectId}-error` : undefined
             }
-            style={{ width: '100%' }}
           >
-            {/* <Option value="" disabled hidden>
-              {placeholder}
-            </Option> */}
             {options.map((opt) => (
               <Option key={opt.value} value={opt.value}>
                 {opt.label}

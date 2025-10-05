@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import Input from '../../../../components/form/Input';
-import Select from '../../../../components/form/Select';
+import Input from '../../../../components/form/input/Input';
+import Select from '../../../../components/form/select/Select';
 import NumberInput from '../../../../components/form/InputNumber';
-import styles from './Index.module.scss';
+import styles from './FamilyInfo.module.scss';
 import { Button, Col, Row } from 'antd';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useEffect } from 'react';

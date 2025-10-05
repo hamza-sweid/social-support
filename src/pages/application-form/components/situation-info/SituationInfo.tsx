@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import TextArea from '../../../../components/form/TextArea';
-import styles from './Index.module.scss';
+import styles from './SituationInfo.module.scss';
 import { Button, Col, Row } from 'antd';
 import SuggestionModal from '../../../../components/modal/SuggestionModal';
 import { useEffect, useState } from 'react';
