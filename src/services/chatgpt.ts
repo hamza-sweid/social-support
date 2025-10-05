@@ -39,5 +39,6 @@ export const generateText = async (
  */
 export const submitUserApplicationSupport = async (data: any) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
+  localStorage.setItem('isDataSubmitted', 'true');
   return { success: true };
 };

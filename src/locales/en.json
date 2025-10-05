@@ -98,7 +98,8 @@
             "monthlyIncome": {
                 "label": "Monthly Income",
                 "placeholder": "Enter monthly income",
-                "required": "Monthly income is required"
+                "required": "Monthly income is required",
+                "min": "Monthly income should be greater than 0"
             },
             "martialStatus": {
                 "label": "Marital Status",

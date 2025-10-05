@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { get, useForm } from 'react-hook-form';
 import { Button, Row, Col } from 'antd';
 import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
@@ -7,6 +7,7 @@ import styles from './PersonalInfo.module.scss';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 const stepName = 'personalInfo';
 interface PersonalInfoValues {
@@ -250,7 +251,12 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
       </Row>
 
       <div className={styles.actions}>
-        <Button htmlType="submit" className="btn btn-responsive btn-primary">
+        <Button
+          htmlType="submit"
+          className="btn btn-responsive btn-primary"
+          icon={<CaretRightOutlined />}
+          iconPosition="end"
+        >
           {t('applicationForm.buttons.next')}
         </Button>
       </div>

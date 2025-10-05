@@ -15,8 +15,7 @@ const formatter: InputNumberProps<any>['formatter'] = (value) => {
 
 const currencyMap: Record<string, string> = {
   UAE: 'AED',
-  US: '$',
-  UK: '£',
+  UK: 'GBP',
   SA: 'SAR',
 };
 
@@ -35,12 +34,15 @@ const NumberInput = <T extends FieldValues>({
 }: InputNumberProps<T>) => {
   const [currency, setCurrency] = useState<string>('');
 
-  // Sync initial currency based on localStorage
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem('formData') || '{}');
     const country = savedData?.personalInfo?.country;
-    if (country && currencyMap[country]) setCurrency(currencyMap[country]);
-    else setCurrency(addonOptions?.[0] || '');
+    const isCurrencyUpdated = savedData?.familyInfo?.monthlyIncome?.isUpdated;
+    if (country && currencyMap[country]) {
+      if (isCurrencyUpdated) {
+        setCurrency(savedData?.familyInfo?.monthlyIncome?.currency || '');
+      } else setCurrency(currencyMap[country]);
+    } else setCurrency(addonOptions?.[0] || '');
   }, [addonOptions]);
 
   const selectAfter = (
@@ -53,7 +55,7 @@ const NumberInput = <T extends FieldValues>({
         setValue &&
           setValue(
             name as any,
-            { amount: currentAmount, currency: val } as any,
+            { amount: currentAmount, currency: val, isUpdated: true } as any,
             { shouldValidate: true }
           );
       }}
@@ -86,9 +88,7 @@ const NumberInput = <T extends FieldValues>({
             <>
               <InputNumber
                 value={valueObj.amount}
-                onChange={
-                  (val) => field.onChange({ amount: val, currency }) // always pass latest currency
-                }
+                onChange={(val) => field.onChange({ amount: val, currency })}
                 id={name}
                 min={min}
                 max={max}

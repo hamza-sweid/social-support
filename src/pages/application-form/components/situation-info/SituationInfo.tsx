@@ -6,6 +6,7 @@ import SuggestionModal from '../../../../components/modal/SuggestionModal';
 import { useEffect, useState } from 'react';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useTranslation } from 'react-i18next';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 const stepName = 'situationInfo';
 interface SituationDescriptionForm {
@@ -179,6 +180,7 @@ export const SituationDescription = ({
           onClick={() => handlePrevious()}
           type="primary"
           className="btn btn-responsive btn-secondary"
+          icon={<CaretRightOutlined rotate={180} />}
         >
           {t('applicationForm.buttons.previous')}
         </Button>

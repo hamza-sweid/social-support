@@ -18,6 +18,10 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getStepValues = (step: string) => {
+    const isDataSubmitted = localStorage.getItem('isDataSubmitted');
+    if (isDataSubmitted) {
+      return {};
+    }
     return formData[step] || {};
   };
 

@@ -7,12 +7,17 @@ import { Button, Col, Row } from 'antd';
 import { useFormContext } from '../../../../context/formContext/useFormContext';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CaretRightOutlined } from '@ant-design/icons';
 
 const stepName = 'familyInfo';
 
 interface FamilyInfoForm {
   dependents: number;
-  monthlyIncome: { amount: number; currency: string };
+  monthlyIncome: {
+    amount: number | null;
+    currency: string;
+    isUpdated: boolean;
+  };
   maritalStatus: string;
   employmentStatus: string;
   housingStatus: string;
@@ -31,7 +36,14 @@ export const FamilyInfo = ({
 
   const { control, handleSubmit, getValues, reset, setValue } =
     useForm<FamilyInfoForm>({
-      defaultValues,
+      defaultValues: {
+        ...defaultValues,
+        monthlyIncome: defaultValues.monthlyIncome || {
+          amount: null,
+          currency: 'AED',
+          isUpdated: false,
+        },
+      },
     });
 
   useEffect(() => {
@@ -46,7 +58,6 @@ export const FamilyInfo = ({
   };
 
   const onSubmit = (data: FamilyInfoForm) => {
-    console.log(data);
     setStepValues(stepName, data);
     onNext();
   };
@@ -73,11 +84,20 @@ export const FamilyInfo = ({
             setValue={setValue}
             label={t('applicationForm.fields.monthlyIncome.label')}
             placeholder={t('applicationForm.fields.monthlyIncome.placeholder')}
-            min={0}
             rules={{
               required: t('applicationForm.fields.monthlyIncome.required'),
+              validate: (value: {
+                amount: number | null;
+                currency: string;
+              }) => {
+                if (!value?.amount)
+                  return t('applicationForm.fields.monthlyIncome.required');
+                if (value.amount < 1)
+                  return t('applicationForm.fields.monthlyIncome.min');
+                return true;
+              },
             }}
-            addonOptions={['AED', 'GBP', 'SAR', 'USD']}
+            addonOptions={['AED', 'GBP', 'SAR']}
           />
         </Col>
         <Col xs={24} sm={12} lg={8}>
@@ -182,10 +202,16 @@ export const FamilyInfo = ({
           onClick={handlePrevious}
           type="primary"
           className="btn btn-responsive btn-secondary"
+          icon={<CaretRightOutlined rotate={180} />}
         >
           {t('applicationForm.buttons.previous')}
         </Button>
-        <Button htmlType="submit" className="btn btn-responsive btn-primary">
+        <Button
+          htmlType="submit"
+          icon={<CaretRightOutlined />}
+          iconPosition="end"
+          className="btn btn-responsive btn-primary"
+        >
           {t('applicationForm.buttons.next')}
         </Button>
       </div>

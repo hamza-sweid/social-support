@@ -24,6 +24,13 @@ const ApplicationForm = () => {
   const currentStep = stepParam ? parseInt(stepParam, 10) : 1;
 
   useEffect(() => {
+    const isDataSubmitted = localStorage.getItem('isDataSubmitted');
+    if (isDataSubmitted) {
+      navigate('/application-form?step=1', { replace: true });
+    }
+  }, []);
+
+  useEffect(() => {
     if (!stepParam || isNaN(Number(stepParam)) || Number(stepParam) < 1) {
       setSearchParams({ step: '1' });
     }
@@ -69,31 +76,6 @@ const ApplicationForm = () => {
           />
         )}
       </div>
-
-      {/* {isFormDataModalOpen && (
-        <Modal
-          title={t('applicationForm.submittedData')}
-          closable={{ 'aria-label': 'Custom Close Button' }}
-          open={isFormDataModalOpen}
-          footer={null}
-        >
-          {JSON.stringify(formData, null, 2)}
-          <Row className="mt-5" justify="end" gutter={16}>
-            <Button
-              onClick={() => {
-                setIsFormDataModalOpen(false);
-                localStorage.removeItem('formData');
-                navigate('/application-form?step=1', { replace: true });
-                window.location.reload();
-              }}
-              type="primary"
-              className="btn btn-responsive btn-secondary"
-            >
-              {t('applicationForm.buttons.close')}
-            </Button>
-          </Row>
-        </Modal>
-      )} */}
     </div>
   );
 };

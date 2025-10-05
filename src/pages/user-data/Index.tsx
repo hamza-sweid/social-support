@@ -1,8 +1,9 @@
-import { Button, Col, Row, Collapse, Space } from 'antd';
+import { Button, Col, Row, Collapse } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { fieldTranslationKeys } from './constants';
 import styles from './Index.module.scss';
 import { useNavigate } from 'react-router';
+import { EditOutlined } from '@ant-design/icons';
 
 const { Panel } = Collapse;
 const stepOrder = ['personalInfo', 'familyInfo', 'situationInfo'];
@@ -13,7 +14,8 @@ const SummaryPage = () => {
   const savedData = JSON.parse(localStorage.getItem('formData') || '{}');
 
   const handleUserDataUpdate = () => {
-    navigate('/application-form?step=1');
+    localStorage.removeItem('isDataSubmitted');
+    navigate('/application-form?step=1', { replace: true });
   };
 
   return (
@@ -23,6 +25,7 @@ const SummaryPage = () => {
         <Button
           className="btn btn-primary"
           onClick={() => handleUserDataUpdate()}
+          icon={<EditOutlined />}
         >
           {t('applicationForm.buttons.update')}
         </Button>
