@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--white);
+  background: var(--navbar-bg);
   padding: 0.4rem 1.5rem;
   border-bottom: 1px solid var(--border);
   position: relative;
@@ -24,6 +24,7 @@
     font-weight: bold;
     cursor: pointer;
     font-size: 15px;
+    color: var(--primary-text);
   }
 
   .user {

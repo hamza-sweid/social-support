@@ -5,6 +5,7 @@ import ConfigProvider from 'antd/es/config-provider';
 import AppRouter from './routes/AppRoutes';
 import './App.scss';
 import Navbar from './components/navbar/Navbar';
+import { ThemeProvider } from './context/theme-context/ThemeContext';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -12,10 +13,12 @@ const App: React.FC = () => {
 
   return (
     <ConfigProvider direction={isRTL ? 'rtl' : 'ltr'}>
-      <Navbar />
-      <Router>
-        <AppRouter />
-      </Router>
+      <ThemeProvider>
+        <Navbar />
+        <Router>
+          <AppRouter />
+        </Router>
+      </ThemeProvider>
     </ConfigProvider>
   );
 };

@@ -8,7 +8,7 @@
   font-weight: 500;
   margin-bottom: 4px;
   font-size: 15px;
-  color: #333;
+  color: var(--primary-text);
 }
 
 .input,
@@ -17,7 +17,7 @@
 .textarea {
   width: 100%;
   height: 35px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--border)
 }
 
 .error {
@@ -35,6 +35,13 @@
   box-shadow: 0 0 0 2px rgba(22, 119, 255, 0.2);
 }
 
+.ant-input::placeholder,
+.ant-select-selection-placeholder,
+.ant-input-affix-wrapper input::placeholder,
+.ant-picker-input > input::placeholder { /* DatePicker */
+  color: var(--input-placeholder) !important;
+  opacity: 1; 
+}
 
 
 .textareaWrapper {

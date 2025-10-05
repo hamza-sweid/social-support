@@ -1,7 +1,6 @@
 // Colors
 $primary-color: #340562;
 $secondary-color: #732cb8;
-$tertiary-color: #732cb8;
 $step-bg: #fafafa;
 $step-border: #d9d9d9;
 $step-text-tertiary: rgba(0, 0, 0, 0.45);
@@ -11,14 +10,20 @@ $gray0: #F9F9F9;
 $error: #f00;
 $primary-button: #340562;
 $primary-button-focus: darken($primary-button, 10%);
-$primary-button-hover: lighten($primary-button, 10%);
-$secondary-color: #732cb8;
-$secondary-button-focus: darken($secondary-color, 10%);
-$secondary-button-hover: lighten($secondary-color, 10%);
+$primary-button-hover: #41067a;
+$primary-button-text: #fff;
+$secondary-button: #732cb8;
+$secondary-button-focus: darken($secondary-button, 10%);
+$secondary-button-hover: #8c3ed1;
+$secondary-button-text: #fff;
+$secondary-button-border: #fff;
 $success-color: #52c41a;
 $collapse-bg: #e3e7eb;
 $panel-bg: #f4f6f8;
-
+$primary-bg: #fff;
+$navbar-bg: #fff;
+$primary-text: #fff;
+$input-placeholder: #aaa;
 
 :root{
   --primary: #{$primary-color};
@@ -33,10 +38,31 @@ $panel-bg: #f4f6f8;
   --primary-button: #{$primary-button};
   --primary-button-focus: #{$primary-button-focus};
   --primary-button-hover: #{$primary-button-hover};
-  --secondary-color: #{$secondary-color};
+  --primary-button-text: #{$primary-button-text};
+  --secondary-button: #{$secondary-button};
   --secondary-button-focus: #{$secondary-button-focus};
   --secondary-button-hover: #{$secondary-button-hover};
+  --secondary-button-text: #{$secondary-button-text};
+  --secondary-button-border: #{$secondary-button-border};
   --success-color: #{$success-color};
   --collapse-bg: #{$collapse-bg};
   --panel-bg: #{$panel-bg};
+  --input-placeholder: #{$input-placeholder};
+}
+
+[data-theme='dark'] {
+  --primary-button: #1668dc;
+  --primary-button-text: #fff;
+  --primary-button-hover: #3c89e8;
+  --secondary-button-hover: #000;
+  --secondary-button: #141414;
+  --secondary-button-border: #3c89e8;
+  --primary-bg: #121212;
+  --primary-text: #eee;
+  --navbar-bg: #1f1f1f;
+  --gray-0: #060606;
+  --border: #444;
+  --collapse-bg: #1d1d1d;
+  --panel-bg: #1a1a1a;
+  --input-placeholder: #888;
 }

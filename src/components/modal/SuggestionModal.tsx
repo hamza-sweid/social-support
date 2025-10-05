@@ -111,10 +111,8 @@ const SuggestionModal = ({
         <Row justify="end" className="mb-5">
           <Button
             htmlType="submit"
-            color="purple"
-            variant="solid"
             loading={loading}
-            className="btn-sm btn"
+            className="btn-sm btn-secondary"
             icon={<img className="pt-1" src={MagicToolIcon} alt="magic tool" />}
           >
             {t('applicationForm.buttons.getAISuggestion')}

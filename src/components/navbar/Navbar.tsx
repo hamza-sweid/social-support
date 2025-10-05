@@ -1,15 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { Tooltip } from 'antd';
+import { Switch, Tooltip } from 'antd';
 import { useState, useEffect } from 'react';
 import styles from './Navbar.module.scss';
 import UserLogo from '../../assets/user-photo.svg';
 import SocialSupportLogo from '../../assets/logo.png';
+import { useThemeContext } from '../../context/theme-context/useThemeContext';
 
 const Navbar: React.FC = () => {
   const { i18n } = useTranslation();
   const [lang, setLang] = useState<'ar' | 'en'>(() => {
     return (localStorage.getItem('lang') as 'ar' | 'en') || 'en';
   });
+  const { mode, toggleTheme } = useThemeContext();
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -21,7 +23,6 @@ const Navbar: React.FC = () => {
     const newLang = lang === 'ar' ? 'en' : 'ar';
     localStorage.setItem('lang', newLang);
     setLang(newLang);
-
     window.location.reload();
   };
 
@@ -36,6 +37,14 @@ const Navbar: React.FC = () => {
           <button className={styles.lang} onClick={toggleLang}>
             {lang === 'ar' ? 'عربي' : 'English'}
           </button>
+        </Tooltip>
+        <Tooltip title="Dark / Light" placement="bottomRight">
+          <Switch
+            checked={mode === 'dark'}
+            onChange={toggleTheme}
+            checkedChildren="🌙"
+            unCheckedChildren="☀️"
+          />
         </Tooltip>
         <div className={styles.user}>
           <img src={UserLogo} alt="User Avatar" />
