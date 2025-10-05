@@ -30,6 +30,9 @@ export const SituationDescription = ({
     useForm<SituationDescriptionForm>({
       defaultValues,
     });
+  const [aiSuggestions, setAiSuggestions] = useState<{ [key: string]: string }>(
+    {}
+  );
 
   useEffect(() => {
     const saved = getStepValues(stepName);
@@ -52,6 +55,7 @@ export const SituationDescription = ({
     setValue(field.name as keyof SituationDescriptionForm, data, {
       shouldValidate: true,
     });
+    setAiSuggestions((prev) => ({ ...prev, [field.name]: data }));
   };
 
   const handlePrevious = () => {
@@ -192,6 +196,7 @@ export const SituationDescription = ({
         onClose={() => handleCloseSuggestionModal()}
         field={{ name: field.name, value: field.value }}
         onFillAISuggestion={handleFillAISuggestion}
+        aiSuggestions={aiSuggestions[field.name] || ''}
       />
     </form>
   );

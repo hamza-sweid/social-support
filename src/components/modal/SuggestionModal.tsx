@@ -16,11 +16,13 @@ const SuggestionModal = ({
   isModalOpen,
   onClose,
   onFillAISuggestion = () => {},
+  aiSuggestions,
 }: {
   field: { name: string; value: string };
   isModalOpen: boolean;
   onClose: () => void;
   onFillAISuggestion?: (data: string) => void;
+  aiSuggestions?: string;
 }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
@@ -38,7 +40,7 @@ const SuggestionModal = ({
         UserInput: field.value || '',
         AISuggestion: '',
       });
-      if (field.value) {
+      if (field.value && field.value !== aiSuggestions) {
         handleChatGPTSuggestionCall({
           UserInput: field.value,
           AISuggestion: '',
@@ -66,12 +68,6 @@ const SuggestionModal = ({
         `Provide a concise suggestion based on the following input: ${data.UserInput}`
       );
 
-      if (response.code) {
-        if (response.code === 'TIMEOUT')
-          message.error(t('applicationForm.messages.requestedTimeOut'));
-        else if (response.code === 'NETWORK')
-          message.error(t('applicationForm.messages.networkError'));
-      }
       setValue('UserInput', '');
       setValue('AISuggestion', response.text, { shouldValidate: true });
     } catch (err) {

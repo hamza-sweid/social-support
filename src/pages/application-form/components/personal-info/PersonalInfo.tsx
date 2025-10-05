@@ -78,7 +78,9 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
             placeholder={t('applicationForm.fields.dob.placeholder')}
             rules={{ required: t('applicationForm.fields.dob.required') }}
             disabledDate={(current) => {
-              return current > new Date();
+              const eighteenYearsAgo = new Date();
+              eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
+              return current > eighteenYearsAgo;
             }}
           />
         </Col>
