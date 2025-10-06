@@ -23,7 +23,7 @@ export const generateText = async (
       {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
         },
       }
     );
