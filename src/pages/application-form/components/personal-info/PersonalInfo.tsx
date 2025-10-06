@@ -1,13 +1,14 @@
-import { get, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { Button, Row, Col } from 'antd';
 import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
-import { DatePicker } from '../../../../components/form/DatePicker';
 import styles from './PersonalInfo.module.scss';
 import { useFormContext } from '../../../../context/form-context/useFormContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import { DatePicker } from '../../../../components/form/date-picker/DatePicker';
 
 const stepName = 'personalInfo';
 interface PersonalInfoValues {

@@ -1,10 +1,10 @@
 import { Button, message, Modal, Row, Spin } from 'antd';
-import TextArea from '../form/TextArea';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { generateText, type ChatGPTResponse } from '../../services/chatgpt';
 import MagicToolIcon from '../../assets/magic-tool.svg';
+import TextArea from '../form/text-area/TextArea';
 
 interface SuggestionForm {
   UserInput: string;

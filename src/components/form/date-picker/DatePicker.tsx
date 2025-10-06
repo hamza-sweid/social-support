@@ -1,8 +1,8 @@
 import { Controller, type FieldValues } from 'react-hook-form';
 import { DatePicker as AntDatePicker } from 'antd';
 import dayjs from 'dayjs';
-import type { DatePickerProps } from '../../types/form';
-import styles from './form.module.scss';
+import type { DatePickerProps } from '../../../types/form';
+import styles from '../form.module.scss';
 
 interface ExtendedDatePickerProps<T extends FieldValues>
   extends DatePickerProps<T> {

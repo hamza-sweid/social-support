@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
 import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
-import NumberInput from '../../../../components/form/InputNumber';
 import styles from './FamilyInfo.module.scss';
 import { Button, Col, Row } from 'antd';
 import { useFormContext } from '../../../../context/form-context/useFormContext';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined } from '@ant-design/icons';
+import NumberInput from '../../../../components/form/input-number/InputNumber';
 
 const stepName = 'familyInfo';
 

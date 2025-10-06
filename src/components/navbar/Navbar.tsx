@@ -7,7 +7,7 @@ import SocialSupportLogo from '../../assets/logo.png';
 import { useThemeContext } from '../../context/theme-context/useThemeContext';
 
 const Navbar: React.FC = () => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [lang, setLang] = useState<'ar' | 'en'>(() => {
     return (localStorage.getItem('lang') as 'ar' | 'en') || 'en';
   });
@@ -38,7 +38,7 @@ const Navbar: React.FC = () => {
             {lang === 'ar' ? 'عربي' : 'English'}
           </button>
         </Tooltip>
-        <Tooltip title="Dark / Light" placement="bottomRight">
+        <Tooltip title={t('settings.theme')} placement="bottomRight">
           <Switch
             checked={mode === 'dark'}
             onChange={toggleTheme}

@@ -1,4 +1,7 @@
 {
+    "settings": {
+        "theme": "مظهر فاتح / مظهر داكن"
+    },
     "applicationForm": {
         "title": "طلب الدعم الاجتماعي",
         "submittedData": "بيانات الطلب المقدم",

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
 import { InputNumber, Select } from 'antd';
-import styles from './form.module.scss';
-import type { InputNumberProps } from '../../types/form';
+import styles from '../form.module.scss';
+import type { InputNumberProps } from '../../../types/form';
 
 const { Option } = Select;
 
