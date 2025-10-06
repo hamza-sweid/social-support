@@ -9,7 +9,7 @@ import { useThemeContext } from '../../context/theme-context/useThemeContext';
 const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
   const [lang, setLang] = useState<'ar' | 'en'>(() => {
-    return (localStorage.getItem('lang') as 'ar' | 'en') || 'en';
+    return (sessionStorage.getItem('lang') as 'ar' | 'en') || 'en';
   });
   const { mode, toggleTheme } = useThemeContext();
 
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
 
   const toggleLang = () => {
     const newLang = lang === 'ar' ? 'en' : 'ar';
-    localStorage.setItem('lang', newLang);
+    sessionStorage.setItem('lang', newLang);
     setLang(newLang);
     window.location.reload();
   };
@@ -35,7 +35,7 @@ const Navbar: React.FC = () => {
       <div className={styles.right}>
         <Tooltip placement="bottomRight" title="English / عربي">
           <button className={styles.lang} onClick={toggleLang}>
-            {lang === 'ar' ? 'عربي' : 'English'}
+            {lang === 'ar' ? 'English' : 'عربي'}
           </button>
         </Tooltip>
         <Tooltip title={t('settings.theme')} placement="bottomRight">

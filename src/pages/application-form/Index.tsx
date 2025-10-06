@@ -24,7 +24,7 @@ const ApplicationForm = () => {
   const currentStep = stepParam ? parseInt(stepParam, 10) : 1;
 
   useEffect(() => {
-    const isDataSubmitted = localStorage.getItem('isDataSubmitted');
+    const isDataSubmitted = sessionStorage.getItem('isDataSubmitted');
     if (isDataSubmitted) {
       navigate('/application-form?step=1', { replace: true });
     }

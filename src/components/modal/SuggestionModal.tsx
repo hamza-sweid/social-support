@@ -89,6 +89,7 @@ const SuggestionModal = ({
       open={isModalOpen}
       onCancel={handleClose}
       footer={null}
+      style={{ paddingInline: 10 }}
     >
       <form
         onSubmit={(e) => {
