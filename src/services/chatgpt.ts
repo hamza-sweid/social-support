@@ -23,7 +23,7 @@ export const generateText = async (
       {
         headers: {
           'Content-Type': 'application/json',
-          // Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
+          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
         },
       }
     );
@@ -39,6 +39,6 @@ export const generateText = async (
  */
 export const submitUserApplicationSupport = async (data: any) => {
   await new Promise((resolve) => setTimeout(resolve, 2000));
-  sessionStorage.setItem('isDataSubmitted', 'true');
+  localStorage.setItem('isDataSubmitted', 'true');
   return { success: true };
 };

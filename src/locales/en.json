@@ -180,7 +180,7 @@
         "title": "User Information"
     },
     "errorBoundary": {
-        "SomethingWentWrong": "Something went wrong",
+        "SomethingWentWrong": "Something went wrong, please try again",
         "refreshThePage": "Please refresh the page or try again later",
         "backHome": "Go to Home",
         "refresh": "Refresh Page"

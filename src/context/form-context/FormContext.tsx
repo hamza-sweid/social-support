@@ -5,12 +5,12 @@ const FormContext = createContext<FormContextType | undefined>(undefined);
 
 export const FormProvider = ({ children }: { children: ReactNode }) => {
   const [formData, setFormData] = useState<Record<string, StepValues>>(() => {
-    const stored = sessionStorage.getItem('formData');
+    const stored = localStorage.getItem('formData');
     return stored ? JSON.parse(stored) : {};
   });
 
   useEffect(() => {
-    sessionStorage.setItem('formData', JSON.stringify(formData));
+    localStorage.setItem('formData', JSON.stringify(formData));
   }, [formData]);
 
   const setStepValues = (step: string, values: StepValues) => {
@@ -18,7 +18,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const getStepValues = (step: string) => {
-    const isDataSubmitted = sessionStorage.getItem('isDataSubmitted');
+    const isDataSubmitted = localStorage.getItem('isDataSubmitted');
     if (isDataSubmitted) {
       return {};
     }
@@ -27,7 +27,7 @@ export const FormProvider = ({ children }: { children: ReactNode }) => {
 
   const clearForm = () => {
     setFormData({});
-    sessionStorage.removeItem('formData');
+    localStorage.removeItem('formData');
   };
 
   return (

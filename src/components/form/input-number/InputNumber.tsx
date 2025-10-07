@@ -35,7 +35,7 @@ const NumberInput = <T extends FieldValues>({
   const [currency, setCurrency] = useState<string>('');
 
   useEffect(() => {
-    const savedData = JSON.parse(sessionStorage.getItem('formData') || '{}');
+    const savedData = JSON.parse(localStorage.getItem('formData') || '{}');
     const country = savedData?.personalInfo?.country;
     const isCurrencyUpdated = savedData?.familyInfo?.monthlyIncome?.isUpdated;
     if (country && currencyMap[country]) {
@@ -44,6 +44,8 @@ const NumberInput = <T extends FieldValues>({
       } else setCurrency(currencyMap[country]);
     } else setCurrency(addonOptions?.[0] || '');
   }, [addonOptions]);
+
+  throw new Error('Test error for Sentry integration');
 
   const selectAfter = (
     <Select

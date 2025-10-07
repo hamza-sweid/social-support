@@ -9,7 +9,7 @@ import { useThemeContext } from '../../context/theme-context/useThemeContext';
 const Navbar: React.FC = () => {
   const { i18n, t } = useTranslation();
   const [lang, setLang] = useState<'ar' | 'en'>(() => {
-    return (sessionStorage.getItem('lang') as 'ar' | 'en') || 'en';
+    return (localStorage.getItem('lang') as 'ar' | 'en') || 'en';
   });
   const { mode, toggleTheme } = useThemeContext();
 
@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
 
   const toggleLang = () => {
     const newLang = lang === 'ar' ? 'en' : 'ar';
-    sessionStorage.setItem('lang', newLang);
+    localStorage.setItem('lang', newLang);
     setLang(newLang);
     window.location.reload();
   };

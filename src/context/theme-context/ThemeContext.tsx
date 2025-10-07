@@ -8,7 +8,7 @@ const ThemeContext = createContext({
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [mode, setMode] = useState<'light' | 'dark'>(() => {
-    return (sessionStorage.getItem('theme') as 'light' | 'dark') || 'light';
+    return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
   });
   const toggleTheme = () =>
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -18,7 +18,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
       'data-theme',
       mode === 'dark' ? 'dark' : 'light'
     );
-    sessionStorage.setItem('theme', mode === 'dark' ? 'dark' : 'light');
+    localStorage.setItem('theme', mode === 'dark' ? 'dark' : 'light');
   }, [mode]);
 
   return (

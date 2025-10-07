@@ -11,10 +11,10 @@ const stepOrder = ['personalInfo', 'familyInfo', 'situationInfo'];
 const SummaryPage = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const savedData = JSON.parse(sessionStorage.getItem('formData') || '{}');
+  const savedData = JSON.parse(localStorage.getItem('formData') || '{}');
 
   const handleUserDataUpdate = () => {
-    sessionStorage.removeItem('isDataSubmitted');
+    localStorage.removeItem('isDataSubmitted');
     navigate('/application-form?step=1', { replace: true });
   };
 
