@@ -7,7 +7,6 @@ import { useFormContext } from '../../../../context/form-context/useFormContext'
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
-import dayjs from 'dayjs';
 import { DatePicker } from '../../../../components/form/date-picker/DatePicker';
 
 const stepName = 'personalInfo';

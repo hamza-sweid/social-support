@@ -1,5 +1,5 @@
 import { Controller, type FieldValues } from 'react-hook-form';
-import { Input as AntInput, Button, Space } from 'antd';
+import { Input as AntInput, Button } from 'antd';
 import styles from '../form.module.scss';
 import type { InputProps } from '../../../types/form';
 
