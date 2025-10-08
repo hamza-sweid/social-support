@@ -45,8 +45,6 @@ const NumberInput = <T extends FieldValues>({
     } else setCurrency(addonOptions?.[0] || '');
   }, [addonOptions]);
 
-  throw new Error('Test error for Sentry integration');
-
   const selectAfter = (
     <Select
       value={currency}
