@@ -70,8 +70,9 @@ const SuggestionModal = ({
 
       setValue('UserInput', '');
       setValue('AISuggestion', response.text, { shouldValidate: true });
-    } catch (err) {
-      message.error(t('applicationForm.messages.somethingWentWrong'));
+      message.success(t('applicationForm.messages.responseGenerated')!);
+    } catch (err: any) {
+      message.error(err?.message || t('applicationForm.messages.httpError'));
     } finally {
       setLoading(false);
     }

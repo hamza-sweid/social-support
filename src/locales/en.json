@@ -173,7 +173,9 @@
             "unauthorizedError": "Unauthorized request to AI service",
             "submitSuccess": "Application submitted successfully!",
             "submitError": "Error submitting application. Please try again.",
-            "httpError": "HTTP error occurred"
+            "httpError": "HTTP error occurred",
+            "tooManyRequests": "Too many requests. Please wait and try again later.",
+            "responseGenerated": "Response generated!"
         }
     },
     "userData": {

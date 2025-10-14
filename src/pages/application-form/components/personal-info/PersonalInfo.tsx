@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { Button, Row, Col } from 'antd';
 import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
@@ -24,6 +24,7 @@ interface PersonalInfoValues {
 }
 
 const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
+  const methods = useForm();
   const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
@@ -47,220 +48,234 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.personalInfo}>
-      <Row gutter={[32, 16]}>
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="name"
-            control={control}
-            label={t('applicationForm.fields.name.label')}
-            placeholder={t('applicationForm.fields.name.placeholder')}
-            rules={{ required: t('applicationForm.fields.name.required') }}
-          />
-        </Col>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.personalInfo}>
+        <Row gutter={[32, 16]}>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="name"
+              control={control}
+              label={t('applicationForm.fields.name.label')}
+              placeholder={t('applicationForm.fields.name.placeholder')}
+              rules={{
+                required: t('applicationForm.fields.name.required'),
+              }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="nationalId"
-            control={control}
-            label={t('applicationForm.fields.nationalId.label')}
-            placeholder={t('applicationForm.fields.nationalId.placeholder')}
-            rules={{
-              required: t('applicationForm.fields.nationalId.required'),
-            }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="nationalId"
+              control={control}
+              label={t('applicationForm.fields.nationalId.label')}
+              placeholder={t('applicationForm.fields.nationalId.placeholder')}
+              rules={{
+                required: t('applicationForm.fields.nationalId.required'),
+              }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <DatePicker
-            name="dateOfBirth"
-            control={control}
-            label={t('applicationForm.fields.dob.label')}
-            placeholder={t('applicationForm.fields.dob.placeholder')}
-            rules={{ required: t('applicationForm.fields.dob.required') }}
-            disabledDate={(current) => {
-              const eighteenYearsAgo = new Date();
-              eighteenYearsAgo.setFullYear(eighteenYearsAgo.getFullYear() - 18);
-              return current > eighteenYearsAgo;
-            }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <DatePicker
+              name="dateOfBirth"
+              control={control}
+              label={t('applicationForm.fields.dob.label')}
+              placeholder={t('applicationForm.fields.dob.placeholder')}
+              rules={{ required: t('applicationForm.fields.dob.required') }}
+              disabledDate={(current) => {
+                const eighteenYearsAgo = new Date();
+                eighteenYearsAgo.setFullYear(
+                  eighteenYearsAgo.getFullYear() - 18
+                );
+                return current > eighteenYearsAgo;
+              }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Select
-            name="gender"
-            control={control}
-            label={t('applicationForm.fields.gender.label')}
-            placeholder={t('applicationForm.fields.gender.placeholder')}
-            options={[
-              {
-                label: t('applicationForm.fields.gender.options.male'),
-                value: 'Male',
-              },
-              {
-                label: t('applicationForm.fields.gender.options.female'),
-                value: 'Female',
-              },
-              {
-                label: t('applicationForm.fields.gender.options.preferNot'),
-                value: 'Prefer not to say',
-              },
-            ]}
-            rules={{ required: t('applicationForm.fields.gender.required') }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Select
+              name="gender"
+              control={control}
+              label={t('applicationForm.fields.gender.label')}
+              placeholder={t('applicationForm.fields.gender.placeholder')}
+              options={[
+                {
+                  label: t('applicationForm.fields.gender.options.male'),
+                  value: 'Male',
+                },
+                {
+                  label: t('applicationForm.fields.gender.options.female'),
+                  value: 'Female',
+                },
+                {
+                  label: t('applicationForm.fields.gender.options.preferNot'),
+                  value: 'Prefer not to say',
+                },
+              ]}
+              rules={{ required: t('applicationForm.fields.gender.required') }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="address"
-            control={control}
-            label={t('applicationForm.fields.address.label')}
-            placeholder={t('applicationForm.fields.address.placeholder')}
-            rules={{ required: t('applicationForm.fields.address.required') }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="address"
+              control={control}
+              label={t('applicationForm.fields.address.label')}
+              placeholder={t('applicationForm.fields.address.placeholder')}
+              rules={{ required: t('applicationForm.fields.address.required') }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Select
-            name="country"
-            control={control}
-            label={t('applicationForm.fields.country.label')}
-            placeholder={t('applicationForm.fields.country.placeholder')}
-            options={[
-              {
-                label: t('applicationForm.fields.country.options.uae'),
-                value: 'UAE',
-              },
-              {
-                label: t('applicationForm.fields.country.options.uk'),
-                value: 'UK',
-              },
-              {
-                label: t('applicationForm.fields.country.options.sa'),
-                value: 'SA',
-              },
-            ]}
-            rules={{ required: t('applicationForm.fields.country.required') }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Select
+              name="country"
+              control={control}
+              label={t('applicationForm.fields.country.label')}
+              placeholder={t('applicationForm.fields.country.placeholder')}
+              options={[
+                {
+                  label: t('applicationForm.fields.country.options.uae'),
+                  value: 'UAE',
+                },
+                {
+                  label: t('applicationForm.fields.country.options.uk'),
+                  value: 'UK',
+                },
+                {
+                  label: t('applicationForm.fields.country.options.sa'),
+                  value: 'SA',
+                },
+              ]}
+              rules={{ required: t('applicationForm.fields.country.required') }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Select
-            name="city"
-            control={control}
-            label={t('applicationForm.fields.city.label')}
-            placeholder={t('applicationForm.fields.city.placeholder')}
-            disabled={!selectedCountry}
-            options={
-              selectedCountry === 'UAE'
-                ? [
-                    {
-                      label: t('applicationForm.fields.city.options.uae.dubai'),
-                      value: 'Dubai',
-                    },
-                    {
-                      label: t(
-                        'applicationForm.fields.city.options.uae.abuDhabi'
-                      ),
-                      value: 'Abu Dhabi',
-                    },
-                  ]
-                : selectedCountry === 'UK'
-                ? [
-                    {
-                      label: t('applicationForm.fields.city.options.uk.london'),
-                      value: 'London',
-                    },
-                    {
-                      label: t(
-                        'applicationForm.fields.city.options.uk.liverpool'
-                      ),
-                      value: 'Liverpool',
-                    },
-                    {
-                      label: t(
-                        'applicationForm.fields.city.options.uk.manchester'
-                      ),
-                      value: 'Manchester',
-                    },
-                  ]
-                : selectedCountry === 'SA'
-                ? [
-                    {
-                      label: t('applicationForm.fields.city.options.sa.riyadh'),
-                      value: 'Riyadh',
-                    },
-                    {
-                      label: t('applicationForm.fields.city.options.sa.jeddah'),
-                      value: 'Jeddah',
-                    },
-                    {
-                      label: t(
-                        'applicationForm.fields.city.options.sa.madinah'
-                      ),
-                      value: 'Madinah',
-                    },
-                  ]
-                : []
-            }
-            rules={{ required: t('applicationForm.fields.city.required') }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Select
+              name="city"
+              control={control}
+              label={t('applicationForm.fields.city.label')}
+              placeholder={t('applicationForm.fields.city.placeholder')}
+              disabled={!selectedCountry}
+              options={
+                selectedCountry === 'UAE'
+                  ? [
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.uae.dubai'
+                        ),
+                        value: 'Dubai',
+                      },
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.uae.abuDhabi'
+                        ),
+                        value: 'Abu Dhabi',
+                      },
+                    ]
+                  : selectedCountry === 'UK'
+                  ? [
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.uk.london'
+                        ),
+                        value: 'London',
+                      },
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.uk.liverpool'
+                        ),
+                        value: 'Liverpool',
+                      },
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.uk.manchester'
+                        ),
+                        value: 'Manchester',
+                      },
+                    ]
+                  : selectedCountry === 'SA'
+                  ? [
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.sa.riyadh'
+                        ),
+                        value: 'Riyadh',
+                      },
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.sa.jeddah'
+                        ),
+                        value: 'Jeddah',
+                      },
+                      {
+                        label: t(
+                          'applicationForm.fields.city.options.sa.madinah'
+                        ),
+                        value: 'Madinah',
+                      },
+                    ]
+                  : []
+              }
+              rules={{ required: t('applicationForm.fields.city.required') }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="state"
-            control={control}
-            label={t('applicationForm.fields.state.label')}
-            placeholder={t('applicationForm.fields.state.placeholder')}
-            rules={{ required: t('applicationForm.fields.state.required') }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="state"
+              control={control}
+              label={t('applicationForm.fields.state.label')}
+              placeholder={t('applicationForm.fields.state.placeholder')}
+              rules={{ required: t('applicationForm.fields.state.required') }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="phoneNumber"
-            control={control}
-            label={t('applicationForm.fields.phone.label')}
-            placeholder={t('applicationForm.fields.phone.placeholder')}
-            rules={{
-              required: t('applicationForm.fields.phone.required'),
-              pattern: {
-                value: /^[0-9]{7,15}$/,
-                message: t('applicationForm.fields.phone.invalid'),
-              },
-            }}
-          />
-        </Col>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="phoneNumber"
+              control={control}
+              label={t('applicationForm.fields.phone.label')}
+              placeholder={t('applicationForm.fields.phone.placeholder')}
+              rules={{
+                required: t('applicationForm.fields.phone.required'),
+                pattern: {
+                  value: /^[0-9]{7,15}$/,
+                  message: t('applicationForm.fields.phone.invalid'),
+                },
+              }}
+            />
+          </Col>
 
-        <Col xs={24} sm={12} lg={8}>
-          <Input
-            name="email"
-            control={control}
-            label={t('applicationForm.fields.email.label')}
-            placeholder={t('applicationForm.fields.email.placeholder')}
-            rules={{
-              required: t('applicationForm.fields.email.required'),
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: t('applicationForm.fields.email.invalid'),
-              },
-            }}
-          />
-        </Col>
-      </Row>
+          <Col xs={24} sm={12} lg={8}>
+            <Input
+              name="email"
+              control={control}
+              label={t('applicationForm.fields.email.label')}
+              placeholder={t('applicationForm.fields.email.placeholder')}
+              rules={{
+                required: t('applicationForm.fields.email.required'),
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: t('applicationForm.fields.email.invalid'),
+                },
+              }}
+            />
+          </Col>
+        </Row>
 
-      <div className={styles.actions}>
-        <Button
-          htmlType="submit"
-          className="btn btn-responsive btn-primary"
-          icon={<CaretRightOutlined />}
-          iconPosition="end"
-        >
-          {t('applicationForm.buttons.next')}
-        </Button>
-      </div>
-    </form>
+        <div className={styles.actions}>
+          <Button
+            htmlType="submit"
+            className="btn btn-responsive btn-primary"
+            icon={<CaretRightOutlined />}
+            iconPosition="end"
+          >
+            {t('applicationForm.buttons.next')}
+          </Button>
+        </div>
+      </form>
+    </FormProvider>
   );
 };
 

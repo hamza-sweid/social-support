@@ -12,26 +12,21 @@ export interface ChatGPTResponse {
 export const generateText = async (
   prompt: string
 ): Promise<ChatGPTResponse> => {
-  try {
-    const response = await httpService.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 200,
+  const response = await httpService.post(
+    'https://api.openai.com/v1/chat/completions',
+    {
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+      max_tokens: 200,
+    },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
       },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${import.meta.env.VITE_OPENAI_KEY}`,
-        },
-      }
-    );
-
-    return { text: response.data.choices[0].message.content };
-  } catch {
-    return { text: '', code: 'HTTP_ERROR' };
-  }
+    }
+  );
+  return { text: response.data.choices[0].message.content };
 };
 
 /**

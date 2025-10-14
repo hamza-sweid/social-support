@@ -1,4 +1,4 @@
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import styles from './SituationInfo.module.scss';
 import { Button, Col, Row } from 'antd';
 import SuggestionModal from '../../../../components/modal/SuggestionModal';
@@ -22,6 +22,7 @@ export const SituationDescription = ({
   onPrevious: () => void;
   finishForm: () => void;
 }) => {
+  const methods = useForm();
   const { t } = useTranslation();
   const { getStepValues, setStepValues } = useFormContext();
   const defaultValues = getStepValues(stepName);
@@ -71,135 +72,137 @@ export const SituationDescription = ({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.formGrid}>
-      <Row gutter={[32, 50]}>
-        <Col span={24}>
-          <Row align={'middle'} gutter={32}>
-            <Col flex={'auto'} xs={24} lg={18}>
-              <TextArea
-                name="currentFinancialSituation"
-                control={control}
-                label={t(
-                  'applicationForm.fields.currentFinancialSituation.label'
-                )}
-                placeholder={t(
-                  'applicationForm.fields.currentFinancialSituation.placeholder'
-                )}
-                rules={{
-                  required: t(
-                    'applicationForm.fields.currentFinancialSituation.required'
-                  ),
-                }}
-              />
-            </Col>
-            <Col xs={24} lg={6}>
-              <Button
-                className="btn"
-                onClick={() =>
-                  handleOpenSuggestionModal(
-                    'currentFinancialSituation',
-                    'Current Financial Situation'
-                  )
-                }
-              >
-                {t('applicationForm.buttons.helpMeWrite')}
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={24}>
-          <Row align={'middle'} gutter={32}>
-            <Col xs={24} lg={18}>
-              <TextArea
-                name="employmentCircumstances"
-                control={control}
-                label={t(
-                  'applicationForm.fields.employmentCircumstances.label'
-                )}
-                placeholder={t(
-                  'applicationForm.fields.employmentCircumstances.placeholder'
-                )}
-                rules={{
-                  required: t(
-                    'applicationForm.fields.employmentCircumstances.required'
-                  ),
-                }}
-              />
-            </Col>
-            <Col xs={24} lg={6}>
-              <Button
-                className="btn"
-                onClick={() =>
-                  handleOpenSuggestionModal(
-                    'employmentCircumstances',
-                    'Employment Circumstances'
-                  )
-                }
-              >
-                {t('applicationForm.buttons.helpMeWrite')}
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-        <Col span={24}>
-          <Row align={'middle'} gutter={32}>
-            <Col xs={24} lg={18}>
-              <TextArea
-                name="reasonForApplying"
-                control={control}
-                label={t('applicationForm.fields.reasonForApplying.label')}
-                placeholder={t(
-                  'applicationForm.fields.reasonForApplying.placeholder'
-                )}
-                rules={{
-                  required: t(
-                    'applicationForm.fields.reasonForApplying.required'
-                  ),
-                }}
-              />
-            </Col>
-            <Col xs={24} lg={6}>
-              <Button
-                className="btn"
-                onClick={() =>
-                  handleOpenSuggestionModal(
-                    'reasonForApplying',
-                    'Reason for Applying'
-                  )
-                }
-              >
-                {t('applicationForm.buttons.helpMeWrite')}
-              </Button>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formGrid}>
+        <Row gutter={[32, 50]}>
+          <Col span={24}>
+            <Row align={'middle'} gutter={32}>
+              <Col flex={'auto'} xs={24} lg={18}>
+                <TextArea
+                  name="currentFinancialSituation"
+                  control={control}
+                  label={t(
+                    'applicationForm.fields.currentFinancialSituation.label'
+                  )}
+                  placeholder={t(
+                    'applicationForm.fields.currentFinancialSituation.placeholder'
+                  )}
+                  rules={{
+                    required: t(
+                      'applicationForm.fields.currentFinancialSituation.required'
+                    ),
+                  }}
+                />
+              </Col>
+              <Col xs={24} lg={6}>
+                <Button
+                  className="btn"
+                  onClick={() =>
+                    handleOpenSuggestionModal(
+                      'currentFinancialSituation',
+                      'Current Financial Situation'
+                    )
+                  }
+                >
+                  {t('applicationForm.buttons.helpMeWrite')}
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={24}>
+            <Row align={'middle'} gutter={32}>
+              <Col xs={24} lg={18}>
+                <TextArea
+                  name="employmentCircumstances"
+                  control={control}
+                  label={t(
+                    'applicationForm.fields.employmentCircumstances.label'
+                  )}
+                  placeholder={t(
+                    'applicationForm.fields.employmentCircumstances.placeholder'
+                  )}
+                  rules={{
+                    required: t(
+                      'applicationForm.fields.employmentCircumstances.required'
+                    ),
+                  }}
+                />
+              </Col>
+              <Col xs={24} lg={6}>
+                <Button
+                  className="btn"
+                  onClick={() =>
+                    handleOpenSuggestionModal(
+                      'employmentCircumstances',
+                      'Employment Circumstances'
+                    )
+                  }
+                >
+                  {t('applicationForm.buttons.helpMeWrite')}
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+          <Col span={24}>
+            <Row align={'middle'} gutter={32}>
+              <Col xs={24} lg={18}>
+                <TextArea
+                  name="reasonForApplying"
+                  control={control}
+                  label={t('applicationForm.fields.reasonForApplying.label')}
+                  placeholder={t(
+                    'applicationForm.fields.reasonForApplying.placeholder'
+                  )}
+                  rules={{
+                    required: t(
+                      'applicationForm.fields.reasonForApplying.required'
+                    ),
+                  }}
+                />
+              </Col>
+              <Col xs={24} lg={6}>
+                <Button
+                  className="btn"
+                  onClick={() =>
+                    handleOpenSuggestionModal(
+                      'reasonForApplying',
+                      'Reason for Applying'
+                    )
+                  }
+                >
+                  {t('applicationForm.buttons.helpMeWrite')}
+                </Button>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
 
-      <div className={styles.actions}>
-        <Button
-          onClick={() => handlePrevious()}
-          type="primary"
-          className="btn btn-responsive btn-secondary"
-          icon={<CaretRightOutlined rotate={180} />}
-        >
-          {t('applicationForm.buttons.previous')}
-        </Button>
-        <Button
-          htmlType="submit"
-          type="primary"
-          className="btn btn-responsive btn-primary"
-        >
-          {t('applicationForm.buttons.submit')}
-        </Button>
-      </div>
+        <div className={styles.actions}>
+          <Button
+            onClick={() => handlePrevious()}
+            type="primary"
+            className="btn btn-responsive btn-secondary"
+            icon={<CaretRightOutlined rotate={180} />}
+          >
+            {t('applicationForm.buttons.previous')}
+          </Button>
+          <Button
+            htmlType="submit"
+            type="primary"
+            className="btn btn-responsive btn-primary"
+          >
+            {t('applicationForm.buttons.submit')}
+          </Button>
+        </div>
 
-      <SuggestionModal
-        isModalOpen={isModalOpen}
-        onClose={() => handleCloseSuggestionModal()}
-        field={{ name: field.name, value: field.value }}
-        onFillAISuggestion={handleFillAISuggestion}
-        aiSuggestions={aiSuggestions[field.name] || ''}
-      />
-    </form>
+        <SuggestionModal
+          isModalOpen={isModalOpen}
+          onClose={() => handleCloseSuggestionModal()}
+          field={{ name: field.name, value: field.value }}
+          onFillAISuggestion={handleFillAISuggestion}
+          aiSuggestions={aiSuggestions[field.name] || ''}
+        />
+      </form>
+    </FormProvider>
   );
 };

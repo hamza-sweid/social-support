@@ -6,16 +6,12 @@ import {
   type UseFormSetValue,
 } from 'react-hook-form';
 
-type rules = {
-  required?: string | boolean;
-  pattern?: { value: RegExp; message: string };
-};
 // Generic Input Props
 export type InputProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string | React.ReactNode;
-  rules?: rules;
+  rules?: any;
   placeholder?: string;
   rows?: number;
 };
@@ -46,7 +42,7 @@ export type SelectProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string;
-  rules?: rules;
+  rules?: any;
   options: OptionType[];
   placeholder?: string;
   disabled?: boolean;
@@ -57,6 +53,6 @@ export type DatePickerProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
   label?: string;
-  rules?: rules;
+  rules?: any;
   placeholder?: string;
 };

@@ -21,11 +21,12 @@ httpService.interceptors.response.use(
       message.error(i18next.t('applicationForm.messages.networkError'));
     } else if (error.response.status === 401) {
       message.error(i18next.t('applicationForm.messages.unauthorizedError'));
-    } else {
-      message.error(i18next.t('applicationForm.messages.httpError'));
     }
 
-    return Promise.reject(error);
+    return Promise.reject(
+      error?.response?.data?.error ||
+        i18next.t('applicationForm.messages.httpError')
+    );
   }
 );
 
