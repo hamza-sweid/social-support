@@ -19,7 +19,7 @@ const SummaryPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <Row justify="space-between" align="middle" className="mb-4">
         <h1>{t('userData.title')}</h1>
         <Button

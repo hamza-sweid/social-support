@@ -1,7 +1,6 @@
 // ApplicationForm.tsx
 import { useState, useEffect } from 'react';
 import PersonalInfo from './components/personal-info/PersonalInfo';
-import styles from './Index.module.scss';
 import { FamilyInfo } from './components/family-info/FamilyInfo';
 import { SituationDescription } from './components/situation-info/SituationInfo';
 import { useTranslation } from 'react-i18next';
@@ -60,11 +59,11 @@ const ApplicationForm = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className="container">
       <ApplicationLoader loading={loading} />
       <h1>{t('applicationForm.title')}</h1>
       <StepProgress currentStep={currentStep} />
-      <div className={styles.stepWrapper}>
+      <div className="mt-5">
         {currentStep === 1 && <PersonalInfo onNext={handleNext} />}
         {currentStep === 2 && (
           <FamilyInfo onNext={handleNext} onPrevious={handlePrevious} />

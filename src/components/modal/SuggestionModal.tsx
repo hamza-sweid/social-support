@@ -1,4 +1,4 @@
-import { Button, message, Modal, Row, Spin } from 'antd';
+import { Button, Col, message, Modal, Row, Spin } from 'antd';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -137,23 +137,32 @@ const SuggestionModal = ({
           />
         )}
 
-        <Row justify="space-between" gutter={[16, 16]} className="mt-5">
-          <Button
-            onClick={handleClose}
-            type="primary"
-            className="btn btn-responsive btn-secondary"
-          >
-            {t('applicationForm.buttons.close')}
-          </Button>
-          {AISuggestionValue && (
+        <Row gutter={[16, 16]} className="mt-5">
+          <Col span={24} order={2} md={{ span: 12, order: 1 }}>
             <Button
-              onClick={() => handleFillAISuggestion()}
+              onClick={handleClose}
               type="primary"
-              className="btn btn-responsive btn-primary"
-              loading={loading}
+              className="btn btn-responsive btn-secondary"
             >
-              {t('applicationForm.buttons.submit')}
+              {t('applicationForm.buttons.close')}
             </Button>
+          </Col>
+          {AISuggestionValue && (
+            <Col
+              span={24}
+              order={1}
+              md={{ span: 12, order: 2 }}
+              className="text-right"
+            >
+              <Button
+                onClick={() => handleFillAISuggestion()}
+                type="primary"
+                className="btn btn-responsive btn-primary"
+                loading={loading}
+              >
+                {t('applicationForm.buttons.submit')}
+              </Button>
+            </Col>
           )}
         </Row>
       </form>
