@@ -6,6 +6,7 @@ import AppRouter from './routes/AppRoutes';
 import './App.scss';
 import Navbar from './components/navbar/Navbar';
 import { ThemeProvider } from './context/theme-context/ThemeContext';
+import Footer from './components/footer/Footer';
 
 const App: React.FC = () => {
   const { i18n } = useTranslation();
@@ -15,9 +16,12 @@ const App: React.FC = () => {
     <ConfigProvider direction={isRTL ? 'rtl' : 'ltr'}>
       <ThemeProvider>
         <Navbar />
-        <Router>
-          <AppRouter />
-        </Router>
+        <main className="main">
+          <Router>
+            <AppRouter />
+          </Router>
+        </main>
+        <Footer />
       </ThemeProvider>
     </ConfigProvider>
   );

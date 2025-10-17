@@ -6,10 +6,15 @@
 * {
   font-family: 'Poppins', sans-serif;
 }
-body {
+
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
   font-family: Arial, sans-serif;
-  margin-bottom: 40px;
   background-color: var(--primary-bg);
   color: var(--primary-text);
 }
