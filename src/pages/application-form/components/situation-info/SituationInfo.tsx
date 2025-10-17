@@ -79,6 +79,10 @@ export const SituationDescription = ({
             <Row align={'middle'} gutter={32}>
               <Col flex={'auto'} xs={24} lg={18}>
                 <TextArea
+                  count={{
+                    show: true,
+                    max: 2000,
+                  }}
                   name="currentFinancialSituation"
                   control={control}
                   label={t(
@@ -91,6 +95,18 @@ export const SituationDescription = ({
                     required: t(
                       'applicationForm.fields.currentFinancialSituation.required'
                     ),
+                    minLength: {
+                      value: 20,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.minLength'
+                      ),
+                    },
+                    maxLength: {
+                      value: 2000,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.maxLength'
+                      ),
+                    },
                   }}
                 />
               </Col>
@@ -113,6 +129,10 @@ export const SituationDescription = ({
             <Row align={'middle'} gutter={32}>
               <Col xs={24} lg={18}>
                 <TextArea
+                  count={{
+                    show: true,
+                    max: 2000,
+                  }}
                   name="employmentCircumstances"
                   control={control}
                   label={t(
@@ -125,6 +145,18 @@ export const SituationDescription = ({
                     required: t(
                       'applicationForm.fields.employmentCircumstances.required'
                     ),
+                    minLength: {
+                      value: 20,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.minLength'
+                      ),
+                    },
+                    maxLength: {
+                      value: 2000,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.maxLength'
+                      ),
+                    },
                   }}
                 />
               </Col>
@@ -147,6 +179,10 @@ export const SituationDescription = ({
             <Row align={'middle'} gutter={32}>
               <Col xs={24} lg={18}>
                 <TextArea
+                  count={{
+                    show: true,
+                    max: 2000,
+                  }}
                   name="reasonForApplying"
                   control={control}
                   label={t('applicationForm.fields.reasonForApplying.label')}
@@ -157,6 +193,18 @@ export const SituationDescription = ({
                     required: t(
                       'applicationForm.fields.reasonForApplying.required'
                     ),
+                    minLength: {
+                      value: 20,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.minLength'
+                      ),
+                    },
+                    maxLength: {
+                      value: 2000,
+                      message: t(
+                        'applicationForm.fields.currentFinancialSituation.maxLength'
+                      ),
+                    },
                   }}
                 />
               </Col>

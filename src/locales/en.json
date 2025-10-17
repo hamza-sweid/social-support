@@ -18,7 +18,9 @@
             "name": {
                 "label": "Name",
                 "placeholder": "Enter your full name",
-                "required": "Name is required"
+                "required": "Name is required",
+                "minLength": "Name must be at least 2 characters long",
+                "maxLength": "Name cannot exceed 25 characters"
             },
             "nationalId": {
                 "label": "National ID",
@@ -79,7 +81,9 @@
             "state": {
                 "label": "State",
                 "placeholder": "Enter your state",
-                "required": "State is required"
+                "required": "State is required",
+                "minLength": "State must be at least 2 characters long",
+                "maxLength": "State cannot exceed 25 characters"
             },
             "phone": {
                 "label": "Phone Number",
@@ -102,7 +106,8 @@
                 "label": "Monthly Income",
                 "placeholder": "Enter monthly income",
                 "required": "Monthly income is required",
-                "min": "Monthly income should be greater than 0"
+                "min": "Monthly income should be greater than 0",
+                "max": "Monthly income should not exceed 999,999,999"
             },
             "martialStatus": {
                 "label": "Marital Status",
@@ -139,7 +144,9 @@
             "currentFinancialSituation": {
                 "label": "Current Financial Situation",
                 "placeholder": "Describe your current financial situation",
-                "required": "This field is required"
+                "required": "This field is required",
+                "minLength": "Must be at least 20 characters long",
+                "maxLength": "Cannot exceed 2000 characters"
             },
             "employmentCircumstances": {
                 "label": "Employment Circumstances",

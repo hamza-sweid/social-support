@@ -98,6 +98,8 @@ export const FamilyInfo = ({
                     return t('applicationForm.fields.monthlyIncome.required');
                   if (value.amount < 1)
                     return t('applicationForm.fields.monthlyIncome.min');
+                  if (value.amount > 999999999)
+                    return t('applicationForm.fields.monthlyIncome.max');
                   return true;
                 },
               }}

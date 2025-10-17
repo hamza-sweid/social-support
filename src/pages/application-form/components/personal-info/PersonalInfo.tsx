@@ -59,6 +59,14 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
               placeholder={t('applicationForm.fields.name.placeholder')}
               rules={{
                 required: t('applicationForm.fields.name.required'),
+                minLength: {
+                  value: 2,
+                  message: t('applicationForm.fields.name.minLength'),
+                },
+                maxLength: {
+                  value: 25,
+                  message: t('applicationForm.fields.name.maxLength'),
+                },
               }}
             />
           </Col>
@@ -227,7 +235,17 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
               control={control}
               label={t('applicationForm.fields.state.label')}
               placeholder={t('applicationForm.fields.state.placeholder')}
-              rules={{ required: t('applicationForm.fields.state.required') }}
+              rules={{
+                required: t('applicationForm.fields.state.required'),
+                minLength: {
+                  value: 2,
+                  message: t('applicationForm.fields.state.minLength'),
+                },
+                maxLength: {
+                  value: 25,
+                  message: t('applicationForm.fields.state.maxLength'),
+                },
+              }}
             />
           </Col>
 

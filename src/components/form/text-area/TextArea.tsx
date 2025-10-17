@@ -8,6 +8,7 @@ interface ExtraProps<T extends FieldValues> extends InputProps<T> {
   onActionClick?: () => void;
   actionLoading?: boolean;
   readOnly?: boolean;
+  count?: { show: boolean; max: number };
 }
 
 const TextArea = <T extends FieldValues>({
@@ -21,6 +22,7 @@ const TextArea = <T extends FieldValues>({
   onActionClick,
   actionLoading = false,
   readOnly,
+  count,
 }: ExtraProps<T>) => {
   const inputId = `textarea-${String(name)}`;
 
@@ -40,6 +42,7 @@ const TextArea = <T extends FieldValues>({
           )}
 
           <AntInput.TextArea
+            count={count}
             readOnly={readOnly}
             {...field}
             id={inputId}
