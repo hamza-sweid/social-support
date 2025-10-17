@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import StepProgress from '../../components/steps/StepProgress';
 import { useFormContext } from '../../context/form-context/useFormContext';
 import { submitUserApplicationSupport } from '../../services/chatgpt';
-import ApplicationLoader from '../../components/application-spinner/Index';
+import ApplicationLoader from '../../components/application-spinner/ApplicationSpinner';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Spin } from 'antd';
-import styles from './Index.module.scss';
+import styles from './ApplicationSpinner.module.scss';
 
 interface ApplicationLoaderProps {
   loading: boolean;

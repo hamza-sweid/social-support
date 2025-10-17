@@ -1,7 +1,7 @@
 import { Button, Col, Row, Collapse } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { fieldTranslationKeys } from './constants';
-import styles from './Index.module.scss';
+import styles from './UserData.module.scss';
 import { useNavigate } from 'react-router';
 import { EditOutlined } from '@ant-design/icons';
 
