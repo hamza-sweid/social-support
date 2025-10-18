@@ -3,11 +3,11 @@ import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
 import styles from './FamilyInfo.module.scss';
 import { Button, Col, Row } from 'antd';
-import { useFormContext } from '../../../../context/form-context/useFormContext';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined } from '@ant-design/icons';
 import NumberInput from '../../../../components/form/input-number/InputNumber';
+import { useApplicationForm } from '../../../../features/user-application';
 
 const stepName = 'familyInfo';
 
@@ -32,14 +32,14 @@ export const FamilyInfo = ({
 }) => {
   const methods = useForm();
   const { t } = useTranslation();
-  const { getStepValues, setStepValues } = useFormContext();
-  const defaultValues = getStepValues(stepName);
+  const { getStepData, saveStepData } = useApplicationForm();
+  const defaultValues = getStepData(stepName);
 
   const { control, handleSubmit, getValues, reset, setValue } =
     useForm<FamilyInfoForm>({
       defaultValues: {
-        ...defaultValues,
-        monthlyIncome: defaultValues.monthlyIncome || {
+        ...((defaultValues as any) || {}),
+        monthlyIncome: (defaultValues as any)?.monthlyIncome || {
           amount: null,
           currency: 'AED',
           isUpdated: false,
@@ -48,18 +48,20 @@ export const FamilyInfo = ({
     });
 
   useEffect(() => {
-    const saved = getStepValues(stepName);
-    reset(saved);
-  }, [getStepValues, reset, stepName]);
+    const saved = getStepData(stepName);
+    if (saved) {
+      reset(saved as any);
+    }
+  }, [getStepData, reset, stepName]);
 
   const handlePrevious = () => {
     const currentValues = getValues();
-    setStepValues(stepName, currentValues);
+    saveStepData({ step: stepName, data: currentValues });
     onPrevious();
   };
 
   const onSubmit = (data: FamilyInfoForm) => {
-    setStepValues(stepName, data);
+    saveStepData({ step: stepName, data });
     onNext();
   };
 
@@ -140,7 +142,7 @@ export const FamilyInfo = ({
                   label: t(
                     'applicationForm.fields.martialStatus.options.widowed'
                   ),
-                  value: 'widowed',
+                  value: 'Widowed',
                 },
               ]}
             />

@@ -1,10 +1,10 @@
-import { Button, Col, message, Modal, Row, Spin } from 'antd';
+import { Button, Col, Modal, Row, Spin } from 'antd';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { generateText, type ChatGPTResponse } from '../../services/chatgpt';
 import MagicToolIcon from '../../assets/magic-tool.svg';
 import TextArea from '../form/text-area/TextArea';
+import { useAiSuggestions } from '../../features/user-application';
 
 interface SuggestionForm {
   UserInput: string;
@@ -16,16 +16,17 @@ const SuggestionModal = ({
   isModalOpen,
   onClose,
   onFillAISuggestion = () => {},
-  aiSuggestions,
 }: {
   field: { name: string; value: string };
   isModalOpen: boolean;
   onClose: () => void;
   onFillAISuggestion?: (data: string) => void;
-  aiSuggestions?: string;
 }) => {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState(false);
+
+  // Use Redux for AI suggestions instead of local state
+  const { loading, generateSuggestion, getSuggestion } = useAiSuggestions();
+
   const { control, handleSubmit, setValue, reset, watch } =
     useForm<SuggestionForm>({
       defaultValues: {
@@ -36,18 +37,40 @@ const SuggestionModal = ({
 
   useEffect(() => {
     if (isModalOpen) {
+      // Reset form with current field value
       reset({
         UserInput: field.value || '',
         AISuggestion: '',
       });
-      if (field.value && field.value !== aiSuggestions) {
-        handleChatGPTSuggestionCall({
-          UserInput: field.value,
-          AISuggestion: '',
-        });
+
+      // Check if we have a cached suggestion for this field
+      const cachedSuggestion = getSuggestion(field.name);
+      if (cachedSuggestion) {
+        setValue('AISuggestion', cachedSuggestion, { shouldValidate: true });
+      } else if (field.value) {
+        // Generate new suggestion if we have input but no cached suggestion
+        generateSuggestion(field.name, field.value);
       }
     }
-  }, [isModalOpen, field.value, reset]);
+  }, [
+    isModalOpen,
+    field.value,
+    field.name,
+    reset,
+    setValue,
+    getSuggestion,
+    generateSuggestion,
+  ]);
+
+  // Watch for new suggestions from Redux and update form
+  useEffect(() => {
+    if (isModalOpen) {
+      const currentSuggestion = getSuggestion(field.name);
+      if (currentSuggestion && !loading) {
+        setValue('AISuggestion', currentSuggestion, { shouldValidate: true });
+      }
+    }
+  }, [isModalOpen, field.name, loading, getSuggestion, setValue]);
 
   const AISuggestionValue = watch('AISuggestion');
 
@@ -56,26 +79,17 @@ const SuggestionModal = ({
     onClose();
   };
 
-  const handleChatGPTSuggestionCall = async (
+  const handleGenerateAiSuggestion = (
     data: SuggestionForm,
     event?: React.BaseSyntheticEvent
   ) => {
     if (event) event.stopPropagation();
-    setLoading(true);
 
-    try {
-      const response: ChatGPTResponse = await generateText(
-        `Provide a concise suggestion based on the following input: ${data.UserInput}`
-      );
+    // Use Redux action to generate AI suggestion
+    generateSuggestion(field.name, data.UserInput);
 
-      setValue('UserInput', '');
-      setValue('AISuggestion', response.text, { shouldValidate: true });
-      message.success(t('applicationForm.messages.responseGenerated')!);
-    } catch (err: any) {
-      message.error(err?.message || t('applicationForm.messages.httpError'));
-    } finally {
-      setLoading(false);
-    }
+    // Clear the input after sending request
+    setValue('UserInput', '');
   };
 
   const handleFillAISuggestion = () => {
@@ -95,7 +109,7 @@ const SuggestionModal = ({
       <form
         onSubmit={(e) => {
           e.stopPropagation();
-          handleSubmit(handleChatGPTSuggestionCall)(e);
+          handleSubmit(handleGenerateAiSuggestion)(e);
         }}
       >
         <TextArea

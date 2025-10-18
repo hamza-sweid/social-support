@@ -3,22 +3,21 @@ import { Button, Row, Col } from 'antd';
 import Input from '../../../../components/form/input/Input';
 import Select from '../../../../components/form/select/Select';
 import styles from './PersonalInfo.module.scss';
-import { useFormContext } from '../../../../context/form-context/useFormContext';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useRef } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { DatePicker } from '../../../../components/form/date-picker/DatePicker';
+import { useApplicationForm } from '../../../../features/user-application';
 
-const stepName = 'personalInfo';
 interface PersonalInfoValues {
   name: string;
   nationalId: string;
   dateOfBirth: string;
   gender: string;
-  address?: string;
+  address: string;
   country: string;
   city: string;
-  state?: string;
+  state: string;
   phoneNumber: string;
   email: string;
 }
@@ -26,11 +25,18 @@ interface PersonalInfoValues {
 const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
   const methods = useForm();
   const { t } = useTranslation();
-  const { getStepValues, setStepValues } = useFormContext();
-  const defaultValues = getStepValues(stepName);
+
+  // 🔄 REPLACE: FormContext with Redux hook
+  const { getStepData, saveStepData } = useApplicationForm();
+  const defaultValues = getStepData('personalInfo');
+
   const { handleSubmit, control, watch, setValue } =
     useForm<PersonalInfoValues>({
-      defaultValues,
+      defaultValues: {
+        ...((defaultValues as any) || {}),
+        address: (defaultValues as any)?.address || '',
+        state: (defaultValues as any)?.state || '',
+      },
     });
   const selectedCountry = watch('country');
   const prevCountry = useRef<string | undefined>(selectedCountry);
@@ -43,7 +49,8 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
   }, [selectedCountry, setValue]);
 
   const onSubmit = (data: PersonalInfoValues) => {
-    setStepValues(stepName, data);
+    // 🔄 REPLACE: setStepValues with Redux action
+    saveStepData({ step: 'personalInfo', data });
     onNext();
   };
 

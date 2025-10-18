@@ -4,17 +4,24 @@ import { fieldTranslationKeys } from './constants';
 import styles from './UserData.module.scss';
 import { useNavigate } from 'react-router';
 import { EditOutlined } from '@ant-design/icons';
+import { useApplicationForm } from '../../features/user-application';
+import { useDispatch } from 'react-redux';
+import { resetForm } from '../../features/user-application/store/slice';
+import type { AppDispatch } from '../../store';
 
 const { Panel } = Collapse;
 const stepOrder = ['personalInfo', 'familyInfo', 'situationInfo'];
 
 const SummaryPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const { t } = useTranslation();
-  const savedData = JSON.parse(localStorage.getItem('formData') || '{}');
+  const { formData } = useApplicationForm();
+  const savedData = formData;
 
   const handleUserDataUpdate = () => {
     localStorage.removeItem('isDataSubmitted');
+    dispatch(resetForm());
     navigate('/application-form?step=1', { replace: true });
   };
 
@@ -33,7 +40,7 @@ const SummaryPage = () => {
 
       <Collapse className={styles.collapse} defaultActiveKey={[stepOrder[0]]}>
         {stepOrder.map((stepName) => {
-          const stepData = savedData[stepName];
+          const stepData = (savedData as any)[stepName];
           if (!stepData) return null;
 
           return (

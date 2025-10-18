@@ -3,7 +3,7 @@ import styles from './SituationInfo.module.scss';
 import { Button, Col, Row } from 'antd';
 import SuggestionModal from '../../../../components/modal/SuggestionModal';
 import { useEffect, useState } from 'react';
-import { useFormContext } from '../../../../context/form-context/useFormContext';
+import { useApplicationForm } from '../../../../features/user-application';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined } from '@ant-design/icons';
 import TextArea from '../../../../components/form/text-area/TextArea';
@@ -24,22 +24,21 @@ export const SituationDescription = ({
 }) => {
   const methods = useForm();
   const { t } = useTranslation();
-  const { getStepValues, setStepValues } = useFormContext();
-  const defaultValues = getStepValues(stepName);
+  const { getStepData, saveStepData } = useApplicationForm();
+  const defaultValues = getStepData(stepName);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [field, setField] = useState({ name: '', label: '', value: '' });
   const { control, handleSubmit, getValues, reset, setValue } =
     useForm<SituationDescriptionForm>({
-      defaultValues,
+      defaultValues: (defaultValues as any) || {},
     });
-  const [aiSuggestions, setAiSuggestions] = useState<{ [key: string]: string }>(
-    {}
-  );
 
   useEffect(() => {
-    const saved = getStepValues(stepName);
-    reset(saved);
-  }, [getStepValues, reset, stepName]);
+    const saved = getStepData(stepName);
+    if (saved) {
+      reset(saved as any);
+    }
+  }, [getStepData, reset, stepName]);
 
   const handleOpenSuggestionModal = (name: string, label: string) => {
     const currentValue = getValues(name as keyof SituationDescriptionForm);
@@ -57,17 +56,16 @@ export const SituationDescription = ({
     setValue(field.name as keyof SituationDescriptionForm, data, {
       shouldValidate: true,
     });
-    setAiSuggestions((prev) => ({ ...prev, [field.name]: data }));
   };
 
   const handlePrevious = () => {
     const currentValues = getValues();
-    setStepValues(stepName, currentValues);
+    saveStepData({ step: stepName, data: currentValues });
     onPrevious();
   };
 
   const onSubmit = (data: SituationDescriptionForm) => {
-    setStepValues(stepName, data);
+    saveStepData({ step: stepName, data });
     finishForm();
   };
 
@@ -248,7 +246,6 @@ export const SituationDescription = ({
           onClose={() => handleCloseSuggestionModal()}
           field={{ name: field.name, value: field.value }}
           onFillAISuggestion={handleFillAISuggestion}
-          aiSuggestions={aiSuggestions[field.name] || ''}
         />
       </form>
     </FormProvider>
