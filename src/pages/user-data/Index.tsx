@@ -4,9 +4,11 @@ import { fieldTranslationKeys } from './constants';
 import styles from './UserData.module.scss';
 import { useNavigate } from 'react-router';
 import { EditOutlined } from '@ant-design/icons';
-import { useApplicationForm } from '../../features/user-application';
+import {
+  useApplicationForm,
+  resetSubmission,
+} from '../../features/user-application';
 import { useDispatch } from 'react-redux';
-import { resetForm } from '../../features/user-application/store/slice';
 import type { AppDispatch } from '../../store';
 
 const { Panel } = Collapse;
@@ -20,8 +22,13 @@ const SummaryPage = () => {
   const savedData = formData;
 
   const handleUserDataUpdate = () => {
+    // Reset localStorage flag to allow editing
     localStorage.removeItem('isDataSubmitted');
-    dispatch(resetForm());
+
+    // Reset only the submission state, keep the form data intact
+    dispatch(resetSubmission());
+
+    // Navigate to step 1 with data pre-filled
     navigate('/application-form?step=1', { replace: true });
   };
 

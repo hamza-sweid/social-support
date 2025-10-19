@@ -19,8 +19,6 @@ export const selectIsSubmitting = (state: RootState) =>
   state.userApplication.submission.isSubmitting;
 export const selectIsSubmitted = (state: RootState) =>
   state.userApplication.submission.isSubmitted;
-export const selectSubmissionError = (state: RootState) =>
-  state.userApplication.submission.error;
 
 // AI suggestions selectors
 export const selectAiSuggestions = (state: RootState) =>

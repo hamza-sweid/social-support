@@ -24,20 +24,6 @@ export const useApplicationForm = () => {
   const familyInfo = useSelector(selectFamilyInfo);
   const situationInfo = useSelector(selectSituationInfo);
 
-  // Navigate to next step
-  const goToNextStep = useCallback(() => {
-    if (currentStep < 3) {
-      dispatch(setCurrentStep(currentStep + 1));
-    }
-  }, [dispatch, currentStep]);
-
-  // Navigate to previous step
-  const goToPreviousStep = useCallback(() => {
-    if (currentStep > 1) {
-      dispatch(setCurrentStep(currentStep - 1));
-    }
-  }, [dispatch, currentStep]);
-
   // Go to specific step
   const goToStep = useCallback(
     (step: number) => {
@@ -77,13 +63,8 @@ export const useApplicationForm = () => {
     // Current state
     currentStep,
     formData,
-    personalInfo,
-    familyInfo,
-    situationInfo,
 
     // Navigation functions
-    goToNextStep,
-    goToPreviousStep,
     goToStep,
 
     // Data management functions

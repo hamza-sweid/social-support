@@ -77,7 +77,7 @@ function* handleGenerateAiSuggestion(
 /**
  * Handle form submission
  */
-function* handleSubmitForm(action: PayloadAction<SubmitFormPayload>) {
+function* handleSubmitForm(_action: PayloadAction<SubmitFormPayload>) {
   try {
     // Get current form data from Redux state
     const formData: ApplicationFormData = yield select(selectFormData);
@@ -94,10 +94,8 @@ function* handleSubmitForm(action: PayloadAction<SubmitFormPayload>) {
       i18next.t('applicationForm.messages.submitSuccess')
     );
 
-    // Navigate to user data page if requested
-    if (action.payload.shouldNavigate !== false) {
-      window.location.href = '/user-data';
-    }
+    // Set localStorage flag to indicate successful submission
+    localStorage.setItem('isDataSubmitted', 'true');
   } catch (error: any) {
     yield put(submitFormFailure(error.message || 'Submission failed'));
     yield call(

@@ -10,7 +10,9 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   useApplicationForm,
   useFormSubmission,
+  selectIsSubmitted,
 } from '../../features/user-application';
+import { useSelector } from 'react-redux';
 
 const ApplicationForm = () => {
   const { t } = useTranslation();
@@ -18,6 +20,7 @@ const ApplicationForm = () => {
   // 🔄 REPLACE: FormContext with Redux hooks
   const { currentStep, goToStep } = useApplicationForm();
   const { submitForm, isSubmitting } = useFormSubmission();
+  const isSubmitted = useSelector(selectIsSubmitted);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
@@ -35,7 +38,7 @@ const ApplicationForm = () => {
   useEffect(() => {
     const isDataSubmitted = localStorage.getItem('isDataSubmitted');
     if (isDataSubmitted) {
-      navigate('/application-form?step=1', { replace: true });
+      navigate('/user-data', { replace: true });
     }
   }, [navigate]);
 
@@ -44,6 +47,13 @@ const ApplicationForm = () => {
       setSearchParams({ step: '1' });
     }
   }, [stepParam, setSearchParams]);
+
+  // Navigate to user-data page after successful submission
+  useEffect(() => {
+    if (isSubmitted) {
+      navigate('/user-data', { replace: true });
+    }
+  }, [isSubmitted, navigate]);
 
   const handleNext = () => {
     const nextStep = currentStep + 1;
