@@ -40,10 +40,11 @@ function* handleGenerateAiSuggestion(
     const { fieldName, prompt } = action.payload;
 
     // Call ChatGPT API
-    const response: { text: string } = yield call(generateAiText, prompt);
+    const response: { text: string } = yield call(generateAiText, prompt); // call means it will invoke a function, first argument is the function, rest are its args, and the function is expected to return a promise
 
     // Update Redux state with suggestion
     yield put(
+      // put means it it will dispatch an action
       generateAiSuggestionSuccess({
         fieldName,
         suggestion: response.text,
@@ -80,7 +81,7 @@ function* handleGenerateAiSuggestion(
 function* handleSubmitForm(_action: PayloadAction<SubmitFormPayload>) {
   try {
     // Get current form data from Redux state
-    const formData: ApplicationFormData = yield select(selectFormData);
+    const formData: ApplicationFormData = yield select(selectFormData); //  select means it will get data from the state
 
     // Submit to mock API
     yield call(submitUserApplication, formData);
@@ -90,6 +91,7 @@ function* handleSubmitForm(_action: PayloadAction<SubmitFormPayload>) {
 
     // Show success message
     yield call(
+      // call means it will invoke a function, first argument is the function, rest are its args
       message.success,
       i18next.t('applicationForm.messages.submitSuccess')
     );
@@ -99,6 +101,7 @@ function* handleSubmitForm(_action: PayloadAction<SubmitFormPayload>) {
   } catch (error: any) {
     yield put(submitFormFailure(error.message || 'Submission failed'));
     yield call(
+      // this can handle UI by calling message.error from antd
       message.error,
       i18next.t('applicationForm.messages.submitError')
     );
