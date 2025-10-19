@@ -2,6 +2,7 @@ import { Controller, type FieldValues } from 'react-hook-form';
 import { Input as AntInput, Button } from 'antd';
 import styles from '../form.module.scss';
 import type { InputProps } from '../../../types/form';
+import { useTranslation } from 'react-i18next';
 
 interface ExtraProps<T extends FieldValues> extends InputProps<T> {
   actionLabel?: string;
@@ -25,12 +26,19 @@ const TextArea = <T extends FieldValues>({
   count,
 }: ExtraProps<T>) => {
   const inputId = `textarea-${String(name)}`;
+  const { t } = useTranslation();
 
   return (
     <Controller
       name={name}
       control={control}
-      rules={rules}
+      // rules={rules}
+      rules={{
+        validate: (value: string) =>
+          value.trim().length > 0 ||
+          t('applicationForm.fields.currentFinancialSituation.required'),
+        ...rules,
+      }}
       render={({ field, fieldState }) => (
         <div className={styles.field}>
           {label && (
