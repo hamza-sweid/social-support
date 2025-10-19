@@ -1,6 +1,7 @@
 {
     "settings": {
-        "theme": "Dark theme / Light theme"
+        "theme": "Dark theme / Light theme",
+        "applicationRights": "Social Support Application. All rights reserved."
     },
     "applicationForm": {
         "title": "Social Support Application",
