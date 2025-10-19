@@ -8,6 +8,7 @@ import { Input as AntInput } from 'antd';
 import type { InputProps } from '../../../types/form';
 import { useState } from 'react';
 import styles from '../form.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const Input = <T extends FieldValues>({
   name,
@@ -22,6 +23,7 @@ const Input = <T extends FieldValues>({
   const inputId = `input-${String(name)}`;
   const { setValue, trigger } = useFormContext<T>();
   const [rules, setRules] = useState(initialRules);
+  const { t } = useTranslation();
 
   const handleChange = (value: PathValue<T, typeof name>) => {
     if (dynamicRules) {
@@ -38,7 +40,12 @@ const Input = <T extends FieldValues>({
     <Controller // bridges uncontrolled components (like Ant Input) with React Hook Form
       name={name}
       control={control}
-      rules={rules}
+      rules={{
+        validate: (value: string) =>
+          value.trim().length > 0 ||
+          t('applicationForm.fields.currentFinancialSituation.required'),
+        ...rules,
+      }}
       render={({ field, fieldState }) => (
         <div className={styles.field}>
           {label && (
