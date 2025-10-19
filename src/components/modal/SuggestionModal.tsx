@@ -43,24 +43,11 @@ const SuggestionModal = ({
         AISuggestion: '',
       });
 
-      // Check if we have a cached suggestion for this field
-      const cachedSuggestion = getSuggestion(field.name);
-      if (cachedSuggestion) {
-        setValue('AISuggestion', cachedSuggestion, { shouldValidate: true });
-      } else if (field.value) {
-        // Generate new suggestion if we have input but no cached suggestion
+      if (field.value && field.value !== getSuggestion(field.name)) {
         generateSuggestion(field.name, field.value);
       }
     }
-  }, [
-    isModalOpen,
-    field.value,
-    field.name,
-    reset,
-    setValue,
-    getSuggestion,
-    generateSuggestion,
-  ]);
+  }, [isModalOpen]);
 
   // Watch for new suggestions from Redux and update form
   useEffect(() => {
@@ -87,9 +74,6 @@ const SuggestionModal = ({
 
     // Use Redux action to generate AI suggestion
     generateSuggestion(field.name, data.UserInput);
-
-    // Clear the input after sending request
-    setValue('UserInput', '');
   };
 
   const handleFillAISuggestion = () => {
@@ -141,7 +125,7 @@ const SuggestionModal = ({
           </Row>
         )}
 
-        {!loading && AISuggestionValue && (
+        {!loading && AISuggestionValue && field.value !== AISuggestionValue && (
           <TextArea
             readOnly
             name="AISuggestion"
@@ -161,7 +145,7 @@ const SuggestionModal = ({
               {t('applicationForm.buttons.close')}
             </Button>
           </Col>
-          {AISuggestionValue && (
+          {AISuggestionValue && field.value !== AISuggestionValue && (
             <Col
               span={24}
               order={1}

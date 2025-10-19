@@ -245,7 +245,7 @@ export const SituationDescription = ({
           <SuggestionModal
             isModalOpen={isModalOpen}
             onClose={() => handleCloseSuggestionModal()}
-            field={{ name: field.name, value: field.value }}
+            field={{ name: field.name, value: field.value.trim() }}
             onFillAISuggestion={handleFillAISuggestion}
           />
         )}
