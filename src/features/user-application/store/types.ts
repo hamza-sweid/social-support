@@ -55,8 +55,6 @@ export interface UserApplicationState {
   aiSuggestions: {
     suggestions: Record<string, string>; // fieldName -> suggestion
     loading: boolean;
-    error: string | null;
-    currentField: string | null;
   };
 }
 

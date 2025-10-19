@@ -27,15 +27,6 @@ export const selectAiSuggestions = (state: RootState) =>
   state.userApplication.aiSuggestions.suggestions;
 export const selectAiLoading = (state: RootState) =>
   state.userApplication.aiSuggestions.loading;
-export const selectAiError = (state: RootState) =>
-  state.userApplication.aiSuggestions.error;
-export const selectCurrentAiField = (state: RootState) =>
-  state.userApplication.aiSuggestions.currentField;
-
-// Specific suggestion by field name
-export const selectSuggestionByField =
-  (fieldName: string) => (state: RootState) =>
-    state.userApplication.aiSuggestions.suggestions[fieldName];
 
 // Form completion status
 export const selectIsFormComplete = (state: RootState) => {

@@ -3,12 +3,8 @@ import { useCallback } from 'react';
 import type { AppDispatch } from '../../../store';
 import {
   generateAiSuggestionRequest,
-  clearAiError,
   selectAiLoading,
-  selectAiError,
   selectAiSuggestions,
-  selectCurrentAiField,
-  selectSuggestionByField,
 } from '../index';
 
 /**
@@ -18,9 +14,7 @@ import {
 export const useAiSuggestions = () => {
   const dispatch = useDispatch<AppDispatch>();
   const loading = useSelector(selectAiLoading);
-  const error = useSelector(selectAiError);
   const suggestions = useSelector(selectAiSuggestions);
-  const currentField = useSelector(selectCurrentAiField);
 
   // Generate AI suggestion (replaces handleChatGPTSuggestionCall in SuggestionModal)
   const generateSuggestion = useCallback(
@@ -38,29 +32,12 @@ export const useAiSuggestions = () => {
     [suggestions]
   );
 
-  // Clear AI error
-  const clearError = useCallback(() => {
-    dispatch(clearAiError());
-  }, [dispatch]);
-
-  // Create selector hook for specific field
-  const useSuggestionForField = (fieldName: string) => {
-    return useSelector(selectSuggestionByField(fieldName));
-  };
-
   return {
     // State
     loading,
-    error,
-    suggestions,
-    currentField,
 
     // Actions
     generateSuggestion,
     getSuggestion,
-    clearError,
-
-    // Utilities
-    useSuggestionForField,
   };
 };

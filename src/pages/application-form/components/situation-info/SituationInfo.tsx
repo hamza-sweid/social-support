@@ -241,12 +241,14 @@ export const SituationDescription = ({
           </Button>
         </div>
 
-        <SuggestionModal
-          isModalOpen={isModalOpen}
-          onClose={() => handleCloseSuggestionModal()}
-          field={{ name: field.name, value: field.value }}
-          onFillAISuggestion={handleFillAISuggestion}
-        />
+        {isModalOpen && (
+          <SuggestionModal
+            isModalOpen={isModalOpen}
+            onClose={() => handleCloseSuggestionModal()}
+            field={{ name: field.name, value: field.value }}
+            onFillAISuggestion={handleFillAISuggestion}
+          />
+        )}
       </form>
     </FormProvider>
   );

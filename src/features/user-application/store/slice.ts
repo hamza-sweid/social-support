@@ -23,8 +23,6 @@ const initialState: UserApplicationState = {
   aiSuggestions: {
     suggestions: {},
     loading: false,
-    error: null,
-    currentField: null,
   },
 };
 
@@ -65,11 +63,9 @@ export const userApplicationSlice = createSlice({
     // AI suggestion actions (replaces SuggestionModal state)
     generateAiSuggestionRequest: (
       state,
-      action: PayloadAction<GenerateAiSuggestionPayload>
+      _action: PayloadAction<GenerateAiSuggestionPayload>
     ) => {
       state.aiSuggestions.loading = true;
-      state.aiSuggestions.error = null;
-      state.aiSuggestions.currentField = action.payload.fieldName;
     },
     generateAiSuggestionSuccess: (
       state,
@@ -78,17 +74,10 @@ export const userApplicationSlice = createSlice({
       state.aiSuggestions.loading = false;
       state.aiSuggestions.suggestions[action.payload.fieldName] =
         action.payload.suggestion;
-      state.aiSuggestions.currentField = null;
     },
-    generateAiSuggestionFailure: (state, action: PayloadAction<string>) => {
+    generateAiSuggestionFailure: (state, _action: PayloadAction<string>) => {
       state.aiSuggestions.loading = false;
-      state.aiSuggestions.error = action.payload;
-      state.aiSuggestions.currentField = null;
-    },
-
-    // Clear AI suggestion error
-    clearAiError: (state) => {
-      state.aiSuggestions.error = null;
+      // Note: We're not storing error state as it's not being used
     },
 
     // Reset form (replaces FormContext clearForm)
@@ -112,7 +101,6 @@ export const {
   generateAiSuggestionRequest,
   generateAiSuggestionSuccess,
   generateAiSuggestionFailure,
-  clearAiError,
   resetForm,
   resetSubmission,
 } = userApplicationSlice.actions;
