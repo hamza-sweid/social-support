@@ -2,11 +2,11 @@ import React from 'react';
 import { Spin } from 'antd';
 import styles from './ApplicationSpinner.module.scss';
 
-interface ApplicationLoaderProps {
+interface ApplicationSpinnerProps {
   loading: boolean;
 }
 
-const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ loading }) => {
+const ApplicationSpinner: React.FC<ApplicationSpinnerProps> = ({ loading }) => {
   if (!loading) return null;
 
   return (
@@ -16,4 +16,4 @@ const ApplicationLoader: React.FC<ApplicationLoaderProps> = ({ loading }) => {
   );
 };
 
-export default ApplicationLoader;
+export default ApplicationSpinner;

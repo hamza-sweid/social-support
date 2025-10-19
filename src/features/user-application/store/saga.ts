@@ -141,16 +141,17 @@ function* handleLoadFormData() {
 export function* userApplicationSaga() {
   // Watch for AI suggestion requests
   yield takeLatest(
+    // this means only the latest request will be processed
     'userApplication/generateAiSuggestionRequest',
     handleGenerateAiSuggestion
   );
 
   // Watch for form submission requests
-  yield takeEvery('userApplication/submitFormRequest', handleSubmitForm);
+  yield takeEvery('userApplication/submitFormRequest', handleSubmitForm); // this means every submission request will be processed
 
   // Watch for step data changes to auto-save to localStorage
   yield takeEvery('userApplication/setStepData', handleSaveStepData);
 
   // Load form data on saga start
-  yield call(handleLoadFormData);
+  yield call(handleLoadFormData); // this means it runs once when the saga starts
 }

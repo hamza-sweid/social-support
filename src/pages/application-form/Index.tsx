@@ -5,7 +5,7 @@ import { FamilyInfo } from './components/family-info/FamilyInfo';
 import { SituationDescription } from './components/situation-info/SituationInfo';
 import { useTranslation } from 'react-i18next';
 import StepProgress from '../../components/steps/StepProgress';
-import ApplicationLoader from '../../components/application-spinner/ApplicationSpinner';
+import ApplicationSpinner from '../../components/application-spinner/ApplicationSpinner';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
   useApplicationForm,
@@ -74,7 +74,7 @@ const ApplicationForm = () => {
 
   return (
     <div className="container">
-      <ApplicationLoader loading={isSubmitting} />
+      <ApplicationSpinner loading={isSubmitting} />
       <h1>{t('applicationForm.title')}</h1>
       <StepProgress currentStep={currentStep} />
       <div className="mt-5">
