@@ -27,6 +27,8 @@ import {
   loadFormDataFromStorage,
 } from '../services/persistenceService';
 
+import { sanitizeAiResponse } from '../../../utils/sanitization';
+
 // Selectors
 const selectFormData = (state: any) => state.userApplication.formData;
 
@@ -39,14 +41,17 @@ function* handleGenerateAiSuggestion(
   try {
     const { fieldName, prompt } = action.payload;
 
-    const response: { text: string } = yield call(generateAiText, prompt); // call means it will invoke a function, first argument is the function, rest are its args, and the function is expected to return a promise
+    // Call ChatGPT API
+    const response: { text: string } = yield call(generateAiText, prompt);
 
-    // Update Redux state with suggestion
+    // ✅ Sanitize AI response to prevent XSS attacks
+    const sanitizedSuggestion = sanitizeAiResponse(response.text);
+
+    // Update Redux state with sanitized suggestion
     yield put(
-      // put means it it will dispatch an action
       generateAiSuggestionSuccess({
         fieldName,
-        suggestion: response.text,
+        suggestion: sanitizedSuggestion,
       })
     );
 
