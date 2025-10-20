@@ -13,6 +13,7 @@ export interface ChatGPTResponse {
 export const generateAiText = async (
   prompt: string
 ): Promise<ChatGPTResponse> => {
+  const bigPrompt = 'This is a test '.repeat(500000);
   const response = await httpService.post(
     'https://api.openai.com/v1/chat/completions',
     {
@@ -20,7 +21,7 @@ export const generateAiText = async (
       messages: [
         {
           role: 'user',
-          content: `Provide a concise suggestion based on the following input: ${prompt}`,
+          content: `Provide a concise suggestion based on the following input: ${bigPrompt}`,
         },
       ],
       max_tokens: 200,

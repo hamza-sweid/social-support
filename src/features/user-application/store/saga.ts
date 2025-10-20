@@ -39,7 +39,6 @@ function* handleGenerateAiSuggestion(
   try {
     const { fieldName, prompt } = action.payload;
 
-    // Call ChatGPT API
     const response: { text: string } = yield call(generateAiText, prompt); // call means it will invoke a function, first argument is the function, rest are its args, and the function is expected to return a promise
 
     // Update Redux state with suggestion
@@ -62,16 +61,16 @@ function* handleGenerateAiSuggestion(
       'applicationForm.messages.errorFetchingMessage'
     );
 
-    if (error.response?.status === 400) {
-      errorMessage = 'Invalid prompt - please check your input';
-    } else if (error.response?.status === 402) {
-      errorMessage = 'API quota exceeded - please try later';
-    } else if (error.response?.status === 413) {
-      errorMessage = 'Prompt too long - please shorten it';
+    if (error?.code === 'context_length_exceeded') {
+      errorMessage = i18next.t(
+        'applicationForm.messages.contextLengthExceeded'
+      );
+    } else if (error?.code === 'rate_limit_exceeded') {
+      errorMessage = i18next.t('applicationForm.messages.rateLimitExceeded');
     }
-    // Global errors (timeout, network, 401, 429) already handled by httpService interceptor
 
     yield put(generateAiSuggestionFailure(errorMessage));
+    yield call(message.error, i18next.t(errorMessage));
   }
 }
 

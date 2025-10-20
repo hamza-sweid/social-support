@@ -183,7 +183,9 @@
             "submitError": "Error submitting application. Please try again.",
             "httpError": "HTTP error occurred",
             "tooManyRequests": "Too many requests. Please wait and try again later.",
-            "responseGenerated": "Response generated!"
+            "responseGenerated": "Response generated!",
+            "contextLengthExceeded": "This model's maximum context length is 16385 tokens. However, your messages resulted in 2000018 tokens. Please reduce the length of the messages.",
+            "rateLimitExceeded": "Rate limit exceeded. Please wait and try again later."
         }
     },
     "userData": {
