@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useForm, type FieldValues, type Path } from 'react-hook-form';
-import Select from './Select';
+import Select from '../Select';
 
 type OptionType = { label: string; value: string };
 

@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { useForm, type FieldValues, type Path } from 'react-hook-form';
-import Input from './Input';
+import Input from '../Input';
 
 // Wrapper to provide react-hook-form context
 const InputWrapper = <T extends FieldValues>({
