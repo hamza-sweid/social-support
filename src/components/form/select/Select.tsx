@@ -1,9 +1,4 @@
-import {
-  Controller,
-  type FieldValues,
-  type Path,
-  useFormContext,
-} from 'react-hook-form';
+import { Controller, type FieldValues, type Path } from 'react-hook-form';
 import { Select as AntSelect } from 'antd';
 import type { SelectProps } from '../../../types/form';
 import { useEffect, useState } from 'react';
@@ -16,6 +11,16 @@ type DynamicRulesFn<T extends FieldValues> = (
   dependencyValue: unknown
 ) => Partial<SelectProps<T>['rules']>;
 
+// Extended props to include methods we need for dynamic functionality
+type ExtendedSelectProps<T extends FieldValues> = SelectProps<T> & {
+  dynamicRules?: DynamicRulesFn<T>;
+  dependencyName?: Path<T>;
+  // Optional methods that can be passed from the parent form
+  getValues?: () => T;
+  trigger?: (name?: string | string[]) => Promise<boolean>;
+  watch?: (name: Path<T>) => any;
+};
+
 const Select = <T extends FieldValues>({
   name,
   control,
@@ -25,45 +30,63 @@ const Select = <T extends FieldValues>({
   placeholder,
   disabled,
   dynamicRules,
-  dependencyName, // optional name of a field this select depends on (e.g. "country")
-}: SelectProps<T> & {
-  dynamicRules?: DynamicRulesFn<T>;
-  dependencyName?: Path<T>;
-}) => {
+  dependencyName,
+  getValues,
+  trigger,
+  watch,
+}: ExtendedSelectProps<T>) => {
   const selectId = `select-${String(name)}`;
-  const { setValue, trigger, watch } = useFormContext<T>();
   const [rules, setRules] = useState(initialRules);
 
-  // watch dependency (if provided). watch returns undefined if dependencyName is undefined.
-  const dependencyValue = dependencyName
-    ? watch(dependencyName as any)
-    : undefined;
+  // Get dependency value if watch function is provided
+  const dependencyValue =
+    dependencyName && watch ? watch(dependencyName) : undefined;
 
-  // recompute rules when dependency changes
+  // Get current field value
+  const getCurrentValue = () => {
+    if (!getValues) return undefined;
+    try {
+      const allValues = getValues();
+      return allValues[name as string];
+    } catch {
+      return undefined;
+    }
+  };
+
+  // Update rules when dependency changes
   useEffect(() => {
-    if (dynamicRules) {
-      // current value of this field (from form state)
-      const currentVal = watch(name as any);
+    if (dynamicRules && getValues) {
+      const currentVal = getCurrentValue();
       const newRules = dynamicRules(currentVal, dependencyValue);
       setRules(newRules);
-      // revalidate when dependency changes
-      trigger(name as any);
-    } else {
-      // if no dynamicRules, keep initialRules but still re-trigger validation
-      setRules(initialRules);
-      trigger(name as any);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dependencyValue]); // run when dependency changes
 
-  const handleChange = (value: any) => {
-    if (dynamicRules) {
+      // Trigger validation if trigger function is available
+      if (trigger) {
+        trigger(name as string);
+      }
+    } else {
+      // if no dynamicRules, keep initialRules
+      setRules(initialRules);
+      if (trigger) {
+        trigger(name as string);
+      }
+    }
+  }, [dependencyValue, dynamicRules, getValues, trigger, name, initialRules]);
+
+  const handleChange = (value: any, onChange: (value: any) => void) => {
+    if (dynamicRules && getValues) {
       const newRules = dynamicRules(value, dependencyValue);
       setRules(newRules);
-      setValue(name as any, value, { shouldValidate: true });
-      trigger(name as any);
+
+      // Update the field value
+      onChange(value);
+
+      // Trigger validation if available
+      if (trigger) {
+        setTimeout(() => trigger(name as string), 0);
+      }
     } else {
-      setValue(name as any, value);
+      onChange(value);
     }
   };
 
@@ -80,7 +103,6 @@ const Select = <T extends FieldValues>({
             </label>
           )}
           <AntSelect
-            allowClear
             className={styles.input}
             disabled={disabled}
             {...field}
@@ -88,7 +110,7 @@ const Select = <T extends FieldValues>({
             placeholder={placeholder}
             onChange={(value) => {
               field.onChange(value);
-              handleChange(value);
+              handleChange(value, field.onChange);
             }}
             value={field.value}
             aria-invalid={fieldState.invalid}

@@ -1,9 +1,4 @@
-import {
-  Controller,
-  type FieldValues,
-  type PathValue,
-  useFormContext,
-} from 'react-hook-form';
+import { Controller, type FieldValues, type PathValue } from 'react-hook-form';
 import { Input as AntInput } from 'antd';
 import type { InputProps } from '../../../types/form';
 import { useState } from 'react';
@@ -21,19 +16,18 @@ const Input = <T extends FieldValues>({
   dynamicRules?: (value: string) => Partial<InputProps<T>['rules']>;
 }) => {
   const inputId = `input-${String(name)}`;
-  const { setValue, trigger } = useFormContext<T>();
   const [rules, setRules] = useState(initialRules);
   const { t } = useTranslation();
 
-  const handleChange = (value: PathValue<T, typeof name>) => {
+  const handleChange = (
+    value: PathValue<T, typeof name>,
+    onChange: (value: any) => void
+  ) => {
     if (dynamicRules) {
       const newRules = dynamicRules(value);
       setRules(newRules);
-      setValue(name, value, { shouldValidate: true });
-      trigger(name);
-    } else {
-      setValue(name, value);
     }
+    onChange(value);
   };
 
   return (
@@ -63,7 +57,7 @@ const Input = <T extends FieldValues>({
             aria-describedby={fieldState.error ? `${inputId}-error` : undefined}
             onChange={(e: any) => {
               field.onChange(e);
-              handleChange(e.target.value);
+              handleChange(e.target.value, field.onChange);
             }}
           />
           {fieldState.error && (
