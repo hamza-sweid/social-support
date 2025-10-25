@@ -1,3 +1,4 @@
+import { t } from 'i18next';
 import type { ApplicationFormData } from '../store/types';
 
 /**
@@ -12,5 +13,8 @@ export const submitUserApplication = async (_data: ApplicationFormData) => {
   // Store submission flag in localStorage
   localStorage.setItem('isDataSubmitted', 'true');
 
-  return { success: true, message: 'Application submitted successfully' };
+  return {
+    success: true,
+    message: t('applicationForm.messages.submitSuccess'),
+  };
 };

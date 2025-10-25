@@ -1,11 +1,12 @@
 import { Steps } from 'antd';
 import styles from './StepProgress.module.scss';
 import { useTranslation } from 'react-i18next';
+import { FormStepValue } from '../../types/enum';
 
 const steps = [
-  { title: 'personalInfo', content: 'First-content' },
-  { title: 'familyInfo', content: 'Second-content' },
-  { title: 'situationInfo', content: 'Last-content' },
+  { title: FormStepValue.PERSONAL_INFO },
+  { title: FormStepValue.FAMILY_INFO },
+  { title: FormStepValue.SITUATION_INFO },
 ];
 
 const StepProgress = ({ currentStep }: { currentStep: number }) => {

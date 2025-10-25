@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { DatePicker } from '../../../../components/form/date-picker/DatePicker';
 import { useApplicationForm } from '../../../../features/user-application';
+import { FormStepValue } from '../../../../types/enum';
 
 interface PersonalInfoValues {
   name: string;
@@ -22,13 +23,15 @@ interface PersonalInfoValues {
   email: string;
 }
 
+const stepName = FormStepValue.PERSONAL_INFO;
+
 const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
   const methods = useForm();
   const { t } = useTranslation();
 
   // 🔄 REPLACE: FormContext with Redux hook
   const { getStepData, saveStepData } = useApplicationForm();
-  const defaultValues = getStepData('personalInfo');
+  const defaultValues = getStepData(stepName);
 
   const { handleSubmit, control, watch, setValue } =
     useForm<PersonalInfoValues>({
@@ -50,7 +53,7 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
 
   const onSubmit = (data: PersonalInfoValues) => {
     // 🔄 REPLACE: setStepValues with Redux action
-    saveStepData({ step: 'personalInfo', data });
+    saveStepData({ step: stepName, data });
     onNext();
   };
 

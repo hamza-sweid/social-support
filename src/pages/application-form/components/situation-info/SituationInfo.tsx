@@ -7,8 +7,9 @@ import { useApplicationForm } from '../../../../features/user-application';
 import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined } from '@ant-design/icons';
 import TextArea from '../../../../components/form/text-area/TextArea';
+import { FormStepValue } from '../../../../types/enum';
 
-const stepName = 'situationInfo';
+const stepName = FormStepValue.SITUATION_INFO;
 interface SituationDescriptionForm {
   currentFinancialSituation: string;
   employmentCircumstances: string;

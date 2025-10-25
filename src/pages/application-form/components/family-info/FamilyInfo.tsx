@@ -8,8 +8,9 @@ import { useTranslation } from 'react-i18next';
 import { CaretRightOutlined } from '@ant-design/icons';
 import NumberInput from '../../../../components/form/input-number/InputNumber';
 import { useApplicationForm } from '../../../../features/user-application';
+import { FormStepValue } from '../../../../types/enum';
 
-const stepName = 'familyInfo';
+const stepName = FormStepValue.FAMILY_INFO;
 
 interface FamilyInfoForm {
   dependents: number;

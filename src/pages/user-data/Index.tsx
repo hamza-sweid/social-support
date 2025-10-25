@@ -10,9 +10,14 @@ import {
 } from '../../features/user-application';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../store';
+import { FormStepValue } from '../../types/enum';
 
 const { Panel } = Collapse;
-const stepOrder = ['personalInfo', 'familyInfo', 'situationInfo'];
+const stepOrder = [
+  FormStepValue.PERSONAL_INFO,
+  FormStepValue.FAMILY_INFO,
+  FormStepValue.SITUATION_INFO,
+];
 
 const SummaryPage = () => {
   const navigate = useNavigate();

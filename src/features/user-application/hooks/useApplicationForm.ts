@@ -11,6 +11,7 @@ import {
   selectSituationInfo,
 } from '../index';
 import type { SetStepDataPayload } from '../store/types';
+import { FormStepValue } from '../../../types/enum';
 
 /**
  * Hook for managing application form steps and data
@@ -44,13 +45,18 @@ export const useApplicationForm = () => {
 
   // Get step data by step name (replaces FormContext getStepValues)
   const getStepData = useCallback(
-    (step: 'personalInfo' | 'familyInfo' | 'situationInfo') => {
+    (
+      step:
+        | FormStepValue.PERSONAL_INFO
+        | FormStepValue.FAMILY_INFO
+        | FormStepValue.SITUATION_INFO
+    ) => {
       switch (step) {
-        case 'personalInfo':
+        case FormStepValue.PERSONAL_INFO:
           return personalInfo;
-        case 'familyInfo':
+        case FormStepValue.FAMILY_INFO:
           return familyInfo;
-        case 'situationInfo':
+        case FormStepValue.SITUATION_INFO:
           return situationInfo;
         default:
           return null;
