@@ -4,13 +4,7 @@ import path from 'path';
 
 export default defineConfig({
   base: '/social-support/',
-  plugins: [
-    react({
-      babel: {
-        plugins: [['@locator/babel-jsx/dist', { env: 'development' }]],
-      },
-    }),
-  ],
+  plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
