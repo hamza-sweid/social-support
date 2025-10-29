@@ -246,14 +246,42 @@ const PersonalInfo = ({ onNext }: { onNext: () => void }) => {
               label={t('applicationForm.fields.state.label')}
               placeholder={t('applicationForm.fields.state.placeholder')}
               rules={{
-                required: t('applicationForm.fields.state.required'),
-                minLength: {
-                  value: 2,
-                  message: t('applicationForm.fields.state.minLength'),
-                },
-                maxLength: {
-                  value: 25,
-                  message: t('applicationForm.fields.state.maxLength'),
+                validate: {
+                  requiredWhenCountrySelected: (
+                    value: string,
+                    formValues: Record<string, any>
+                  ) => {
+                    const country = formValues.country;
+                    if (country && (!value || value.trim().length === 0)) {
+                      return t('applicationForm.fields.state.required');
+                    }
+                    return true;
+                  },
+                  minLength: (
+                    value: string,
+                    formValues: Record<string, any>
+                  ) => {
+                    const country = formValues.country;
+                    if (
+                      country &&
+                      value &&
+                      value.trim().length > 0 &&
+                      value.trim().length < 2
+                    ) {
+                      return t('applicationForm.fields.state.minLength');
+                    }
+                    return true;
+                  },
+                  maxLength: (
+                    value: string,
+                    formValues: Record<string, any>
+                  ) => {
+                    const country = formValues.country;
+                    if (country && value && value.trim().length > 25) {
+                      return t('applicationForm.fields.state.maxLength');
+                    }
+                    return true;
+                  },
                 },
               }}
             />
