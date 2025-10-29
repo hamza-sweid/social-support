@@ -1,8 +1,6 @@
-// Export store items (for store configuration)
 export { default as userApplicationReducer } from './store/slice';
 export { userApplicationSaga } from './store/saga';
 
-// Export specific actions needed by components and hooks
 export {
   resetForm,
   resetSubmission,
@@ -12,7 +10,6 @@ export {
   generateAiSuggestionRequest,
 } from './store/slice';
 
-// Export specific selectors needed by hooks
 export {
   selectFormData,
   selectCurrentStep,
@@ -26,7 +23,6 @@ export {
   selectAiLoading,
 } from './store/selectors';
 
-// Export specific types needed by components
 export type {
   PersonalInfoData,
   FamilyInfoData,
@@ -35,5 +31,4 @@ export type {
   SetStepDataPayload,
 } from './store/types';
 
-// Export hooks (main public API)
 export * from './hooks';

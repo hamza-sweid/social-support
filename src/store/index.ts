@@ -6,7 +6,7 @@ import {
 } from '../features/user-application';
 import { loggerMiddleware } from './middleware';
 
-const sagaMiddleware = createSagaMiddleware(); // create the saga middleware
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
@@ -15,11 +15,11 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       thunk: false,
-      serializableCheck: false, // serialize means we can store non-serializable data like FormData
+      serializableCheck: false,
     }).concat(sagaMiddleware, loggerMiddleware),
 });
 
 sagaMiddleware.run(userApplicationSaga);
 
-export type RootState = ReturnType<typeof store.getState>; // this is used to infer the state type
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

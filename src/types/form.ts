@@ -6,7 +6,6 @@ import {
   type UseFormSetValue,
 } from 'react-hook-form';
 
-// Generic Input Props
 export type InputProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
@@ -31,13 +30,11 @@ export type InputNumberProps<T extends FieldValues> = {
   formatter?: (value: number | string | undefined) => string;
 };
 
-// Option type for Select
 export type OptionType = {
   label: string;
   value: string | number;
 };
 
-// Generic Select Props
 export type SelectProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;
@@ -48,7 +45,6 @@ export type SelectProps<T extends FieldValues> = {
   disabled?: boolean;
 };
 
-// Generic DatePicker Props
 export type DatePickerProps<T extends FieldValues> = {
   name: Path<T>;
   control: Control<T>;

@@ -27,13 +27,10 @@ const SummaryPage = () => {
   const savedData = formData;
 
   const handleUserDataUpdate = () => {
-    // Reset localStorage flag to allow editing
     localStorage.removeItem('isDataSubmitted');
 
-    // Reset only the submission state, keep the form data intact
     dispatch(resetSubmission());
 
-    // Navigate to step 1 with data pre-filled
     navigate('/application-form?step=1', { replace: true });
   };
 

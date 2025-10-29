@@ -1,4 +1,3 @@
-// ApplicationForm.tsx
 import { useEffect } from 'react';
 import PersonalInfo from './components/personal-info/PersonalInfo';
 import { FamilyInfo } from './components/family-info/FamilyInfo';
@@ -17,7 +16,6 @@ import { useSelector } from 'react-redux';
 const ApplicationForm = () => {
   const { t } = useTranslation();
 
-  // 🔄 REPLACE: FormContext with Redux hooks
   const { currentStep, goToStep } = useApplicationForm();
   const { submitForm, isSubmitting } = useFormSubmission();
   const isSubmitted = useSelector(selectIsSubmitted);
@@ -28,7 +26,6 @@ const ApplicationForm = () => {
   const stepParam = searchParams.get('step');
   const urlStep = stepParam ? parseInt(stepParam, 10) : 1;
 
-  // Sync URL with Redux state
   useEffect(() => {
     if (urlStep !== currentStep) {
       goToStep(urlStep);
@@ -48,7 +45,6 @@ const ApplicationForm = () => {
     }
   }, [stepParam, setSearchParams]);
 
-  // Navigate to user-data page after successful submission
   useEffect(() => {
     if (isSubmitted) {
       navigate('/user-data', { replace: true });
@@ -67,9 +63,8 @@ const ApplicationForm = () => {
     goToStep(prevStep);
   };
 
-  // 🔄 REPLACE: Manual form submission with Redux
   const handleFinishForm = () => {
-    submitForm(); // Redux saga handles everything automatically
+    submitForm();
   };
 
   return (

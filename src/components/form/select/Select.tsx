@@ -11,11 +11,9 @@ type DynamicRulesFn<T extends FieldValues> = (
   dependencyValue: unknown
 ) => Partial<SelectProps<T>['rules']>;
 
-// Extended props to include methods we need for dynamic functionality
 type ExtendedSelectProps<T extends FieldValues> = SelectProps<T> & {
   dynamicRules?: DynamicRulesFn<T>;
   dependencyName?: Path<T>;
-  // Optional methods that can be passed from the parent form
   getValues?: () => T;
   trigger?: (name?: string | string[]) => Promise<boolean>;
   watch?: (name: Path<T>) => any;
@@ -38,11 +36,9 @@ const Select = <T extends FieldValues>({
   const selectId = `select-${String(name)}`;
   const [rules, setRules] = useState(initialRules);
 
-  // Get dependency value if watch function is provided
   const dependencyValue =
     dependencyName && watch ? watch(dependencyName) : undefined;
 
-  // Get current field value
   const getCurrentValue = () => {
     if (!getValues) return undefined;
     try {
@@ -53,19 +49,16 @@ const Select = <T extends FieldValues>({
     }
   };
 
-  // Update rules when dependency changes
   useEffect(() => {
     if (dynamicRules && getValues) {
       const currentVal = getCurrentValue();
       const newRules = dynamicRules(currentVal, dependencyValue);
       setRules(newRules);
 
-      // Trigger validation if trigger function is available
       if (trigger) {
         trigger(name as string);
       }
     } else {
-      // if no dynamicRules, keep initialRules
       setRules(initialRules);
       if (trigger) {
         trigger(name as string);
@@ -78,10 +71,8 @@ const Select = <T extends FieldValues>({
       const newRules = dynamicRules(value, dependencyValue);
       setRules(newRules);
 
-      // Update the field value
       onChange(value);
 
-      // Trigger validation if available
       if (trigger) {
         setTimeout(() => trigger(name as string), 0);
       }
